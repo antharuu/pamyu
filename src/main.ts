@@ -6,6 +6,12 @@ App.i
     .create(1920, 1080, {backgroundColor: 0x281C2B})
     .bindTo("#app")
 
-new Scene("main_menu", "global")
+new Scene("main_menu", "Global")
+new Scene("chapter:1_scene:1", "Port")
 
-App.i.sceneManager.setScene("main_menu")
+
+App.i.sceneManager.changeTo("main_menu")
+
+setTimeout(() => {
+    App.i.sceneManager.changeTo("chapter:1_scene:1")
+}, 2000)

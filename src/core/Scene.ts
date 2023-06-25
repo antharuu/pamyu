@@ -1,8 +1,7 @@
 import * as PIXI from "pixi.js";
-import {Assets} from "./utils/Assets";
-import getBackgroundsUrl = Assets.getBackgroundsUrl;
 import {App} from "./App";
 import {Sprite} from "pixi.js";
+import {SpriteType} from "../interfaces/IAssetManager";
 
 export class Scene {
     private _background: PIXI.Sprite;
@@ -13,9 +12,7 @@ export class Scene {
     ) {
         console.log(`-------- Scene ${id} --------`);
 
-        const imgPath = getBackgroundsUrl(backgroundName);
-
-        this._background = new PIXI.Sprite(PIXI.Texture.from(imgPath));
+        this._background = App.i.assetManager.getSprite(backgroundName, SpriteType.Background);
 
         App.i.sceneManager.addScene(this);
     }
@@ -23,5 +20,4 @@ export class Scene {
     get background(): Sprite {
         return this._background;
     }
-
 }
