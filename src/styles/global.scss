@@ -3,6 +3,10 @@
 
 #app {
   background-color: var(--background-color);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
   width: 100vw;
   height: auto;
   aspect-ratio: 16 / 9;

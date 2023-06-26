@@ -1,13 +1,22 @@
 import {IApp} from "./interfaces/IApp";
 import {Translation} from "./Translation";
 import {IScene} from "./interfaces/IScene";
+import {IAssetManager} from "./interfaces/managers/IAssetManager";
+import {AssetManager} from "./managers/AssetManager";
 
 export class App implements IApp {
     private static _instance: IApp;
 
-    private container: HTMLElement | null = null;
     private scenes: IScene[] = [];
     private currentScene: IScene | null = null;
+
+    container: HTMLElement | null = null;
+
+    assetManager: IAssetManager;
+
+    private constructor() {
+        this.assetManager = new AssetManager();
+    }
 
     static get i(): IApp {
         if (App._instance === undefined) {
@@ -17,7 +26,11 @@ export class App implements IApp {
         return App._instance;
     }
 
-    create(selector: string | HTMLElement, color: string = "black"): IApp {
+    create(
+        selector: string | HTMLElement,
+        color: string = "black",
+        options: AppOptions = {}
+    ): IApp {
         if (typeof selector === "string") {
             const element = document.querySelector<HTMLElement>(selector);
 
@@ -28,6 +41,12 @@ export class App implements IApp {
             this.container = element
 
         } else this.container = selector;
+
+        if (options) {
+            if ("background" in options && options.background !== undefined) {
+                this.assetManager.setBackground(options.background)
+            }
+        }
 
         this.container.style.setProperty('--background-color', color)
 
