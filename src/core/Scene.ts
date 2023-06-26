@@ -2,6 +2,7 @@ import {IScene} from "./interfaces/IScene";
 import {EventType, IEvent} from "./interfaces/IEvent";
 import {IChoice} from "./interfaces/IChoice";
 import {IVariable} from "./interfaces/IVariable";
+import {App} from "./App";
 
 export class Scene implements IScene {
     name: string;
@@ -48,7 +49,7 @@ export class Scene implements IScene {
                 background
             },
             exec: async () => {
-                throw new Error("Change background not implemented");
+                App.i.assetManager.setBackground(background, 500);
             }
         })
 

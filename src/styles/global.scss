@@ -2,6 +2,8 @@
 }
 
 #app {
+  position: relative;
+
   background-color: var(--background-color);
   background-size: cover;
   background-position: center;
@@ -15,5 +17,14 @@
   @media (min-aspect-ratio: 16 / 9) {
     height: 100vh;
     width: auto;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 }

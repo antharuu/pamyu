@@ -3,5 +3,5 @@ export interface IAssetManager {
 
     getBackgroundPath(background: string): string;
 
-    setBackground(background: string): boolean;
+    setBackground(background: string, ms?: number, fading?: string): void;
 }
