@@ -63,5 +63,5 @@ export interface IEvent {
 
     data: EventData;
 
-    exec: () => Promise<any>;
+    exec: () => Promise<boolean>;
 }

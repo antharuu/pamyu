@@ -1,6 +1,7 @@
 import {IVariable} from "./IVariable";
 import {IEvent} from "./IEvent";
 import {IChoice} from "./IChoice";
+import {EventExecReturn} from "../types/app";
 
 export interface IScene {
     name: string;
@@ -9,7 +10,7 @@ export interface IScene {
 
     timelineIndex: number;
 
-    execNext(): Promise<{ index: number; event: IEvent | null; }>;
+    execNext(): Promise<EventExecReturn>;
 
     save(): IScene;
 

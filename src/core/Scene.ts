@@ -3,6 +3,7 @@ import {EventType, IEvent} from "./interfaces/IEvent";
 import {IChoice} from "./interfaces/IChoice";
 import {IVariable} from "./interfaces/IVariable";
 import {App} from "./App";
+import {EventExecReturn} from "./types/app";
 
 export class Scene implements IScene {
     name: string;
@@ -20,25 +21,29 @@ export class Scene implements IScene {
         return this;
     }
 
-    async execNext(): Promise<{ index: number; event: IEvent | null; }> {
+    async execNext(): Promise<EventExecReturn> {
         if (this.timelineIndex >= this.timeline.length) return {
             index: this.timelineIndex,
-            event: null
+            event: null,
+            continueTimeline: false
         };
 
         const event = this.timeline[this.timelineIndex];
+        let continueTimeline: boolean;
 
         try {
-            await event.exec();
+            continueTimeline = await event.exec();
         } catch (e) {
             console.error(e);
+            continueTimeline = true;
         }
 
         this.timelineIndex++;
 
         return {
             index: this.timelineIndex,
-            event
+            event,
+            continueTimeline: continueTimeline
         }
     }
 
@@ -48,10 +53,11 @@ export class Scene implements IScene {
             data: {
                 background
             },
-            exec: async () => {
-                App.i.assetManager.setBackground(background, 500);
+            exec: async (): Promise<boolean> => {
+                await App.i.assetManager.setBackground(background, 500);
+                return true;
             }
-        })
+        } as IEvent);
 
         return this;
     }
@@ -63,10 +69,10 @@ export class Scene implements IScene {
                 message,
                 choices
             },
-            exec: async () => {
+            exec: async (): Promise<boolean> => {
                 throw new Error("Choice not implemented");
             }
-        });
+        } as IEvent);
 
         return this;
     }
@@ -77,10 +83,10 @@ export class Scene implements IScene {
             data: {
                 scene
             },
-            exec: async () => {
+            exec: async (): Promise<boolean> => {
                 throw new Error("Goto not implemented");
             }
-        });
+        } as IEvent);
 
         return this;
     }
@@ -92,10 +98,10 @@ export class Scene implements IScene {
                 character,
                 position
             },
-            exec: async () => {
+            exec: async (): Promise<boolean> => {
                 throw new Error("Join not implemented");
             }
-        });
+        } as IEvent);
 
         return this;
     }
@@ -107,10 +113,10 @@ export class Scene implements IScene {
                 character,
                 message
             },
-            exec: async () => {
+            exec: async (): Promise<boolean> => {
                 throw new Error("Msg not implemented");
             }
-        });
+        } as IEvent);
 
         return this;
     }
@@ -121,10 +127,10 @@ export class Scene implements IScene {
             data: {
                 scene: this.name
             },
-            exec: async () => {
+            exec: async (): Promise<boolean> => {
                 throw new Error("Save not implemented");
             }
-        })
+        } as IEvent)
 
         return this;
     }
@@ -135,10 +141,10 @@ export class Scene implements IScene {
             data: {
                 achievement
             },
-            exec: async () => {
+            exec: async (): Promise<boolean> => {
                 throw new Error("Set achievement not implemented");
             }
-        })
+        } as IEvent)
 
         return this;
     }
@@ -151,10 +157,10 @@ export class Scene implements IScene {
                 name,
                 value
             },
-            exec: async () => {
+            exec: async (): Promise<boolean> => {
                 throw new Error("Variable not implemented");
             }
-        })
+        } as IEvent)
 
         return this;
     }

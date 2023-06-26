@@ -55,18 +55,16 @@ export class App implements IApp {
 
         addEventListener("keydown", (event: KeyboardEvent) => {
             if (event.key === "Enter") {
-                this.getCurrentScene()
-                    .execNext().then(({index, event}) => {
-                    if (event === null) {
-                        console.log("End of scene");
-                    } else {
-                        console.log("Next event", index, event);
-                    }
-                });
+                this.next().then(r => r);
             }
         })
 
         return this;
+    }
+
+    private async next() {
+        const {continueTimeline} = await this.getCurrentScene().execNext();
+        if (continueTimeline) this.next().then(r => r);
     }
 
     registerScenes(scenes: IScene[]): IApp {
