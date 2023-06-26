@@ -1,17 +1,9 @@
+import "./styles/global.scss"
 import {App} from "./core/App";
-import {Scene} from "./core/Scene";
-
+import Chapter1_ArrivePort from "./story/chapter1/1_arrive_port";
 
 App.i
-    .create(1920, 1080, {backgroundColor: 0x281C2B})
-    .bindTo("#app")
-
-new Scene("main_menu", "Global")
-new Scene("chapter:1_scene:1", "Port")
-
-
-App.i.sceneManager.changeTo("main_menu")
-
-setTimeout(() => {
-    App.i.sceneManager.changeTo("chapter:1_scene:1")
-}, 2000)
+    .create("#app", "purple")
+    .registerScenes([
+        Chapter1_ArrivePort
+    ]);

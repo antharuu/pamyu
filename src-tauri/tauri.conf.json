@@ -12,6 +12,9 @@
   },
   "tauri": {
     "allowlist": {
+      "fs": {
+        "all": true
+      },
       "window": {
         "setFullscreen": true
       },
@@ -24,7 +27,7 @@
     "bundle": {
       "active": true,
       "targets": "all",
-      "identifier": "com.tauri.dev",
+      "identifier": "antharuu.games.dev",
       "icon": [
         "icons/32x32.png",
         "icons/128x128.png",

@@ -1,4 +1,5 @@
 import { defineConfig } from "vite";
+import ViteYaml from '@modyfi/vite-plugin-yaml';
 
 // https://vitejs.dev/config/
 export default defineConfig(async () => ({
@@ -21,4 +22,7 @@ export default defineConfig(async () => ({
     // produce sourcemaps for debug builds
     sourcemap: !!process.env.TAURI_DEBUG,
   },
+  plugins: [
+    ViteYaml(),
+  ]
 }));

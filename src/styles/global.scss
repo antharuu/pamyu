@@ -1,0 +1,15 @@
+#app-container {
+}
+
+#app {
+  background-color: var(--background-color);
+  width: 100vw;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+
+  @media (min-aspect-ratio: 16 / 9) {
+    height: 100vh;
+    width: auto;
+  }
+}
