@@ -12,7 +12,7 @@ fr:
   ch1:
     sc1:
       port_sradiff: "Voilà que s'étend devant nous le port de Sradiff, notre destination si longtemps attendue."
-      ch1_sc1_ville_brouillard: "Mais contrairement à mes espoirs, cette ville ne ressemble guère aux récits des grandes cités que j'ai pu lire. Le brouillard qui l'enveloppe, opaque et persistant, réduit considérablement notre champ de vision..."
+      ville_brouillard: "Mais contrairement à mes espoirs, cette ville ne ressemble guère aux récits des grandes cités que j'ai pu lire. Le brouillard qui l'enveloppe, opaque et persistant, réduit considérablement notre champ de vision..."
       odeur_salete: "Et cette odeur...une senteur putride flotte dans l'air, s'insinuant jusque dans mes narines... La saleté semble omniprésente, me faisant douter de la durée de notre séjour dans un tel endroit."
       ambiance_lugubre: "L'ambiance générale n'est guère plus rassurante. La lugubrité du lieu est palpable, loin de la vivacité décrite dans les chroniques des grandes villes."
       incertitude_navire: "Maître, êtes-vous absolument certain que c'est ici que nous dénicherons un navire pour continuer notre voyage?"

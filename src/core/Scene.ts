@@ -1,18 +1,23 @@
 import {IScene} from "./interfaces/IScene";
-import {EventType, IEvent} from "./interfaces/IEvent";
 import {IChoice} from "./interfaces/IChoice";
 import {IVariable} from "./interfaces/IVariable";
 import {App} from "./App";
 import {EventExecReturn} from "./types/app";
+import {EventType, IEvent} from "./interfaces/IEvent";
 
 export class Scene implements IScene {
     name: string;
     timeline: IEvent[];
     timelineIndex: number = 0;
 
-    constructor(name: string) {
+    chapter: number | string;
+    scene: number | string;
+
+    constructor(name: string, chapter: number | string, scene: number | string) {
         this.name = name;
         this.timeline = [];
+        this.chapter = chapter;
+        this.scene = scene;
     }
 
     private addAction(event: IEvent): IScene {
@@ -114,7 +119,10 @@ export class Scene implements IScene {
                 message
             },
             exec: async (): Promise<boolean> => {
-                throw new Error("Msg not implemented");
+                await App.i.messageManager
+                    .showMessage(character, `ch${this.chapter}.sc${this.scene}.${message}`);
+
+                return false;
             }
         } as IEvent);
 

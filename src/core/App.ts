@@ -1,8 +1,11 @@
-import {IApp} from "./interfaces/IApp";
 import {Translation} from "./Translation";
 import {IScene} from "./interfaces/IScene";
 import {IAssetManager} from "./interfaces/managers/IAssetManager";
 import {AssetManager} from "./managers/AssetManager";
+import {IApp} from "./interfaces/IApp";
+import {AppOptions} from "./types/app";
+import {MessageManager} from "./managers/MessageManager";
+import {IMessageManager} from "./interfaces/managers/IMessageManager";
 
 export class App implements IApp {
     private static _instance: IApp;
@@ -13,9 +16,11 @@ export class App implements IApp {
     container: HTMLElement | null = null;
 
     assetManager: IAssetManager;
+    messageManager: IMessageManager;
 
     private constructor() {
         this.assetManager = new AssetManager();
+        this.messageManager = new MessageManager();
     }
 
     static get i(): IApp {
@@ -50,6 +55,7 @@ export class App implements IApp {
 
         this.container.style.setProperty('--background-color', color)
 
+        this.initHtmlElements();
 
         Translation.i.setLanguage("fr");
 
@@ -80,5 +86,25 @@ export class App implements IApp {
         }
 
         return this.currentScene;
+    }
+
+    private initHtmlElements() {
+        const elements: HTMLElement[] = []
+
+        const msgBox = document.createElement("div");
+        msgBox.id = "message-box";
+        msgBox.style.setProperty(
+            "--msg-box-background-image",
+            `url(${this.assetManager.getAssetPath("ui/msg-box.png")})`
+        )
+        elements.push(msgBox);
+
+        const textBox = document.createElement("div");
+        textBox.id = "text-box";
+        msgBox.appendChild(textBox);
+
+        elements.forEach(element => this.container?.appendChild(element))
+
+        this.messageManager = new MessageManager();
     }
 }

@@ -1,8 +1,18 @@
+@import "fonts";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 #app-container {
+  overflow: hidden;
 }
 
 #app {
   position: relative;
+  overflow: hidden;
 
   background-color: var(--background-color);
   background-size: cover;
@@ -26,5 +36,60 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+  }
+}
+
+#message-box {
+  position: absolute;
+  display: flex;
+  aspect-ratio: 32/5.2;
+  padding: 5vw 1.5vw 1.5vw;
+
+  justify-content: center;
+  align-items: center;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  background-image: var(--msg-box-background-image);
+  background-size: contain;
+  background-position: bottom center;
+  background-repeat: no-repeat;
+
+  opacity: 0;
+  transform: translateY(30%);
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#text-box {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 60vw;
+  display: flex;
+
+  .message {
+    color: #F3ECF3;
+    font-size: 1.7vw;
+    font-family: Quicksand, serif;
+    font-weight: 500;
+    line-height: 140%;
+    letter-spacing: 0.03563rem;
+  }
+
+  .character {
+    position: absolute;
+    right: 100%;
+    bottom: calc(100% - 1vw);
+    color: var(--character-color, #F3ECF3);
+    font-size: 2.5vw;
+    font-family: "Birthstone Bounce", serif;
+    font-weight: 500;
   }
 }
