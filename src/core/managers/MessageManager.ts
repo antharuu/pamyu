@@ -42,12 +42,13 @@ export class MessageManager implements IMessageManager {
     }
 
     private printMessage(character: string, message: string): Promise<void> {
-        return new Promise(resolve => {
+        return new Promise(async (resolve) => {
             if (this.textElement === null) {
                 throw new Error("Text element not found.");
             }
 
             this.textElement.innerHTML = "";
+
             const characterElement = document.createElement("span");
             characterElement.classList.add("character");
             characterElement.classList.add("character--" + slugify(character));
@@ -56,10 +57,20 @@ export class MessageManager implements IMessageManager {
 
             const messageElement = document.createElement("span");
             messageElement.classList.add("message");
-            messageElement.innerText = Translation.i.translate(message);
             this.textElement.appendChild(messageElement);
+
+            // Utilisez la méthode typeMessage pour afficher le message lettre par lettre
+            await this.typeMessage(messageElement, Translation.i.translate(message), 20);
 
             resolve();
         });
+    }
+
+    private async typeMessage(element: HTMLElement, message: string, delay: number) {
+        for (let i = 0; i < message.length; i++) {
+            await new Promise(resolve => setTimeout(resolve, delay));
+            element.innerHTML += message[i] === ' ' ? '&nbsp;' : message[i];
+            element.innerHTML = element.innerHTML.replace(/&nbsp;/g, ' ');
+        }
     }
 }

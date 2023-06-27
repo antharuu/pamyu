@@ -81,11 +81,13 @@
     font-weight: 500;
     line-height: 140%;
     letter-spacing: 0.03563rem;
+    white-space: pre-wrap;
+    width: 100%;
   }
 
   .character {
     position: absolute;
-    right: 100%;
+    right: calc(100% + 1vw);
     bottom: calc(100% - 1vw);
     color: var(--character-color, #F3ECF3);
     font-size: 2.5vw;

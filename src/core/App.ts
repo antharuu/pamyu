@@ -18,6 +18,8 @@ export class App implements IApp {
     assetManager: IAssetManager;
     messageManager: IMessageManager;
 
+    canContinue: boolean = true;
+
     private constructor() {
         this.assetManager = new AssetManager();
         this.messageManager = new MessageManager();
@@ -60,8 +62,9 @@ export class App implements IApp {
         Translation.i.setLanguage("fr");
 
         addEventListener("keydown", (event: KeyboardEvent) => {
-            if (event.key === "Enter") {
-                this.next().then(r => r);
+            if (event.key === "Enter" && this.canContinue) {
+                this.canContinue = false;
+                this.next().then(() => this.canContinue = true);
             }
         })
 
