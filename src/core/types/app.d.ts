@@ -9,3 +9,8 @@ type EventExecReturn = {
     event: IEvent | null;
     continueTimeline: boolean;
 }
+
+type CharacterOptions = Partial<{
+    color: string;
+    isDemon: boolean;
+}>

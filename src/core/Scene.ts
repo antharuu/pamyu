@@ -4,6 +4,7 @@ import {IVariable} from "./interfaces/IVariable";
 import {App} from "./App";
 import {EventExecReturn} from "./types/app";
 import {EventType, IEvent} from "./interfaces/IEvent";
+import {Character} from "./Character";
 
 export class Scene implements IScene {
     name: string;
@@ -96,7 +97,7 @@ export class Scene implements IScene {
         return this;
     }
 
-    join(character: string, position: number): IScene {
+    join(character: Character, position: number): IScene {
         this.addAction({
             type: EventType.Join,
             data: {
@@ -111,7 +112,7 @@ export class Scene implements IScene {
         return this;
     }
 
-    msg(character: string, message: string): IScene {
+    msg(character: Character, message: string, thinking: boolean): IScene {
         this.addAction({
             type: EventType.Msg,
             data: {
@@ -120,11 +121,23 @@ export class Scene implements IScene {
             },
             exec: async (): Promise<boolean> => {
                 await App.i.messageManager
-                    .showMessage(character, `ch${this.chapter}.sc${this.scene}.${message}`);
+                    .showMessage(character, `ch${this.chapter}.sc${this.scene}.${message}`, thinking);
 
                 return false;
             }
         } as IEvent);
+
+        return this;
+    }
+
+    think(character: Character, message: string): IScene {
+        this.msg(character, message, true);
+
+        return this;
+    }
+
+    talk(character: Character, message: string): IScene {
+        this.msg(character, message, false);
 
         return this;
     }

@@ -1,3 +1,5 @@
+import {Character} from "../../Character";
+
 export interface IMessageManager {
     hasBoxVisible: boolean;
 
@@ -5,5 +7,5 @@ export interface IMessageManager {
 
     hideBox(): Promise<void>;
 
-    showMessage(character: string, message: string): Promise<void>;
+    showMessage(character: Character, message: string, thinking: boolean): Promise<void>;
 }

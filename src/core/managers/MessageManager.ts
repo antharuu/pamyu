@@ -1,6 +1,7 @@
 import {IMessageManager} from "../interfaces/managers/IMessageManager";
 import {Translation} from "../Translation";
 import {slugify} from "../utils/string";
+import {Character} from "../Character";
 
 export class MessageManager implements IMessageManager {
     private readonly boxElement: HTMLDivElement | null = null;
@@ -31,17 +32,17 @@ export class MessageManager implements IMessageManager {
         return new Promise(resolve => setTimeout(resolve, 500));
     }
 
-    showMessage(character: string, message: string): Promise<void> {
+    showMessage(character: Character, message: string, thinking: boolean): Promise<void> {
         console.log("show message");
         if (!this.hasBoxVisible) {
             return this.showBox()
-                .then(() => this.printMessage(character, message));
+                .then(() => this.printMessage(character, message, thinking));
         } else {
-            return this.printMessage(character, message);
+            return this.printMessage(character, message, thinking);
         }
     }
 
-    private printMessage(character: string, message: string): Promise<void> {
+    private printMessage(character: Character, message: string, thinking: boolean): Promise<void> {
         return new Promise(async (resolve) => {
             if (this.textElement === null) {
                 throw new Error("Text element not found.");
@@ -51,8 +52,9 @@ export class MessageManager implements IMessageManager {
 
             const characterElement = document.createElement("span");
             characterElement.classList.add("character");
-            characterElement.classList.add("character--" + slugify(character));
-            characterElement.innerText = character;
+            characterElement.classList.add("character--" + slugify(character.getName(false)));
+            characterElement.style.setProperty("--character-color", character.getColor());
+            characterElement.innerText = character.getName(thinking);
             this.textElement.appendChild(characterElement);
 
             const messageElement = document.createElement("span");

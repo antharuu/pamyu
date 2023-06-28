@@ -1,5 +1,6 @@
 import {IChoice} from "./IChoice";
 import {IVariable} from "./IVariable";
+import {Character} from "../Character";
 
 export enum EventType {
     Msg = "msg",
@@ -13,7 +14,7 @@ export enum EventType {
 }
 
 export type MsgData = {
-    character: string;
+    character: Character;
     message: string;
 }
 
@@ -23,7 +24,7 @@ export type ChoiceData = {
 }
 
 export type JoinData = {
-    character: string;
+    character: Character;
     position: number;
 }
 

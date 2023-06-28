@@ -2,6 +2,7 @@ import {IVariable} from "./IVariable";
 import {IEvent} from "./IEvent";
 import {IChoice} from "./IChoice";
 import {EventExecReturn} from "../types/app";
+import {Character} from "../Character";
 
 export interface IScene {
     name: string;
@@ -18,9 +19,13 @@ export interface IScene {
 
     changeBackground(background: string): IScene;
 
-    msg(character: string, message: string): IScene;
+    msg(character: Character, message: string, thinking: boolean): IScene;
 
-    join(character: string, position: number): IScene;
+    think(character: Character, message: string): IScene;
+
+    talk(character: Character, message: string): IScene;
+
+    join(character: Character, position: number): IScene;
 
     choice(message: string, choices: IChoice[]): IScene;
 
