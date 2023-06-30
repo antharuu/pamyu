@@ -45,12 +45,7 @@ export class Character implements ICharacter {
 
     public setExpression = (expression: string): ICharacter => {
         if (this.allowedExpressions.includes(expression)) {
-            if (this.expression !== expression) {
-                console.log(`Character ${this.name} expression changed to ${expression}`);
-                this.expression = expression;
-            } else {
-                console.warn(`Character ${this.name} already has expression ${expression}`);
-            }
+            if (this.expression !== expression) this.expression = expression;
         } else {
             console.error(`Character ${this.name} does not have expression ${expression}`);
         }
