@@ -15,4 +15,6 @@ export interface IApp {
     ): IApp;
 
     registerScenes(scenes: IScene[]): IApp;
+
+    prepare(elements: any[]): IApp;
 }

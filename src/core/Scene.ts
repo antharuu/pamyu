@@ -68,7 +68,7 @@ export class Scene implements IScene {
         return this;
     }
 
-    choice(message: string, choices: IChoice[]): IScene {
+    choice(character: Character, message: string, choices: IChoice[], expression?: any): IScene {
         this.addAction({
             type: EventType.Choice,
             data: {
@@ -76,7 +76,9 @@ export class Scene implements IScene {
                 choices
             },
             exec: async (): Promise<boolean> => {
-                throw new Error("Choice not implemented");
+                this.setExpression(character, expression);
+                console.error("Choice not implemented");
+                return true;
             }
         } as IEvent);
 
@@ -90,14 +92,15 @@ export class Scene implements IScene {
                 scene
             },
             exec: async (): Promise<boolean> => {
-                throw new Error("Goto not implemented");
+                console.error("Goto not implemented");
+                return true;
             }
         } as IEvent);
 
         return this;
     }
 
-    join(character: Character, position: number): IScene {
+    join(character: Character, position: number, expression?: any): IScene {
         this.addAction({
             type: EventType.Join,
             data: {
@@ -105,14 +108,33 @@ export class Scene implements IScene {
                 position
             },
             exec: async (): Promise<boolean> => {
-                throw new Error("Join not implemented");
+                this.setExpression(character, expression);
+                character.setVisible(true);
+                console.warn("Join not completly implemented");
+                return true;
             }
         } as IEvent);
 
         return this;
     }
 
-    msg(character: Character, message: string, thinking: boolean): IScene {
+    leave(character: Character): IScene {
+        this.addAction({
+            type: EventType.Leave,
+            data: {
+                character
+            },
+            exec: async (): Promise<boolean> => {
+                character.setVisible(false);
+                console.warn("Leave not completly implemented");
+                return true;
+            }
+        } as IEvent);
+
+        return this;
+    }
+
+    msg(character: Character, message: string, thinking: boolean, expression?: any): IScene {
         this.addAction({
             type: EventType.Msg,
             data: {
@@ -120,6 +142,7 @@ export class Scene implements IScene {
                 message
             },
             exec: async (): Promise<boolean> => {
+                this.setExpression(character, expression);
                 await App.i.messageManager
                     .showMessage(character, `ch${this.chapter}.sc${this.scene}.${message}`, thinking);
 
@@ -130,14 +153,14 @@ export class Scene implements IScene {
         return this;
     }
 
-    think(character: Character, message: string): IScene {
-        this.msg(character, message, true);
+    think(character: Character, message: string, expression?: any): IScene {
+        this.msg(character, message, true, expression);
 
         return this;
     }
 
-    talk(character: Character, message: string): IScene {
-        this.msg(character, message, false);
+    talk(character: Character, message: string, expression?: any): IScene {
+        this.msg(character, message, false, expression);
 
         return this;
     }
@@ -149,7 +172,8 @@ export class Scene implements IScene {
                 scene: this.name
             },
             exec: async (): Promise<boolean> => {
-                throw new Error("Save not implemented");
+                console.error("Save not implemented");
+                return true;
             }
         } as IEvent)
 
@@ -163,7 +187,8 @@ export class Scene implements IScene {
                 achievement
             },
             exec: async (): Promise<boolean> => {
-                throw new Error("Set achievement not implemented");
+                console.error("Set achievement not implemented");
+                return true;
             }
         } as IEvent)
 
@@ -179,10 +204,17 @@ export class Scene implements IScene {
                 value
             },
             exec: async (): Promise<boolean> => {
-                throw new Error("Variable not implemented");
+                console.error("Variable not implemented");
+                return true;
             }
         } as IEvent)
 
+        return this;
+    }
+
+    setExpression(character: Character, expression?: any): IScene {
+        if (!expression) return this;
+        if (typeof expression === "string") character.setExpression(expression);
         return this;
     }
 }

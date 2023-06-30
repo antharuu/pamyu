@@ -1,5 +1,8 @@
 import {Scene} from "../../core/Scene";
 import {Baal, Lucy, Marian} from "../characters";
+import Expression from "../expressions";
+
+const E = Expression;
 
 const scene = new Scene("1_arrive_port", 1, 1);
 
@@ -12,12 +15,12 @@ scene
     .think(Lucy, "odeur_salete")
     .think(Lucy, "ambiance_lugubre")
     .join(Lucy, 1)
-    .talk(Lucy, "incertitude_navire")
+    .talk(Lucy, "incertitude_navire", E.Embarrassed)
     .join(Marian, 5)
-    .talk(Marian, "confiance_port_ami")
+    .talk(Marian, "confiance_port_ami", E.Happy)
     .talk(Lucy, "confiance_ami")
     .think(Baal, "confiance_maître")
-    .choice("doutes", [
+    .choice(Lucy, "doutes", [
         {
             message: "lugubre",
             exec: async () => await scene
@@ -36,7 +39,7 @@ scene
         }
     ])
     .talk(Marian, "retrouver_taverne")
-    .choice("prochaine_etape", [
+    .choice(Lucy, "prochaine_etape", [
         {
             message: "rejoindre_taverne",
             exec: async () => await scene

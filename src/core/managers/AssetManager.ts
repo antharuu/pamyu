@@ -4,6 +4,10 @@ import {App} from "../App";
 export class AssetManager implements IAssetManager {
     private readonly basePath: string = "assets";
 
+    private expressionPatern: string = "";
+
+    private expressions: object = {};
+
     getAssetPath(asset: string, folder: string = ""): string {
         if (folder === "") return `${this.basePath}/${asset}`;
         return `${this.basePath}/${folder}/${asset}`;
@@ -25,5 +29,40 @@ export class AssetManager implements IAssetManager {
                 resolve()
             }, ms)
         });
+    }
+
+    /***
+     * You can use the following words in the pattern:
+     * - *{character}* - character name
+     * - *{side}* - left or right
+     * - *{expression}* - expression name
+     *
+     * @param patern
+     **/
+    setExpressionPatern(patern: string): IAssetManager {
+        this.expressionPatern = patern;
+
+        return this;
+    }
+
+    setExpressions(expressionsEnum: object): IAssetManager {
+        this.expressions = expressionsEnum;
+
+        return this;
+    }
+
+    getExpressionPath(character: string, side: string, expression: string): string {
+        const patern = this.expressionPatern
+            .replace("{character}", character)
+            .replace("{side}", side)
+            .replace("{expression}", expression);
+
+        return this.getAssetPath(patern, "expressions");
+    }
+
+    getExpression(character: string, side: string, expression: string): string | null {
+        if (!this.expressions.hasOwnProperty(expression)) return null;
+
+        return this.getExpressionPath(character, side, expression);
     }
 }

@@ -15,7 +15,6 @@ export class MessageManager implements IMessageManager {
     }
 
     hideBox(): Promise<void> {
-        console.log("hide box");
         this.boxElement?.classList.remove("visible");
         this.hasBoxVisible = false;
 
@@ -24,7 +23,6 @@ export class MessageManager implements IMessageManager {
     }
 
     showBox(): Promise<void> {
-        console.log("show box");
         this.boxElement?.classList.add("visible");
         this.hasBoxVisible = true;
 
@@ -33,7 +31,6 @@ export class MessageManager implements IMessageManager {
     }
 
     showMessage(character: Character, message: string, thinking: boolean): Promise<void> {
-        console.log("show message");
         if (!this.hasBoxVisible) {
             return this.showBox()
                 .then(() => this.printMessage(character, message, thinking));

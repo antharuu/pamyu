@@ -19,17 +19,21 @@ export interface IScene {
 
     changeBackground(background: string): IScene;
 
-    msg(character: Character, message: string, thinking: boolean): IScene;
+    msg(character: Character, message: string, thinking: boolean, expression?: any): IScene;
 
-    think(character: Character, message: string): IScene;
+    think(character: Character, message: string, expression?: any): IScene;
 
-    talk(character: Character, message: string): IScene;
+    talk(character: Character, message: string, expression?: any): IScene;
 
-    join(character: Character, position: number): IScene;
+    join(character: Character, position: number, expression?: any): IScene;
 
-    choice(message: string, choices: IChoice[]): IScene;
+    leave(character: Character): IScene;
+
+    choice(character: Character, message: string, choices: IChoice[], expression?: any): IScene;
 
     goto(scene: string): IScene;
 
     variable(action: keyof IVariable, name: string, value?: any): IScene;
+
+    setExpression(character: Character, expression: object): IScene;
 }

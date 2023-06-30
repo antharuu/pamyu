@@ -6,6 +6,7 @@ export enum EventType {
     Msg = "msg",
     Choice = "choice",
     Join = "join",
+    Leave = "leave",
     Goto = "goto",
     ChangeBackground = "changeBackground",
     SetAchievement = "setAchievement",

@@ -13,4 +13,5 @@ type EventExecReturn = {
 type CharacterOptions = Partial<{
     color: string;
     isDemon: boolean;
+    expressions: string[];
 }>

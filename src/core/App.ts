@@ -42,7 +42,7 @@ export class App implements IApp {
             const element = document.querySelector<HTMLElement>(selector);
 
             if (element === null) {
-                throw new Error(`Element with selector ${selector} not found.`);
+                console.error(`Element with selector ${selector} not found.`);
             }
 
             this.container = element
@@ -55,6 +55,7 @@ export class App implements IApp {
             }
         }
 
+        if (this.container === null) throw new Error("Container is null");
         this.container.style.setProperty('--background-color', color)
 
         this.initHtmlElements();
@@ -77,7 +78,7 @@ export class App implements IApp {
     }
 
     registerScenes(scenes: IScene[]): IApp {
-        if (this.container === null) throw new Error("You must create the app before registering scenes");
+        if (this.container === null) console.error("You must create the app before registering scenes");
         this.scenes = scenes || [];
 
         return this;
@@ -109,5 +110,19 @@ export class App implements IApp {
         elements.forEach(element => this.container?.appendChild(element))
 
         this.messageManager = new MessageManager();
+    }
+
+    prepare(elements: any[]): IApp {
+        const max = elements.length;
+        elements.forEach((_, i) => {
+            console.clear();
+            if (i === max - 1) console.info("Loading complete");
+            else {
+                const percent = Math.round((i + 1) / max * 100);
+                console.info(`Loading ${percent}%`);
+            }
+        })
+
+        return this;
     }
 }
