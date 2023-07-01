@@ -40,7 +40,7 @@ export class MessageManager implements IMessageManager {
         return new Promise(resolve => setTimeout(resolve, 500));
     }
 
-    showMessage(character: Character, message: string, thinking: boolean): Promise<void> {
+    showMessage(character: Character, message: string, isisThinking: boolean): Promise<void> {
         if (this._isTyping) {
             this.stopTyping(true);
             return Promise.resolve();
@@ -48,14 +48,14 @@ export class MessageManager implements IMessageManager {
 
         if (!this.hasBoxVisible) {
             return this.showBox()
-                .then(() => this.printMessage(character, message, thinking));
+                .then(() => this.printMessage(character, message, isisThinking));
         } else {
-            return this.printMessage(character, message, thinking);
+            return this.printMessage(character, message, isisThinking);
         }
     }
 
 
-    private printMessage(character: Character, message: string, thinking: boolean): Promise<void> {
+    private printMessage(character: Character, message: string, isThinking: boolean): Promise<void> {
         return new Promise(async (resolve) => {
             if (this.textElement === null) {
                 throw new Error("Text element not found.");
@@ -72,14 +72,13 @@ export class MessageManager implements IMessageManager {
             characterElement.classList.add("character");
             characterElement.classList.add("character--" + slugify(character.getName(false)));
             characterElement.style.setProperty("--character-color", character.getColor());
-            characterElement.innerText = character.getName(thinking);
+            characterElement.innerText = character.getName(isThinking);
             this.textElement.appendChild(characterElement);
 
             this.messageElement = document.createElement("span");
             this.messageElement.classList.add("message");
             this.textElement.appendChild(this.messageElement);
 
-            // Utilisez la méthode typeMessage pour afficher le message lettre par lettre
             await this.typeMessage(Translation.i.translate(message), 20);
             resolve();
         });

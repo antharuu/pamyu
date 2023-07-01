@@ -18,8 +18,8 @@ export class Character implements ICharacter {
         this.allowedExpressions = options.expressions || [];
     }
 
-    public getName = (thinking: boolean): string => {
-        if (thinking) return `( ${this.name} )`;
+    public getName = (isThinking: boolean): string => {
+        if (isThinking) return `( ${this.name} )`;
         return this.name;
     };
 
