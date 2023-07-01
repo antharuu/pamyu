@@ -1,7 +1,7 @@
 export interface ITranslation {
-    setLanguage(language: string): ITranslation;
+  setLanguage(language: string): ITranslation;
 
-    translate(key: string): string;
+  translate(key: string): string;
 
-    t(key: string): string;
+  t(key: string): string;
 }

@@ -1,17 +1,17 @@
-import {IEvent} from "../interfaces/IEvent";
+import { IEvent } from "../interfaces/IEvent";
 
 type AppOptions = Partial<{
-    background: string;
-}>
+  background: string;
+}>;
 
 type EventExecReturn = {
-    index: number;
-    event: IEvent | null;
-    continueTimeline: boolean;
-}
+  index: number;
+  event: IEvent | null;
+  continueTimeline: boolean;
+};
 
 type CharacterOptions = Partial<{
-    color: string;
-    isDemon: boolean;
-    expressions: string[];
-}>
+  color: string;
+  isDemon: boolean;
+  expressions: string[];
+}>;

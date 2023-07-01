@@ -1,6 +1,6 @@
-import {IScene} from "./IScene";
+import { IScene } from "./IScene";
 
 export interface IChoice {
-    message: string;
-    exec: () => Promise<IScene>;
+  message: string;
+  exec: () => Promise<IScene>;
 }

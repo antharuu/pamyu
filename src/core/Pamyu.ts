@@ -1,0 +1,146 @@
+import { Translation } from "./Translation";
+import { IScene } from "./interfaces/IScene";
+import { IAssetManager } from "./interfaces/managers/IAssetManager";
+import { AssetManager } from "./managers/AssetManager";
+import { IPamyu } from "./interfaces/IPamyu";
+import { AppOptions } from "./types/app";
+import { MessageManager } from "./managers/MessageManager";
+import { IMessageManager } from "./interfaces/managers/IMessageManager";
+import { IConfig } from "./interfaces/IConfig";
+import { Config } from "./Config";
+
+export class Pamyu implements IPamyu {
+  private static _instance: IPamyu;
+
+  public container: HTMLElement | null = null;
+
+  public assetManager: IAssetManager;
+
+  public messageManager: IMessageManager;
+
+  public config: IConfig;
+
+  private scenes: IScene[] = [];
+
+  private currentScene: IScene | null = null;
+
+  private canContinue = true;
+
+  private constructor() {
+    this.config = new Config({});
+    this.assetManager = new AssetManager();
+    this.messageManager = new MessageManager();
+  }
+
+  public static get i(): IPamyu {
+    if (Pamyu._instance === undefined) {
+      Pamyu._instance = new Pamyu();
+    }
+
+    return Pamyu._instance;
+  }
+
+  public configure(config: Partial<IConfig>): IPamyu {
+    this.config = {
+      ...this.config,
+      ...config,
+    };
+
+    console.log(this.config);
+
+    return this;
+  }
+
+  public create(
+    selector: string | HTMLElement,
+    color = "black",
+    options: AppOptions = {}
+  ): IPamyu {
+    if (typeof selector === "string") {
+      const element = document.querySelector<HTMLElement>(selector);
+
+      if (element === null) {
+        console.error(`Element with selector ${selector} not found.`);
+      }
+
+      this.container = element;
+    } else this.container = selector;
+
+    if (options.hasOwnProperty("background")) {
+      if ("background" in options && options.background !== undefined) {
+        void this.assetManager.setBackground(options.background);
+      }
+    }
+
+    if (this.container === null) throw new Error("Container is null");
+    this.container.style.setProperty("--background-color", color);
+
+    this.initHtmlElements();
+
+    Translation.i.setLanguage("fr");
+
+    addEventListener("keydown", (event: KeyboardEvent) => {
+      if (event.key === "Enter" && this.canContinue) {
+        this.canContinue = false;
+        void this.next().then(() => (this.canContinue = true));
+      }
+    });
+
+    return this;
+  }
+
+  public registerScenes(scenes?: IScene[]): IPamyu {
+    if (this.container === null)
+      console.error("You must create the app before registering scenes");
+    this.scenes = scenes || [];
+
+    return this;
+  }
+
+  public prepare(elements: unknown[]): IPamyu {
+    const max = elements.length;
+    elements.forEach((_, i) => {
+      console.clear();
+      if (i === max - 1) console.info("Loading complete");
+      else {
+        const percent = Math.round(((i + 1) / max) * 100);
+        console.info(`Loading ${percent}%`);
+      }
+    });
+
+    return this;
+  }
+
+  private async next(): Promise<void> {
+    const { continueTimeline } = await this.getCurrentScene().execNext();
+    if (continueTimeline) void this.next();
+  }
+
+  private getCurrentScene(): IScene {
+    if (this.currentScene === null) {
+      this.currentScene = this.scenes[0];
+    }
+
+    return this.currentScene;
+  }
+
+  private initHtmlElements(): void {
+    const elements: HTMLElement[] = [];
+
+    const msgBox = document.createElement("div");
+    msgBox.id = "message-box";
+    msgBox.style.setProperty(
+      "--msg-box-background-image",
+      `url(${this.assetManager.getAssetPath("ui/msg-box.png")})`
+    );
+    elements.push(msgBox);
+
+    const textBox = document.createElement("div");
+    textBox.id = "text-box";
+    msgBox.appendChild(textBox);
+
+    elements.forEach((element) => this.container?.appendChild(element));
+
+    this.messageManager = new MessageManager();
+  }
+}

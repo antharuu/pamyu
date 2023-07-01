@@ -1,68 +1,83 @@
-import {IAssetManager} from "../interfaces/managers/IAssetManager";
-import {App} from "../App";
+import { IAssetManager } from "../interfaces/managers/IAssetManager";
+import { Pamyu } from "../Pamyu";
 
 export class AssetManager implements IAssetManager {
-    private readonly basePath: string = "assets";
+  private readonly basePath: string = "assets";
 
-    private expressionPatern: string = "";
+  private expressionPatern = "";
 
-    private expressions: object = {};
+  private expressions: object = {};
 
-    getAssetPath(asset: string, folder: string = ""): string {
-        if (folder === "") return `${this.basePath}/${asset}`;
-        return `${this.basePath}/${folder}/${asset}`;
+  public getAssetPath(asset: string, folder = ""): string {
+    if (folder === "") return `${this.basePath}/${asset}`;
+    return `${this.basePath}/${folder}/${asset}`;
+  }
+
+  public getBackgroundPath(background: string): string {
+    return this.getAssetPath(`${background}.png`, "backgrounds");
+  }
+
+  public setBackground(
+    background: string,
+    ms = -1,
+    fading = "ease-in-out"
+  ): Promise<void> {
+    const path = this.getBackgroundPath(background);
+    if (ms >= 0) {
+      Pamyu.i.container?.style.setProperty(
+        "transition",
+        `background-image ${ms}ms ${fading}`
+      );
     }
+    Pamyu.i.container?.style.setProperty("background-image", `url(${path})`);
 
-    getBackgroundPath(background: string): string {
-        return this.getAssetPath(`${background}.png`, "backgrounds");
-    }
+    return new Promise<void>((resolve) => {
+      setTimeout(() => {
+        resolve();
+      }, ms);
+    });
+  }
 
-    setBackground(background: string, ms: number = -1, fading: string = "ease-in-out"): Promise<void> {
-        const path = this.getBackgroundPath(background);
-        if (ms >= 0) {
-            App.i.container?.style.setProperty("transition", `background-image ${ms}ms ${fading}`)
-        }
-        App.i.container?.style.setProperty("background-image", `url(${path})`)
+  /***
+   * You can use the following words in the pattern:
+   * - *{character}* - character name
+   * - *{side}* - left or right
+   * - *{expression}* - expression name
+   *
+   * @param patern
+   **/
+  public setExpressionPatern(patern: string): IAssetManager {
+    this.expressionPatern = patern;
 
-        return new Promise<void>(resolve => {
-            setTimeout(() => {
-                resolve()
-            }, ms)
-        });
-    }
+    return this;
+  }
 
-    /***
-     * You can use the following words in the pattern:
-     * - *{character}* - character name
-     * - *{side}* - left or right
-     * - *{expression}* - expression name
-     *
-     * @param patern
-     **/
-    setExpressionPatern(patern: string): IAssetManager {
-        this.expressionPatern = patern;
+  public setExpressions(expressionsEnum: object): IAssetManager {
+    this.expressions = expressionsEnum;
 
-        return this;
-    }
+    return this;
+  }
 
-    setExpressions(expressionsEnum: object): IAssetManager {
-        this.expressions = expressionsEnum;
+  public getExpressionPath(
+    character: string,
+    side: string,
+    expression: string
+  ): string {
+    const patern = this.expressionPatern
+      .replace("{character}", character)
+      .replace("{side}", side)
+      .replace("{expression}", expression);
 
-        return this;
-    }
+    return this.getAssetPath(patern, "expressions");
+  }
 
-    getExpressionPath(character: string, side: string, expression: string): string {
-        const patern = this.expressionPatern
-            .replace("{character}", character)
-            .replace("{side}", side)
-            .replace("{expression}", expression);
+  public getExpression(
+    character: string,
+    side: string,
+    expression: string
+  ): string | null {
+    if (!this.expressions.hasOwnProperty(expression)) return null;
 
-        return this.getAssetPath(patern, "expressions");
-    }
-
-    getExpression(character: string, side: string, expression: string): string | null {
-        if (!this.expressions.hasOwnProperty(expression)) return null;
-
-        return this.getExpressionPath(character, side, expression);
-    }
+    return this.getExpressionPath(character, side, expression);
+  }
 }

@@ -1,220 +1,257 @@
-import {IScene} from "./interfaces/IScene";
-import {IChoice} from "./interfaces/IChoice";
-import {IVariable} from "./interfaces/IVariable";
-import {App} from "./App";
-import {EventExecReturn} from "./types/app";
-import {EventType, IEvent} from "./interfaces/IEvent";
-import {Character} from "./Character";
+import { IScene } from "./interfaces/IScene";
+import { IChoice } from "./interfaces/IChoice";
+import { IVariable } from "./interfaces/IVariable";
+import { Pamyu } from "./Pamyu";
+import { EventExecReturn } from "./types/app";
+import { EventType, IEvent } from "./interfaces/IEvent";
+import { Character } from "./Character";
 
 export class Scene implements IScene {
-    name: string;
-    timeline: IEvent[];
-    timelineIndex: number = 0;
+  public name: string;
 
-    chapter: number | string;
-    scene: number | string;
+  public timeline: IEvent[];
 
-    constructor(name: string, chapter: number | string, scene: number | string) {
-        this.name = name;
-        this.timeline = [];
-        this.chapter = chapter;
-        this.scene = scene;
+  public timelineIndex = 0;
+
+  private readonly chapter: number | string;
+
+  private readonly scene: number | string;
+
+  public constructor(
+    name: string,
+    chapter: number | string,
+    scene: number | string
+  ) {
+    this.name = name;
+    this.timeline = [];
+    this.chapter = chapter;
+    this.scene = scene;
+  }
+
+  public async execNext(): Promise<EventExecReturn> {
+    if (this.timelineIndex >= this.timeline.length)
+      return {
+        index: this.timelineIndex,
+        event: null,
+        continueTimeline: false,
+      };
+
+    const event = this.timeline[this.timelineIndex];
+    let continueTimeline: boolean;
+
+    try {
+      continueTimeline = await event.exec();
+    } catch (e) {
+      console.error(e);
+      continueTimeline = true;
     }
 
-    private addAction(event: IEvent): IScene {
-        this.timeline.push(event);
+    this.timelineIndex++;
 
-        return this;
-    }
+    return {
+      index: this.timelineIndex,
+      event,
+      continueTimeline: continueTimeline,
+    };
+  }
 
-    async execNext(): Promise<EventExecReturn> {
-        if (this.timelineIndex >= this.timeline.length) return {
-            index: this.timelineIndex,
-            event: null,
-            continueTimeline: false
-        };
+  public changeBackground(background: string): IScene {
+    this.addAction({
+      type: EventType.ChangeBackground,
+      data: {
+        background,
+      },
+      exec: async (): Promise<boolean> => {
+        await Pamyu.i.assetManager.setBackground(background, 500);
+        return true;
+      },
+    } as IEvent);
 
-        const event = this.timeline[this.timelineIndex];
-        let continueTimeline: boolean;
+    return this;
+  }
 
-        try {
-            continueTimeline = await event.exec();
-        } catch (e) {
-            console.error(e);
-            continueTimeline = true;
-        }
+  public choice(
+    character: Character,
+    message: string,
+    choices: IChoice[],
+    expression?: unknown
+  ): IScene {
+    this.addAction({
+      type: EventType.Choice,
+      data: {
+        message,
+        choices,
+      },
+      exec: async (): Promise<boolean> => {
+        this.setExpression(character, expression);
+        console.error("Choice not implemented");
+        return true;
+      },
+    } as IEvent);
 
-        this.timelineIndex++;
+    return this;
+  }
 
-        return {
-            index: this.timelineIndex,
-            event,
-            continueTimeline: continueTimeline
-        }
-    }
+  public goto(scene: string): IScene {
+    this.addAction({
+      type: EventType.Goto,
+      data: {
+        scene,
+      },
+      exec: async (): Promise<boolean> => {
+        console.error("Goto not implemented");
+        return true;
+      },
+    } as IEvent);
 
-    changeBackground(background: string): IScene {
-        this.addAction({
-            type: EventType.ChangeBackground,
-            data: {
-                background
-            },
-            exec: async (): Promise<boolean> => {
-                await App.i.assetManager.setBackground(background, 500);
-                return true;
-            }
-        } as IEvent);
+    return this;
+  }
 
-        return this;
-    }
+  public join(
+    character: Character,
+    position: number,
+    expression?: unknown
+  ): IScene {
+    this.addAction({
+      type: EventType.Join,
+      data: {
+        character,
+        position,
+      },
+      exec: async (): Promise<boolean> => {
+        this.setExpression(character, expression);
+        character.setVisible(true);
+        console.warn("Join not completly implemented");
+        return true;
+      },
+    } as IEvent);
 
-    choice(character: Character, message: string, choices: IChoice[], expression?: any): IScene {
-        this.addAction({
-            type: EventType.Choice,
-            data: {
-                message,
-                choices
-            },
-            exec: async (): Promise<boolean> => {
-                this.setExpression(character, expression);
-                console.error("Choice not implemented");
-                return true;
-            }
-        } as IEvent);
+    return this;
+  }
 
-        return this;
-    }
+  public leave(character: Character): IScene {
+    this.addAction({
+      type: EventType.Leave,
+      data: {
+        character,
+      },
+      exec: async (): Promise<boolean> => {
+        character.setVisible(false);
+        console.warn("Leave not completly implemented");
+        return true;
+      },
+    } as IEvent);
 
-    goto(scene: string): IScene {
-        this.addAction({
-            type: EventType.Goto,
-            data: {
-                scene
-            },
-            exec: async (): Promise<boolean> => {
-                console.error("Goto not implemented");
-                return true;
-            }
-        } as IEvent);
+    return this;
+  }
 
-        return this;
-    }
+  public msg(
+    character: Character,
+    message: string,
+    thinking: boolean,
+    expression?: unknown
+  ): IScene {
+    this.addAction({
+      type: EventType.Msg,
+      data: {
+        character,
+        message,
+      },
+      exec: async (): Promise<boolean> => {
+        this.setExpression(character, expression);
+        await Pamyu.i.messageManager.showMessage(
+          character,
+          `ch${this.chapter}.sc${this.scene}.${message}`,
+          thinking
+        );
 
-    join(character: Character, position: number, expression?: any): IScene {
-        this.addAction({
-            type: EventType.Join,
-            data: {
-                character,
-                position
-            },
-            exec: async (): Promise<boolean> => {
-                this.setExpression(character, expression);
-                character.setVisible(true);
-                console.warn("Join not completly implemented");
-                return true;
-            }
-        } as IEvent);
+        return false;
+      },
+    } as IEvent);
 
-        return this;
-    }
+    return this;
+  }
 
-    leave(character: Character): IScene {
-        this.addAction({
-            type: EventType.Leave,
-            data: {
-                character
-            },
-            exec: async (): Promise<boolean> => {
-                character.setVisible(false);
-                console.warn("Leave not completly implemented");
-                return true;
-            }
-        } as IEvent);
+  public think(
+    character: Character,
+    message: string,
+    expression?: unknown
+  ): IScene {
+    this.msg(character, message, true, expression);
 
-        return this;
-    }
+    return this;
+  }
 
-    msg(character: Character, message: string, thinking: boolean, expression?: any): IScene {
-        this.addAction({
-            type: EventType.Msg,
-            data: {
-                character,
-                message
-            },
-            exec: async (): Promise<boolean> => {
-                this.setExpression(character, expression);
-                await App.i.messageManager
-                    .showMessage(character, `ch${this.chapter}.sc${this.scene}.${message}`, thinking);
+  public talk(
+    character: Character,
+    message: string,
+    expression?: unknown
+  ): IScene {
+    this.msg(character, message, false, expression);
 
-                return false;
-            }
-        } as IEvent);
+    return this;
+  }
 
-        return this;
-    }
+  public save(): IScene {
+    this.addAction({
+      type: EventType.Save,
+      data: {
+        scene: this.name,
+      },
+      exec: async (): Promise<boolean> => {
+        console.error("Save not implemented");
+        return true;
+      },
+    } as IEvent);
 
-    think(character: Character, message: string, expression?: any): IScene {
-        this.msg(character, message, true, expression);
+    return this;
+  }
 
-        return this;
-    }
+  public setAchievement(achievement: string): IScene {
+    this.addAction({
+      type: EventType.SetAchievement,
+      data: {
+        achievement,
+      },
+      exec: async (): Promise<boolean> => {
+        console.error("Set achievement not implemented");
+        return true;
+      },
+    } as IEvent);
 
-    talk(character: Character, message: string, expression?: any): IScene {
-        this.msg(character, message, false, expression);
+    return this;
+  }
 
-        return this;
-    }
+  public variable(
+    action: keyof IVariable,
+    name: string,
+    value?: unknown
+  ): IScene {
+    this.addAction({
+      type: EventType.Save,
+      data: {
+        action,
+        name,
+        value,
+      },
+      exec: async (): Promise<boolean> => {
+        console.error("Variable not implemented");
+        return true;
+      },
+    } as IEvent);
 
-    save(): IScene {
-        this.addAction({
-            type: EventType.Save,
-            data: {
-                scene: this.name
-            },
-            exec: async (): Promise<boolean> => {
-                console.error("Save not implemented");
-                return true;
-            }
-        } as IEvent)
+    return this;
+  }
 
-        return this;
-    }
+  public setExpression(character: Character, expression?: unknown): IScene {
+    if (!Boolean(expression)) return this;
+    if (typeof expression === "string") character.setExpression(expression);
+    return this;
+  }
 
-    setAchievement(achievement: string): IScene {
-        this.addAction({
-            type: EventType.SetAchievement,
-            data: {
-                achievement
-            },
-            exec: async (): Promise<boolean> => {
-                console.error("Set achievement not implemented");
-                return true;
-            }
-        } as IEvent)
+  private addAction(event: IEvent): IScene {
+    this.timeline.push(event);
 
-        return this;
-    }
-
-    variable(action: keyof IVariable, name: string, value?: any): IScene {
-        this.addAction({
-            type: EventType.Save,
-            data: {
-                action,
-                name,
-                value
-            },
-            exec: async (): Promise<boolean> => {
-                console.error("Variable not implemented");
-                return true;
-            }
-        } as IEvent)
-
-        return this;
-    }
-
-    setExpression(character: Character, expression?: any): IScene {
-        if (!expression) return this;
-        if (typeof expression === "string") character.setExpression(expression);
-        return this;
-    }
+    return this;
+  }
 }

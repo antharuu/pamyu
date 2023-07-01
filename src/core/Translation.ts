@@ -1,38 +1,37 @@
-import {ITranslation} from "./interfaces/ITranslation";
+import { ITranslation } from "./interfaces/ITranslation";
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import trads from "../trad.yaml"
-import {I18n} from "i18n-js";
+import trads from "../trad.yaml";
+
+import { Dict, I18n } from "i18n-js";
 
 export class Translation implements ITranslation {
-    private static _instance: Translation;
+  private static _instance: Translation;
 
-    private i18n: I18n;
+  private readonly i18n: I18n;
 
-    static get i(): ITranslation {
-        if (!Translation._instance) {
-            Translation._instance = new Translation();
-        }
+  public static get i(): ITranslation {
+    Translation._instance = Translation._instance ?? new Translation();
 
-        return Translation._instance;
-    }
+    return Translation._instance;
+  }
 
-    constructor() {
-        this.i18n = new I18n(trads);
-    }
+  public constructor() {
+    this.i18n = new I18n(trads as Dict);
+  }
 
-    setLanguage(language: string): ITranslation {
-        this.i18n.locale = language;
+  public setLanguage(language: string): ITranslation {
+    this.i18n.locale = language;
 
-        return this;
-    }
+    return this;
+  }
 
-    t(key: string): string {
-        return this.translate(key);
-    }
+  public t(key: string): string {
+    return this.translate(key);
+  }
 
-    translate(key: string): string {
-        return this.i18n.t(key);
-    }
-
+  public translate(key: string): string {
+    return this.i18n.t(key);
+  }
 }

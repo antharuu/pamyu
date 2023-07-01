@@ -1,11 +1,15 @@
-import {Character} from "../../Character";
+import { Character } from "../../Character";
 
 export interface IMessageManager {
-    hasBoxVisible: boolean;
+  hasBoxVisible: boolean;
 
-    showBox(): Promise<void>;
+  showBox(): Promise<void>;
 
-    hideBox(): Promise<void>;
+  hideBox(): Promise<void>;
 
-    showMessage(character: Character, message: string, thinking: boolean): Promise<void>;
+  showMessage(
+    character: Character,
+    message: string,
+    thinking: boolean
+  ): Promise<void>;
 }

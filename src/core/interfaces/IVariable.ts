@@ -1,23 +1,23 @@
 export interface IVariable {
-    variables: {
-        name: string;
-        value: any;
-        type: "string" | "number" | "boolean";
-    }
+  variables: {
+    name: string;
+    value: unknown;
+    type: "string" | "number" | "boolean";
+  };
 
-    get(name: string): any;
+  get(name: string): unknown;
 
-    set(name: string, value: any): IVariable;
+  set(name: string, value: unknown): IVariable;
 
-    add(name: string, value: any): IVariable;
+  add(name: string, value: unknown): IVariable;
 
-    remove(name: string, value: any): IVariable;
+  remove(name: string, value: unknown): IVariable;
 
-    increment(name: string): IVariable;
+  increment(name: string): IVariable;
 
-    decrement(name: string): IVariable;
+  decrement(name: string): IVariable;
 
-    toggle(name: string): IVariable;
+  toggle(name: string): IVariable;
 
-    reset(name: string): IVariable;
+  reset(name: string): IVariable;
 }

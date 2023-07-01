@@ -1,39 +1,49 @@
-import {IVariable} from "./IVariable";
-import {IEvent} from "./IEvent";
-import {IChoice} from "./IChoice";
-import {EventExecReturn} from "../types/app";
-import {Character} from "../Character";
+import { IVariable } from "./IVariable";
+import { IEvent } from "./IEvent";
+import { IChoice } from "./IChoice";
+import { EventExecReturn } from "../types/app";
+import { Character } from "../Character";
 
 export interface IScene {
-    name: string;
+  name: string;
 
-    timeline: IEvent[];
+  timeline: IEvent[];
 
-    timelineIndex: number;
+  timelineIndex: number;
 
-    execNext(): Promise<EventExecReturn>;
+  execNext(): Promise<EventExecReturn>;
 
-    save(): IScene;
+  save(): IScene;
 
-    setAchievement(achievement: string): IScene;
+  setAchievement(achievement: string): IScene;
 
-    changeBackground(background: string): IScene;
+  changeBackground(background: string): IScene;
 
-    msg(character: Character, message: string, thinking: boolean, expression?: any): IScene;
+  msg(
+    character: Character,
+    message: string,
+    thinking: boolean,
+    expression?: unknown
+  ): IScene;
 
-    think(character: Character, message: string, expression?: any): IScene;
+  think(character: Character, message: string, expression?: unknown): IScene;
 
-    talk(character: Character, message: string, expression?: any): IScene;
+  talk(character: Character, message: string, expression?: unknown): IScene;
 
-    join(character: Character, position: number, expression?: any): IScene;
+  join(character: Character, position: number, expression?: unknown): IScene;
 
-    leave(character: Character): IScene;
+  leave(character: Character): IScene;
 
-    choice(character: Character, message: string, choices: IChoice[], expression?: any): IScene;
+  choice(
+    character: Character,
+    message: string,
+    choices: IChoice[],
+    expression?: unknown
+  ): IScene;
 
-    goto(scene: string): IScene;
+  goto(scene: string): IScene;
 
-    variable(action: keyof IVariable, name: string, value?: any): IScene;
+  variable(action: keyof IVariable, name: string, value?: unknown): IScene;
 
-    setExpression(character: Character, expression: object): IScene;
+  setExpression(character: Character, expression: object): IScene;
 }

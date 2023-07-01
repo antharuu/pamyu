@@ -1,21 +1,21 @@
-import {App} from "../core/App";
+import { Pamyu } from "../core/Pamyu";
 
 export enum Expression {
-    Angry = "angry",
-    Confused = "confused",
-    Determined = "determined",
-    Embarrassed = "embarrassed",
-    Happy = "happy",
-    Normal = "normal",
-    Regret = "regret",
-    Sad = "sad",
-    Shy = "shy",
-    Surprised = "surprised",
-    Worried = "worried",
+  Angry = "angry",
+  Confused = "confused",
+  Determined = "determined",
+  Embarrassed = "embarrassed",
+  Happy = "happy",
+  Normal = "normal",
+  Regret = "regret",
+  Sad = "sad",
+  Shy = "shy",
+  Surprised = "surprised",
+  Worried = "worried",
 }
 
-App.i.assetManager
-    .setExpressionPatern('chars/{character}/{side}/{expression}.png', '-inverted')
-    .setExpressions(Expression)
+Pamyu.i.assetManager
+  .setExpressionPatern("chars/{character}/{side}/{expression}.png", "-inverted")
+  .setExpressions(Expression);
 
-export default Expression
+export default Expression;

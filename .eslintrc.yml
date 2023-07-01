@@ -1,0 +1,41 @@
+parser: '@typescript-eslint/parser'
+parserOptions:
+  ecmaVersion: 2020
+  sourceType: 'module'
+  project: './tsconfig.json'
+extends:
+  - 'plugin:@typescript-eslint/recommended'
+  - 'plugin:@typescript-eslint/recommended-requiring-type-checking'
+  - 'airbnb-typescript'
+  - 'plugin:prettier/recommended'
+plugins:
+  - '@typescript-eslint'
+rules:
+  '@typescript-eslint/explicit-function-return-type': 'error'
+  '@typescript-eslint/no-explicit-any': 'error'
+  '@typescript-eslint/no-unsafe-assignment': 'error'
+  '@typescript-eslint/no-unsafe-call': 'error'
+  '@typescript-eslint/no-unsafe-member-access': 'error'
+  '@typescript-eslint/no-unsafe-return': 'error'
+  '@typescript-eslint/no-unused-vars': 'error'
+  '@typescript-eslint/no-var-requires': 'error'
+  '@typescript-eslint/prefer-as-const': 'error'
+  '@typescript-eslint/prefer-readonly': 'error'
+  '@typescript-eslint/strict-boolean-expressions': 'error'
+  'import/extensions': 'off'
+  'import/no-extraneous-dependencies': 'off'
+  'react/jsx-filename-extension': 'off'
+  '@typescript-eslint/explicit-member-accessibility': ['error']
+  '@typescript-eslint/member-ordering':
+    - 'error'
+    - default:
+        memberTypes:
+          - 'public-static-field'
+          - 'private-static-field'
+          - 'public-instance-field'
+          - 'private-instance-field'
+          - 'public-static-method'
+          - 'private-static-method'
+          - 'public-instance-method'
+          - 'private-instance-method'
+        order: 'as-written'
