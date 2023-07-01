@@ -4,10 +4,20 @@ import {slugify} from "../utils/string";
 import {Character} from "../Character";
 
 export class MessageManager implements IMessageManager {
+    public hasBoxVisible: boolean = false;
+
     private readonly boxElement: HTMLDivElement | null = null;
     private readonly textElement: HTMLDivElement | null = null;
 
-    hasBoxVisible: boolean = false;
+    private _isTyping: boolean = false;
+    private messageElement: HTMLSpanElement | null = null;
+    private currentMessage: string = "";
+    private currentIndex: number = 0;
+    private intervalId: number | null = null;
+
+    set isTyping(value: boolean) {
+        this._isTyping = value;
+    }
 
     constructor() {
         this.boxElement = document.querySelector<HTMLDivElement>("#message-box");
@@ -31,6 +41,11 @@ export class MessageManager implements IMessageManager {
     }
 
     showMessage(character: Character, message: string, thinking: boolean): Promise<void> {
+        if (this._isTyping) {
+            this.stopTyping(true);
+            return Promise.resolve();
+        }
+
         if (!this.hasBoxVisible) {
             return this.showBox()
                 .then(() => this.printMessage(character, message, thinking));
@@ -39,10 +54,16 @@ export class MessageManager implements IMessageManager {
         }
     }
 
+
     private printMessage(character: Character, message: string, thinking: boolean): Promise<void> {
         return new Promise(async (resolve) => {
             if (this.textElement === null) {
                 throw new Error("Text element not found.");
+            }
+
+            if (this._isTyping) {
+                this.stopTyping();
+                return resolve();
             }
 
             this.textElement.innerHTML = "";
@@ -54,22 +75,61 @@ export class MessageManager implements IMessageManager {
             characterElement.innerText = character.getName(thinking);
             this.textElement.appendChild(characterElement);
 
-            const messageElement = document.createElement("span");
-            messageElement.classList.add("message");
-            this.textElement.appendChild(messageElement);
+            this.messageElement = document.createElement("span");
+            this.messageElement.classList.add("message");
+            this.textElement.appendChild(this.messageElement);
 
             // Utilisez la méthode typeMessage pour afficher le message lettre par lettre
-            await this.typeMessage(messageElement, Translation.i.translate(message), 20);
-
+            await this.typeMessage(Translation.i.translate(message), 20);
             resolve();
         });
     }
 
-    private async typeMessage(element: HTMLElement, message: string, delay: number) {
-        for (let i = 0; i < message.length; i++) {
-            await new Promise(resolve => setTimeout(resolve, delay));
-            element.innerHTML += message[i] === ' ' ? '&nbsp;' : message[i];
-            element.innerHTML = element.innerHTML.replace(/&nbsp;/g, ' ');
+    private typeMessage(message: string, delay: number) {
+        if (this.intervalId) {
+            clearInterval(this.intervalId);
+            this.intervalId = null;
         }
+
+        this.isTyping = true;
+        this.currentMessage = message;
+        this.currentIndex = 0;
+
+        this.intervalId = setInterval(() => {
+            this.showVisibleText();
+            this.currentIndex = Math.min(this.currentIndex + 1, this.currentMessage.length);
+
+            if (this.currentIndex >= this.currentMessage.length) {
+                this.stopTyping();
+            }
+        }, delay);
+    }
+
+    private showVisibleText() {
+        if (this.messageElement === null) {
+            throw new Error("Message element not found.");
+        }
+
+        this.messageElement.innerHTML += this.currentMessage[this.currentIndex] === ' '
+            ? '&nbsp;'
+            : this.currentMessage[this.currentIndex];
+        this.messageElement.innerHTML = this.messageElement.innerHTML.replace(/&nbsp;/g, ' ');
+    }
+
+    private stopTyping(immediate: boolean = false) {
+        if (this.intervalId) {
+            clearInterval(this.intervalId);
+            this.intervalId = null;
+
+            if (this.messageElement === null) {
+                throw new Error("Message element not found.");
+            }
+
+            if (immediate) {
+                this.messageElement.innerHTML = this.currentMessage;
+            }
+        }
+
+        this.isTyping = false;
     }
 }
