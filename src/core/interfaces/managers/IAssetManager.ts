@@ -9,7 +9,7 @@ export interface IAssetManager {
     fading?: string
   ): Promise<void>;
 
-  setExpressionPatern(patern: string, invertedWord: string): IAssetManager;
+  setExpressionPatern(patern: string): IAssetManager;
 
   setExpressions(expressionsEnum: object): IAssetManager;
 }

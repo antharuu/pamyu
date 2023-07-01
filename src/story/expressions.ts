@@ -15,7 +15,7 @@ export enum Expression {
 }
 
 Pamyu.i.assetManager
-  .setExpressionPatern("chars/{character}/{side}/{expression}.png", "-inverted")
+  .setExpressionPatern("chars/{character}/{side}/{expression}.png")
   .setExpressions(Expression);
 
 export default Expression;

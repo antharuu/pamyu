@@ -1,7 +1,5 @@
 import { Character } from "../core/Character";
-import Expression from "./expressions";
-
-const E = Expression;
+import E from "./expressions";
 
 export const Lucy = new Character("Lucy", {
   color: "#BE3B72",

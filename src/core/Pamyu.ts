@@ -144,3 +144,5 @@ export class Pamyu implements IPamyu {
     this.messageManager = new MessageManager();
   }
 }
+
+export default Pamyu.i;

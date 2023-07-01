@@ -1,8 +1,6 @@
 import { Scene } from "../../core/Scene";
 import { Baal, Lucy, Marian } from "../characters";
-import Expression from "../expressions";
-
-const E = Expression;
+import E from "../expressions";
 
 const scene = new Scene("1_arrive_port", 1, 1);
 
