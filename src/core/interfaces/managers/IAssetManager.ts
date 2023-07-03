@@ -9,5 +9,19 @@ export interface IAssetManager {
     fading?: string
   ): Promise<void>;
 
+  setExpressionPattern(pattern: string): IAssetManager;
+
   setExpressions(expressionsEnum: object): IAssetManager;
+
+  getExpressionPath(
+    character: string,
+    side: string,
+    expression: string
+  ): string;
+
+  getExpression(
+    character: string,
+    side: string,
+    expression: string
+  ): string | null;
 }
