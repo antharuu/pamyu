@@ -38,15 +38,21 @@ export class AssetManager implements IAssetManager {
     });
   }
 
-  /***
-   * You can use the following words in the pattern:
-   * - *{character}* - character name
-   * - *{side}* - left or right
-   * - *{expression}* - expression name
-   *
-   * @param pattern
-   **/
   public setExpressionPattern(pattern: string): IAssetManager {
+    const matches = pattern.match(/{[a-zA-Z0-9]+}/g) || [];
+    const allowedKeywords = ["character", "side", "expression"];
+
+    for (const match of matches) {
+      const keyword = match.slice(1, match.length - 1);
+      if (!allowedKeywords.includes(keyword)) {
+        throw new Error(
+          `Invalid keyword "${keyword}", allowed keywords are ${allowedKeywords.join(
+            ", "
+          )}.`
+        );
+      }
+    }
+
     this.expressionPatern = pattern;
 
     return this;
