@@ -8,6 +8,8 @@ import { MessageManager } from "./managers/MessageManager";
 import { IMessageManager } from "./interfaces/managers/IMessageManager";
 import { IConfig } from "./interfaces/IConfig";
 import { Config } from "./Config";
+import ISaveManager from "./interfaces/managers/ISaveManager";
+import SaveManager from "./managers/SaveManager";
 
 export class Pamyu implements IPamyu {
   private static _instance: IPamyu;
@@ -17,6 +19,8 @@ export class Pamyu implements IPamyu {
   public assetManager: IAssetManager;
 
   public messageManager: IMessageManager;
+
+  public saveManager: ISaveManager;
 
   public config: IConfig;
 
@@ -30,6 +34,7 @@ export class Pamyu implements IPamyu {
     this.config = new Config({});
     this.assetManager = new AssetManager();
     this.messageManager = new MessageManager();
+    this.saveManager = new SaveManager("0.0.1");
   }
 
   public static get i(): IPamyu {
@@ -100,7 +105,6 @@ export class Pamyu implements IPamyu {
   public prepare(elements: unknown[]): IPamyu {
     const max = elements.length;
     elements.forEach((_, i) => {
-      console.clear();
       if (i === max - 1) console.info("Loading complete");
       else {
         const percent = Math.round(((i + 1) / max) * 100);

@@ -199,7 +199,11 @@ export class Scene implements IScene {
         scene: this.name,
       },
       exec: async (): Promise<boolean> => {
-        console.error("Save not implemented");
+        await Pamyu.i.saveManager.save({
+          version: "0.0.2",
+          value: 5,
+        } as SaveFormat);
+        console.log("Save completed successfully.");
         return true;
       },
     } as IEvent);
