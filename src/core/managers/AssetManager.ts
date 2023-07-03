@@ -1,5 +1,5 @@
 import { IAssetManager } from "../interfaces/managers/IAssetManager";
-import { Pamyu } from "../Pamyu";
+import Pamyu from "../Pamyu";
 
 export class AssetManager implements IAssetManager {
   private readonly basePath: string = "assets";
@@ -24,12 +24,12 @@ export class AssetManager implements IAssetManager {
   ): Promise<void> {
     const path = this.getBackgroundPath(background);
     if (ms >= 0) {
-      Pamyu.i.container?.style.setProperty(
+      Pamyu.container?.style.setProperty(
         "transition",
         `background-image ${ms}ms ${fading}`
       );
     }
-    Pamyu.i.container?.style.setProperty("background-image", `url(${path})`);
+    Pamyu.container?.style.setProperty("background-image", `url(${path})`);
 
     return new Promise<void>((resolve) => {
       setTimeout(() => {
