@@ -4,80 +4,79 @@ import { Pamyu } from "../Pamyu";
 export class AssetManager implements IAssetManager {
   private readonly basePath: string = "assets";
 
-  private expressionPatern = "";
+  private expressionPattern = "";
 
   private expressions: object = {};
 
-  public getAssetPath(asset: string, folder = ""): string {
-    if (folder === "") return `${this.basePath}/${asset}`;
-    return `${this.basePath}/${folder}/${asset}`;
+  // Returns the path to a particular asset, with an optional folder
+  public getAssetPath(asset: string, folder = "/"): string {
+    return `${this.basePath}${folder}${asset}`;
   }
 
+  // Returns the path to a specific background image
   public getBackgroundPath(background: string): string {
-    return this.getAssetPath(`${background}.png`, "backgrounds");
+    return this.getAssetPath(`${background}.png`, "/backgrounds/");
   }
 
+  /**
+   * Sets the background image with an optional transition
+   * @param background The background to be set
+   * @param ms Transition duration in milliseconds
+   * @param fading Transition type
+   */
   public setBackground(
     background: string,
     ms = -1,
     fading = "ease-in-out"
   ): Promise<void> {
     const path = this.getBackgroundPath(background);
-    if (ms >= 0) {
-      Pamyu.i.container?.style.setProperty(
-        "transition",
-        `background-image ${ms}ms ${fading}`
-      );
-    }
+    Pamyu.i.container?.style.setProperty(
+      "transition",
+      `background-image ${ms}ms ${fading}`
+    );
     Pamyu.i.container?.style.setProperty("background-image", `url(${path})`);
 
-    return new Promise<void>((resolve) => {
+    return new Promise<void>((resolve) =>
       setTimeout(() => {
         resolve();
-      }, ms);
-    });
+      }, ms)
+    );
   }
 
-  /***
-   * You can use the following words in the pattern:
-   * - *{character}* - character name
-   * - *{side}* - left or right
-   * - *{expression}* - expression name
-   *
-   * @param patern
-   **/
-  public setExpressionPatern(patern: string): IAssetManager {
-    this.expressionPatern = patern;
-
+  // Defines a pattern for fetching expressions
+  public setExpressionPattern(pattern: string): IAssetManager {
+    this.expressionPattern = pattern;
     return this;
   }
 
+  // Sets the map of available expressions
   public setExpressions(expressionsEnum: object): IAssetManager {
     this.expressions = expressionsEnum;
-
     return this;
   }
 
+  // Returns the path to a specific expression
   public getExpressionPath(
     character: string,
     side: string,
     expression: string
   ): string {
-    const patern = this.expressionPatern
+    const pattern = this.expressionPattern
       .replace("{character}", character)
       .replace("{side}", side)
       .replace("{expression}", expression);
 
-    return this.getAssetPath(patern, "expressions");
+    return this.getAssetPath(pattern, "/expressions/");
   }
 
+  // Returns the path to a specific expression if it's available, otherwise returns null.
   public getExpression(
     character: string,
     side: string,
     expression: string
   ): string | null {
-    if (!this.expressions.hasOwnProperty(expression)) return null;
-
-    return this.getExpressionPath(character, side, expression);
+    return this.expressions.hasOwnProperty(expression)
+      ? this.getExpressionPath(character, side, expression)
+      : null;
   }
 }
