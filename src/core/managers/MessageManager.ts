@@ -26,16 +26,14 @@ export class MessageManager implements IMessageManager {
     this.textElement = document.querySelector<HTMLDivElement>("#text-box");
   }
 
-  public async showBox(): Promise<void> {
-    this.changeBoxVisibility(true);
-    await this.wait(Pamyu.i.config.transitionSpeed);
+  // Toggles the message box visibility
+  public async toggleBox(state?: boolean): Promise<void> {
+    this.changeBoxVisibility(
+      typeof state === "undefined" ? this.hasBoxVisible : state
+    );
   }
 
-  public async hideBox(): Promise<void> {
-    this.changeBoxVisibility(false);
-    await this.wait(Pamyu.i.config.transitionSpeed);
-  }
-
+  // Shows a message in the message box
   public async showMessage(
     character: Character,
     message: string,
@@ -47,7 +45,7 @@ export class MessageManager implements IMessageManager {
     }
 
     if (!this.hasBoxVisible) {
-      await this.showBox();
+      await this.toggleBox(true);
     }
 
     await this.printMessage(character, message, isThinking);
@@ -168,9 +166,5 @@ export class MessageManager implements IMessageManager {
       /&nbsp;/g,
       " "
     );
-  }
-
-  private wait(duration: number): Promise<void> {
-    return new Promise((resolve) => setTimeout(resolve, duration));
   }
 }

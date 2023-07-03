@@ -3,9 +3,7 @@ import { Character } from "../../Character";
 export interface IMessageManager {
   hasBoxVisible: boolean;
 
-  showBox(): Promise<void>;
-
-  hideBox(): Promise<void>;
+  toggleBox(state?: boolean): Promise<void>;
 
   showMessage(
     character: Character,
