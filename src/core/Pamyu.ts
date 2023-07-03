@@ -126,22 +126,28 @@ export class Pamyu implements IPamyu {
 
   private initHtmlElements(): void {
     const elements: HTMLElement[] = [];
+    const msgBox = this.createMessageBox();
+    elements.push(msgBox);
+    const textBox = this.createTextBox();
+    msgBox.appendChild(textBox);
+    elements.forEach((element) => this.container?.appendChild(element));
+    this.messageManager = new MessageManager();
+  }
 
+  private createMessageBox(): HTMLDivElement {
     const msgBox = document.createElement("div");
     msgBox.id = "message-box";
     msgBox.style.setProperty(
       "--msg-box-background-image",
       `url(${this.assetManager.getAssetPath("ui/msg-box.png")})`
     );
-    elements.push(msgBox);
+    return msgBox;
+  }
 
+  private createTextBox(): HTMLDivElement {
     const textBox = document.createElement("div");
     textBox.id = "text-box";
-    msgBox.appendChild(textBox);
-
-    elements.forEach((element) => this.container?.appendChild(element));
-
-    this.messageManager = new MessageManager();
+    return textBox;
   }
 }
 
