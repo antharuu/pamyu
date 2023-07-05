@@ -1,7 +1,33 @@
-export interface IAssetManager {
-  getAssetPath(asset: string): string;
+import { AssetList } from "../../types/app";
+import { Character } from "../../Character";
 
-  getBackgroundPath(background: string): string;
+export interface IAssetManager {
+  registerAsset(key: string, path: string, assetType?: string): IAssetManager;
+
+  registerAssets(newAssets: AssetList, assetType?: string): IAssetManager;
+
+  registerBackgrounds(backgrounds: AssetList): IAssetManager;
+
+  registerCharacters(characters: AssetList): IAssetManager;
+
+  registerUI(ui: AssetList): IAssetManager;
+
+  registerSide(side: string): IAssetManager;
+
+  getAsset(assetName: string, assetType?: string): string;
+
+  getBackground(background: string): string;
+
+  getCharacter(character: string): string;
+
+  getUI(ui: string): string;
+
+  getExpressions(): string[];
+
+  generateExpressionPath(
+    character: string,
+    params?: { [key: string]: string }
+  ): string;
 
   setBackground(
     background: string,
@@ -9,15 +35,9 @@ export interface IAssetManager {
     fading?: string
   ): Promise<void>;
 
-  /***
-   * You can use the following words in the pattern:
-   * - *{character}* - character name
-   * - *{side}* - left or right
-   * - *{expression}* - expression name
-   *
-   * @param pattern
-   **/
-  setExpressionPattern(pattern: string): IAssetManager;
+  registerExpressionPattern(pattern: string): IAssetManager;
+
+  registerExpressions(character: Character): IAssetManager;
 
   setExpressions(expressionsEnum: object): IAssetManager;
 

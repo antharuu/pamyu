@@ -143,7 +143,7 @@ export class Pamyu implements IPamyu {
     msgBox.id = "message-box";
     msgBox.style.setProperty(
       "--msg-box-background-image",
-      `url(${this.assetManager.getAssetPath("ui/msg-box.png")})`
+      `url(${this.assetManager.getAsset("MsgBox", "UI")})`
     );
     return msgBox;
   }

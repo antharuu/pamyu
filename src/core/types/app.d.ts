@@ -13,5 +13,13 @@ type EventExecReturn = {
 type CharacterOptions = Partial<{
   color: string;
   isDemon: boolean;
-  expressions: string[];
+  expressions: string[] | "*";
 }>;
+
+type Asset = string;
+
+type AssetList = { [name: string]: Asset };
+
+type Assets = {
+  [type: string]: AssetList;
+};

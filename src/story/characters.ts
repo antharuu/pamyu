@@ -4,6 +4,7 @@ import E from "./expressions";
 export const Lucy = new Character("Lucy", {
   color: "#BE3B72",
   expressions: [
+    E.Angry,
     E.Confused,
     E.Determined,
     E.Embarrassed,
@@ -21,19 +22,7 @@ export const Baal = new Character("Baal", { color: "#971f51", isDemon: true });
 
 export const Rose = new Character("Rose", {
   color: "#F97B5C",
-  expressions: [
-    E.Angry,
-    E.Confused,
-    E.Determined,
-    E.Embarrassed,
-    E.Happy,
-    E.Normal,
-    E.Regret,
-    E.Sad,
-    E.Shy,
-    E.Surprised,
-    E.Worried,
-  ],
+  expressions: "*",
 });
 
 export const Marian = new Character("Marian", {

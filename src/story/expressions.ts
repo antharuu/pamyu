@@ -17,7 +17,7 @@ export enum Expression {
 console.log(Pamyu.assetManager);
 
 Pamyu.assetManager
-  .setExpressionPattern("chars/{character}/{side}/{expression}.png")
+  .registerExpressionPattern("chars/{character}/{side}/{expression}.png")
   .setExpressions(Expression);
 
 export default Expression;

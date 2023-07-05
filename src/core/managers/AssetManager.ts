@@ -1,28 +1,117 @@
+import { Character } from "../Character";
 import { IAssetManager } from "../interfaces/managers/IAssetManager";
 import Pamyu from "../Pamyu";
+import { AssetList, Assets } from "../types/app";
 
 export class AssetManager implements IAssetManager {
-  private readonly basePath: string = "assets";
-
   private expressionPatern = "";
+
+  private expressionSides = ["left", "right"];
 
   private expressions: object = {};
 
-  public getAssetPath(asset: string, folder = ""): string {
-    if (folder === "") return `${this.basePath}/${asset}`;
-    return `${this.basePath}/${folder}/${asset}`;
+  private assets: Assets = {};
+
+  public registerAsset(
+    key: string,
+    path: string,
+    assetType = "_"
+  ): IAssetManager {
+    const asset: AssetList = { [key]: path };
+
+    this.assets[assetType] = {
+      ...asset,
+      ...(this.assets[assetType] ?? {}),
+    };
+
+    return this;
   }
 
-  public getBackgroundPath(background: string): string {
-    return this.getAssetPath(`${background}.png`, "backgrounds");
+  public registerAssets(
+    newAssets: AssetList,
+    assetType?: string
+  ): IAssetManager {
+    for (const key in newAssets) {
+      if (newAssets.hasOwnProperty(key)) {
+        this.registerAsset(key, newAssets[key], assetType);
+      }
+    }
+
+    return this;
   }
 
-  public setBackground(
+  public registerBackgrounds(backgrounds: AssetList): IAssetManager {
+    this.registerAssets(backgrounds, "Background");
+
+    return this;
+  }
+
+  public registerCharacters(characters: AssetList): IAssetManager {
+    this.registerAssets(characters, "Characters");
+
+    return this;
+  }
+
+  public registerUI(ui: AssetList): IAssetManager {
+    this.registerAssets(ui, "UI");
+
+    return this;
+  }
+
+  public registerSide(side: string): IAssetManager {
+    if (!this.expressionSides.includes(side)) {
+      this.expressionSides.push(side);
+    }
+    return this;
+  }
+
+  public getAsset(assetName: string, assetType = "_"): string {
+    return this.assets[assetType]?.[assetName] || "";
+  }
+
+  public getBackground(background: string): string {
+    return this.getAsset(background, "Background");
+  }
+
+  public getCharacter(character: string): string {
+    return this.getAsset(character, "Characters");
+  }
+
+  public getUI(ui: string): string {
+    return this.getAsset(ui, "UI");
+  }
+
+  public getExpressions(): string[] {
+    return Object.keys(this.expressions);
+  }
+
+  public generateExpressionPath(
+    character: string,
+    params?: { [key: string]: string }
+  ): string {
+    const match = this.expressionPatern.match(/{[a-zA-Z0-9]+}/g) || [];
+    let result = this.expressionPatern;
+
+    for (const item of match) {
+      const key = item.replace("{", "").replace("}", "");
+      if (key === "character") {
+        result = result.replace(item, character);
+      } else if (params && Object.keys(params).includes(key)) {
+        result = result.replace(item, params[key]);
+      } else {
+        throw new Error(`Value for "${key}" not supplied`);
+      }
+    }
+
+    return result;
+  }
+
+  public async setBackground(
     background: string,
     ms = -1,
     fading = "ease-in-out"
   ): Promise<void> {
-    const path = this.getBackgroundPath(background);
+    const path = this.getBackground(background);
     if (ms >= 0) {
       Pamyu.container?.style.setProperty(
         "transition",
@@ -38,7 +127,7 @@ export class AssetManager implements IAssetManager {
     });
   }
 
-  public setExpressionPattern(pattern: string): IAssetManager {
+  public registerExpressionPattern(pattern: string): IAssetManager {
     const matches = pattern.match(/{[a-zA-Z0-9]+}/g) || [];
     const allowedKeywords = ["character", "side", "expression"];
 
@@ -54,6 +143,50 @@ export class AssetManager implements IAssetManager {
     }
 
     this.expressionPatern = pattern;
+
+    return this;
+  }
+
+  public registerExpressions(character: Character): IAssetManager {
+    if (this.expressionSides.length === 0) {
+      this.expressionSides.push("");
+    }
+    const unFetchedExpressions: string[] = [];
+    character.allowedExpressions.forEach((expression: string) => {
+      console.log(
+        `Looking for ${character.name} with expression: ${expression}`
+      );
+
+      this.expressionSides.forEach((side: string) => {
+        import(
+          "../../assets/" +
+            this.generateExpressionPath(character.name, { side, expression })
+        )
+          .then(({ default: r }: { default: string }) => {
+            if (r.startsWith("/@fs/")) {
+              unFetchedExpressions.push(expression);
+              return;
+            } else {
+              this.registerAsset(
+                `${character.name}_${side}_${expression}`,
+                r,
+                "expressions"
+              );
+            }
+          })
+          .catch(() => unFetchedExpressions.push(expression));
+      });
+    });
+
+    console.log(unFetchedExpressions);
+
+    if (unFetchedExpressions.length !== 0) {
+      console.warn(
+        `Failed to fetch assets for Character ${
+          character.name
+        } with expressions: ${unFetchedExpressions.join(", ")}`
+      );
+    }
 
     return this;
   }
@@ -74,7 +207,7 @@ export class AssetManager implements IAssetManager {
       .replace("{side}", side)
       .replace("{expression}", expression);
 
-    return this.getAssetPath(patern, "expressions");
+    return this.getAsset(patern, "expressions");
   }
 
   public getExpression(
