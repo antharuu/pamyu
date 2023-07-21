@@ -6,7 +6,6 @@ import { IConfig } from "./IConfig";
 import ISaveManager from "./managers/ISaveManager";
 
 export interface IPamyu {
-  getExpressions: string[];
   container: HTMLElement | null;
   assetManager: IAssetManager;
   messageManager: IMessageManager;

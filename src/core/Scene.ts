@@ -1,7 +1,7 @@
 import { IScene } from "./interfaces/IScene";
 import { IChoice } from "./interfaces/IChoice";
 import { IVariable } from "./interfaces/IVariable";
-import { Pamyu } from "./Pamyu";
+import Pamyu from "./Pamyu";
 import { EventExecReturn } from "./types/app";
 import { EventType, IEvent } from "./interfaces/IEvent";
 import { Character } from "./Character";
@@ -62,7 +62,7 @@ export class Scene implements IScene {
         background,
       },
       exec: async (): Promise<boolean> => {
-        await Pamyu.i.assetManager.setBackground(background, 500);
+        await Pamyu.assetManager.setBackground(background, 500);
         return true;
       },
     } as IEvent);
@@ -159,7 +159,7 @@ export class Scene implements IScene {
       },
       exec: async (): Promise<boolean> => {
         this.setExpression(character, expression);
-        await Pamyu.i.messageManager.showMessage(
+        await Pamyu.messageManager.showMessage(
           character,
           `ch${this.chapter}.sc${this.scene}.${message}`,
           thinking
@@ -199,7 +199,7 @@ export class Scene implements IScene {
         scene: this.name,
       },
       exec: async (): Promise<boolean> => {
-        await Pamyu.i.saveManager.save({
+        await Pamyu.saveManager.save({
           version: "0.0.2",
           value: 5,
         } as SaveFormat);

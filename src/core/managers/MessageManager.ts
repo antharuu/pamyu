@@ -2,7 +2,7 @@ import { IMessageManager } from "../interfaces/managers/IMessageManager";
 import { Translation } from "../Translation";
 import { slugify } from "../utils/string";
 import { Character } from "../Character";
-import { Pamyu } from "../Pamyu";
+import Pamyu from "../Pamyu";
 
 export class MessageManager implements IMessageManager {
   public hasBoxVisible = false;
@@ -74,7 +74,7 @@ export class MessageManager implements IMessageManager {
 
     this.typeMessage(
       Translation.i.translate(message),
-      Pamyu.i.config.messageSpeed
+      Pamyu.config.messageSpeed
     );
   }
 
