@@ -11,7 +11,7 @@ import { Config } from "./Config";
 import ISaveManager from "./interfaces/managers/ISaveManager";
 import SaveManager from "./managers/SaveManager";
 
-export class Pamyu implements IPamyu {
+class Pamyu implements IPamyu {
   private static _instance: IPamyu;
 
   public container: HTMLElement | null = null;

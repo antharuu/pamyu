@@ -1,6 +1,6 @@
 import { CharacterOptions } from "./types/app";
 import { ICharacter } from "./interfaces/ICharacter";
-import { Pamyu } from "./Pamyu";
+import Pamyu from "./Pamyu";
 
 export class Character implements ICharacter {
   public readonly name: string;
@@ -23,14 +23,14 @@ export class Character implements ICharacter {
     this.isDemon = options.isDemon ?? false;
 
     if (options.expressions == "*") {
-      this.allowedExpressions = Pamyu.i.assetManager.getExpressions();
+      this.allowedExpressions = Pamyu.assetManager.getExpressions();
     } else {
       this.allowedExpressions = Array.isArray(options.expressions)
         ? options.expressions
         : ["normal"];
     }
 
-    Pamyu.i.assetManager.registerExpressions(this);
+    Pamyu.assetManager.registerExpressions(this);
   }
 
   public getName = (isThinking: boolean): string => {
