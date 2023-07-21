@@ -2,7 +2,7 @@ import { ITranslation } from "./interfaces/ITranslation";
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import trads from "../trad.yaml";
+import trads from "../../examples/trad.yaml";
 
 import { Dict, I18n } from "i18n-js";
 
