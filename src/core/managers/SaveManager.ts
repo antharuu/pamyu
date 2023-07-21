@@ -1,5 +1,3 @@
-import { invoke } from "@tauri-apps/api/tauri";
-
 import ISaveManager from "../interfaces/managers/ISaveManager";
 
 export default class SaveManager implements ISaveManager {
@@ -16,9 +14,10 @@ export default class SaveManager implements ISaveManager {
   }
 
   public async save(data: SaveFormat): Promise<ISaveManager> {
-    const res = await invoke("save", data);
+    const res = false; // TODO: Add save later
 
-    if (res !== true) {
+    if (!res) {
+      console.warn(data);
       throw new Error("Save failed");
     }
 
