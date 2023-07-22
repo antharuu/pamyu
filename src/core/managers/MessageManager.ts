@@ -76,7 +76,7 @@ export class MessageManager implements IMessageManager {
     this.textElement.appendChild(this.messageElement);
 
     this.typeMessage(
-      Translation.i.translate(message),
+      Translation.useTranslation ? Translation.i.translate(message) : message,
       Pamyu.config.messageSpeed
     );
   }
