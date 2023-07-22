@@ -51,8 +51,6 @@ class Pamyu implements IPamyu {
       ...config,
     };
 
-    console.log(this.config);
-
     return this;
   }
 

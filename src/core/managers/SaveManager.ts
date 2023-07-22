@@ -4,7 +4,7 @@ export default class SaveManager implements ISaveManager {
   public saveVersion: string;
 
   public constructor(saveVersion: string) {
-    console.log(`Current save version: ${saveVersion}`);
+    console.info(`Current save version: ${saveVersion}`);
     this.saveVersion = saveVersion;
   }
 

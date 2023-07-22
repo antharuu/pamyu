@@ -175,8 +175,6 @@ export class AssetManager implements IAssetManager {
       });
     });
 
-    console.log(unFetchedExpressions);
-
     if (unFetchedExpressions.length !== 0) {
       console.warn(
         `Failed to fetch assets for Character ${

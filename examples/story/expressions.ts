@@ -14,8 +14,6 @@ export enum Expression {
   Worried = "worried",
 }
 
-console.log(Pamyu.assetManager);
-
 Pamyu.assetManager
   .registerExpressionPattern("chars/{character}/{side}/{expression}.png")
   .setExpressions(Expression);
