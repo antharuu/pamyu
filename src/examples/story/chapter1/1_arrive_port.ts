@@ -1,4 +1,5 @@
-import { Scene } from "../../../src/core/Scene";
+import { Scene } from "../../../index";
+
 import { Baal, Lucy, Marian } from "../characters";
 import E from "../expressions";
 
@@ -21,6 +22,7 @@ scene
   .choice(Lucy, "doutes", [
     {
       message: "lugubre",
+      // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
       exec: async () =>
         scene
           .talk(Lucy, "sinistre")
@@ -33,6 +35,7 @@ scene
     },
     {
       message: "confiance",
+      // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
       exec: async () => scene.talk(Lucy, "confiance_en_maître"),
     },
   ])
@@ -40,6 +43,7 @@ scene
   .choice(Lucy, "prochaine_etape", [
     {
       message: "rejoindre_taverne",
+      // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
       exec: async () =>
         scene
           .variable("increment", "stat:courage")
@@ -49,6 +53,7 @@ scene
     },
     {
       message: "explorer_ville",
+      // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
       exec: async () =>
         scene
           .talk(Lucy, "familiarisation_ville")

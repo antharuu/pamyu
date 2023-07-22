@@ -1,4 +1,4 @@
-import Pamyu from "../../src/core/Pamyu";
+import { Pamyu } from "../../index";
 
 export enum Expression {
   Angry = "angry",

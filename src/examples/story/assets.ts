@@ -1,4 +1,4 @@
-import Pamyu from "../../src/core/Pamyu";
+import { Pamyu } from "../../index";
 
 import MsgBox from "../assets/ui/msg-box.png";
 import Next from "../assets/ui/next.png";
