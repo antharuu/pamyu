@@ -11,7 +11,7 @@ import { Config } from "./Config";
 import ISaveManager from "./interfaces/managers/ISaveManager";
 import SaveManager from "./managers/SaveManager";
 
-class Pamyu implements IPamyu {
+class PamyuCore implements IPamyu {
   private static _instance: IPamyu;
 
   public container: HTMLElement | null = null;
@@ -32,17 +32,19 @@ class Pamyu implements IPamyu {
 
   private constructor() {
     this.config = new Config({});
+    console.info("Pamyu version: ", this.config.pamyuVersion);
+    console.warn("Pamyu is in development, use at your own risk.");
     this.assetManager = new AssetManager();
     this.messageManager = new MessageManager();
     this.saveManager = new SaveManager("0.0.1");
   }
 
   public static get i(): IPamyu {
-    if (Pamyu._instance === undefined) {
-      Pamyu._instance = new Pamyu();
+    if (PamyuCore._instance === undefined) {
+      PamyuCore._instance = new PamyuCore();
     }
 
-    return Pamyu._instance;
+    return PamyuCore._instance;
   }
 
   public configure(config: Partial<IConfig>): IPamyu {
@@ -153,4 +155,4 @@ class Pamyu implements IPamyu {
   }
 }
 
-export default Pamyu.i;
+export const Pamyu = PamyuCore.i;

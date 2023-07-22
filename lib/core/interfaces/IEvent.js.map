@@ -1,0 +1,1 @@
+{"version":3,"file":"IEvent.js","sourceRoot":"","sources":["../../../src/core/interfaces/IEvent.ts"],"names":[],"mappings":"AAIA,MAAM,CAAN,IAAY,SAUX;AAVD,WAAY,SAAS;IACnB,wBAAW,CAAA;IACX,8BAAiB,CAAA;IACjB,0BAAa,CAAA;IACb,4BAAe,CAAA;IACf,0BAAa,CAAA;IACb,kDAAqC,CAAA;IACrC,8CAAiC,CAAA;IACjC,0BAAa,CAAA;IACb,kCAAqB,CAAA;AACvB,CAAC,EAVW,SAAS,KAAT,SAAS,QAUpB"}

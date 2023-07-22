@@ -1,7 +1,7 @@
 import { IScene } from "./interfaces/IScene";
 import { IChoice } from "./interfaces/IChoice";
 import { IVariable } from "./interfaces/IVariable";
-import Pamyu from "./Pamyu";
+import { Pamyu } from "./Pamyu";
 import { EventExecReturn } from "./types/app";
 import { EventType, IEvent } from "./interfaces/IEvent";
 import { Character } from "./Character";

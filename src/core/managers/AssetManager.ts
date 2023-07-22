@@ -1,6 +1,6 @@
 import { Character } from "../Character";
 import { IAssetManager } from "../interfaces/managers/IAssetManager";
-import Pamyu from "../Pamyu";
+import { Pamyu } from "../Pamyu";
 import { AssetList, Assets } from "../types/app";
 
 export class AssetManager implements IAssetManager {

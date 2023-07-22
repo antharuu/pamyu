@@ -1,15 +1,12 @@
 import { ITranslation } from "./interfaces/ITranslation";
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import trads from "../../examples/trad.yaml";
-
 import { Dict, I18n } from "i18n-js";
+import { Pamyu } from "./Pamyu";
 
 export class Translation implements ITranslation {
   private static _instance: Translation;
 
-  private readonly i18n: I18n;
+  private readonly i18n: I18n | null = null;
 
   public static get i(): ITranslation {
     Translation._instance = Translation._instance ?? new Translation();
@@ -18,10 +15,24 @@ export class Translation implements ITranslation {
   }
 
   public constructor() {
-    this.i18n = new I18n(trads as Dict);
+    const trads = Pamyu.config.translation;
+    const defaultTrads = (trads as { [key: string]: unknown }).default;
+    if (
+      defaultTrads === undefined ||
+      defaultTrads === null ||
+      typeof defaultTrads !== "object"
+    ) {
+      throw new Error(`Malformed translation file "default" is not an object.`);
+    }
+
+    this.i18n = new I18n(defaultTrads as Dict);
   }
 
   public setLanguage(language: string): ITranslation {
+    if (!this.i18n) {
+      return this;
+    }
+
     this.i18n.locale = language;
 
     return this;
@@ -32,6 +43,10 @@ export class Translation implements ITranslation {
   }
 
   public translate(key: string): string {
+    if (!this.i18n) {
+      return "[MISSING TRANSLATION FILE]";
+    }
+
     return this.i18n.t(key);
   }
 }
