@@ -8,7 +8,7 @@ export declare class Character implements ICharacter {
     visible: boolean;
     position: number;
     expression: string;
-    constructor(name: string, options: CharacterOptions);
+    constructor(name: string, options?: CharacterOptions);
     getName: (isThinking: boolean) => string;
     getColor: () => string;
     getIsDemon: () => boolean;
