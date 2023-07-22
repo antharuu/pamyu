@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
-    "target": "ES2016",
+    "target": "es2017",
     "module": "ESNext",
     "lib": ["ESNext", "DOM"],
+    "sourceMap": true,
     "moduleResolution": "Node",
     "strict": true,
     "resolveJsonModule": true,

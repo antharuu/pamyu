@@ -1,4 +1,4 @@
-import { Character } from "../../src/core/Character";
+import { Character } from "../../core/Character";
 import E from "./expressions";
 
 export const Lucy = new Character("Lucy", {

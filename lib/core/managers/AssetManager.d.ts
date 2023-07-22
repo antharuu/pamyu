@@ -3,7 +3,7 @@ import { IAssetManager } from "../interfaces/managers/IAssetManager";
 import { AssetList } from "../types/app";
 export declare class AssetManager implements IAssetManager {
     private expressionPatern;
-    private expressionSides;
+    private readonly expressionSides;
     private expressions;
     private assets;
     registerAsset(key: string, path: string, assetType?: string): IAssetManager;

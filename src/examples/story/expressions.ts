@@ -1,4 +1,4 @@
-import Pamyu from "../../src/core/Pamyu";
+import { Pamyu } from "../../index";
 
 export enum Expression {
   Angry = "angry",
@@ -13,8 +13,6 @@ export enum Expression {
   Surprised = "surprised",
   Worried = "worried",
 }
-
-console.log(Pamyu.assetManager);
 
 Pamyu.assetManager
   .registerExpressionPattern("chars/{character}/{side}/{expression}.png")
