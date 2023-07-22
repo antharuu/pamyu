@@ -15,6 +15,6 @@
     "outDir": "./lib",
     "rootDir": "./src"
   },
-  "include": ["./src"],
+  "include": ["./src", "./examples"],
   "exclude": ["node_modules"]
 }
