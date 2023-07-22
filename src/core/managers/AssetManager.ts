@@ -4,9 +4,7 @@ import { Pamyu } from "../Pamyu";
 import { AssetList, Assets } from "../types/app";
 
 export class AssetManager implements IAssetManager {
-  private expressionPatern = "";
-
-  private readonly expressionSides = ["left", "right"];
+  private expressionPattern = "";
 
   private expressions: object = {};
 
@@ -59,8 +57,8 @@ export class AssetManager implements IAssetManager {
   }
 
   public registerSide(side: string): IAssetManager {
-    if (!this.expressionSides.includes(side)) {
-      this.expressionSides.push(side);
+    if (!Pamyu.config.sides.includes(side)) {
+      Pamyu.config.sides.push(side);
     }
     return this;
   }
@@ -89,8 +87,8 @@ export class AssetManager implements IAssetManager {
     character: string,
     params?: { [key: string]: string }
   ): string {
-    const match = this.expressionPatern.match(/{[a-zA-Z0-9]+}/g) || [];
-    let result = this.expressionPatern;
+    const match = this.expressionPattern.match(/{[a-zA-Z0-9]+}/g) || [];
+    let result = this.expressionPattern;
 
     for (const item of match) {
       const key = item.replace("{", "").replace("}", "");
@@ -142,18 +140,18 @@ export class AssetManager implements IAssetManager {
       }
     }
 
-    this.expressionPatern = pattern;
+    this.expressionPattern = pattern;
 
     return this;
   }
 
   public registerExpressions(character: Character): IAssetManager {
-    if (this.expressionSides.length === 0) {
-      this.expressionSides.push("");
+    if (Pamyu.config.sides.length === 0) {
+      Pamyu.config.sides.push("");
     }
     const unFetchedExpressions: string[] = [];
     character.allowedExpressions.forEach((expression: string) => {
-      this.expressionSides.forEach((side: string) => {
+      Pamyu.config.sides.forEach((side: string) => {
         import(
           /* @vite-ignore */
           "../../assets/" +
@@ -197,12 +195,12 @@ export class AssetManager implements IAssetManager {
     side: string,
     expression: string
   ): string {
-    const patern = this.expressionPatern
+    const pattern = this.expressionPattern
       .replace("{character}", character)
       .replace("{side}", side)
       .replace("{expression}", expression);
 
-    return this.getAsset(patern, "expressions");
+    return this.getAsset(pattern, "expressions");
   }
 
   public getExpression(

@@ -1,7 +1,7 @@
 {
   "name": "pamyu",
   "private": false,
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Pamyu is a Visual Novel game engine/framework project. It is developed in Typescript.",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -16,15 +16,14 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
+    "build": "tsc && vite build && sass src/styles/global.scss lib/styles/global.css --style compressed",
     "lint": "eslint --fix src/core/*.{ts,tsx}"
   },
   "dependencies": {
     "@modyfi/vite-plugin-yaml": "^1.0.4",
     "eslint": "^8.44.0",
     "i18n-js": "^4.2.3",
-    "sass": "^1.63.6",
+    "sass": "^1.64.1",
     "yaml": "^2.3.1"
   },
   "devDependencies": {

@@ -33,7 +33,7 @@ class PamyuCore implements IPamyu {
   private constructor() {
     this.config = new Config({});
     console.info("Pamyu version: ", this.config.pamyuVersion);
-    console.warn("Pamyu is in development, use at your own risk.");
+    console.warn("Pamyu is in development version, use at your own risk.");
     this.assetManager = new AssetManager();
     this.messageManager = new MessageManager();
     this.saveManager = new SaveManager("0.0.1");
@@ -61,6 +61,12 @@ class PamyuCore implements IPamyu {
     color = "black",
     options: AppOptions = {}
   ): IPamyu {
+    if (this.config.pamyuDevEnv) {
+      console.warn(
+        "Pamyu is in developer mode, styles will be imported in scss."
+      );
+    }
+
     if (typeof selector === "string") {
       const element = document.querySelector<HTMLElement>(selector);
 
@@ -78,8 +84,10 @@ class PamyuCore implements IPamyu {
     }
 
     if (this.container === null) throw new Error("Container is null");
+    this.container.classList.add("pamyu__app");
     this.container.style.setProperty("--background-color", color);
 
+    void this.importStyles();
     this.initHtmlElements();
 
     Translation.i.setLanguage("fr");
@@ -140,7 +148,7 @@ class PamyuCore implements IPamyu {
 
   private createMessageBox(): HTMLDivElement {
     const msgBox = document.createElement("div");
-    msgBox.id = "message-box";
+    msgBox.classList.add("pamyu__message-box");
     msgBox.style.setProperty(
       "--msg-box-background-image",
       `url(${this.assetManager.getAsset("MsgBox", "UI")})`
@@ -150,8 +158,22 @@ class PamyuCore implements IPamyu {
 
   private createTextBox(): HTMLDivElement {
     const textBox = document.createElement("div");
-    textBox.id = "text-box";
+    textBox.classList.add("pamyu__text-box");
     return textBox;
+  }
+
+  private async importStyles(): Promise<void> {
+    if (!this.config.importBaseStyles) return;
+    const src = this.config.pamyuDevEnv ? "src" : "node_modules/pamyu/lib";
+    for (const ext of ["css", "scss"]) {
+      const response = await fetch(`${src}/styles/global.${ext}`);
+      if (response.ok) {
+        import(`../styles/global.${ext}`, { assert: { type: "css" } });
+        return;
+      }
+    }
+
+    console.error("Could not find styles for Pamyu");
   }
 }
 

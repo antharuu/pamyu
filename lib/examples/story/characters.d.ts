@@ -1,4 +1,4 @@
-import { Character } from "../../core/Character";
+import { Character } from "../../index";
 export declare const Lucy: Character;
 export declare const Baal: Character;
 export declare const Rose: Character;

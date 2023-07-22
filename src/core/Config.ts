@@ -6,6 +6,8 @@ import { IConfig } from "./interfaces/IConfig";
 export class Config implements IConfig {
   public pamyuVersion = "0.0.0";
 
+  public pamyuDevEnv = false;
+
   public transitionSpeed = 0;
 
   public messageSpeed = 0;
@@ -13,6 +15,12 @@ export class Config implements IConfig {
   public translation = null;
 
   public defaultLanguage = "en";
+
+  public sides = ["left", "right"];
+
+  public positions = 2;
+
+  public importBaseStyles = true;
 
   public constructor(config: Partial<IConfig>) {
     Object.assign(this, config);

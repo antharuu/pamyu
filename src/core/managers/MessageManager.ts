@@ -22,8 +22,11 @@ export class MessageManager implements IMessageManager {
   private intervalId: number | null = null;
 
   public constructor() {
-    this.boxElement = document.querySelector<HTMLDivElement>("#message-box");
-    this.textElement = document.querySelector<HTMLDivElement>("#text-box");
+    this.boxElement = document.querySelector<HTMLDivElement>(
+      ".pamyu__message-box"
+    );
+    this.textElement =
+      document.querySelector<HTMLDivElement>(".pamyu__text-box");
   }
 
   // Toggles the message box visibility
@@ -73,7 +76,7 @@ export class MessageManager implements IMessageManager {
     this.textElement.appendChild(this.messageElement);
 
     this.typeMessage(
-      Translation.i.translate(message),
+      Translation.useTranslation ? Translation.i.translate(message) : message,
       Pamyu.config.messageSpeed
     );
   }

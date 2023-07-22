@@ -121,7 +121,7 @@ export class Scene implements IScene {
       exec: async (): Promise<boolean> => {
         this.setExpression(character, expression);
         character.setVisible(true);
-        console.warn("Join not completly implemented");
+        console.warn("Join not completely implemented");
         return true;
       },
     } as IEvent);
@@ -137,7 +137,7 @@ export class Scene implements IScene {
       },
       exec: async (): Promise<boolean> => {
         character.setVisible(false);
-        console.warn("Leave not completly implemented");
+        console.warn("Leave not completely implemented");
         return true;
       },
     } as IEvent);

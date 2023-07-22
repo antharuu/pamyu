@@ -1,8 +1,8 @@
 import { ITranslation } from "./interfaces/ITranslation";
 export declare class Translation implements ITranslation {
-    static readonly DEFAULT_LANGUAGE: string;
+    static useTranslation: boolean;
     private static _instance;
-    private i18n;
+    private readonly i18n;
     static get i(): ITranslation;
     constructor();
     setLanguage(language: string): ITranslation;

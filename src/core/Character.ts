@@ -17,7 +17,7 @@ export class Character implements ICharacter {
 
   public expression = "normal";
 
-  public constructor(name: string, options: CharacterOptions) {
+  public constructor(name: string, options: CharacterOptions = {}) {
     this.name = name;
     this.color = options.color ?? "#F3ECF3";
     this.isDemon = options.isDemon ?? false;

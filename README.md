@@ -6,7 +6,11 @@
 
 ## Installation
 
-Coming soon. But probably `npm i pamyu`.
+```bash
+yarn add pamyu
+// or
+npm i pamyu
+```
 
 ## Usage
 
@@ -72,7 +76,7 @@ export const Jenny = new Character("Jenny", {
 ### Expressions
 
 ```typescript
-import Pamyu from "../core/Pamyu";
+import {Pamyu} from "../core/Pamyu";
 
 enum Expression {
     // List all the expressions you want to use for all your characters
@@ -101,7 +105,7 @@ export default Expression; // Export the enum for use in the other files
 ### Scenes
 
 Chapter and scene number are used for the translation if you want to use it _(enabled by default and disabled is not
-implemented yet)_ exemple in this case for a text with id "hello_world" the translation key will be
+implemented yet)_ example in this case for a text with id "hello_world" the translation key will be
 "ch5.sc1.hello_world"
 
 ```typescript
