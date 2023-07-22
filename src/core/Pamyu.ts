@@ -169,8 +169,14 @@ class PamyuCore implements IPamyu {
     for (const ext of ["css", "scss"]) {
       const response = await fetch(`${src}/styles/global.${ext}`);
       if (response.ok) {
-        import(`../styles/global.${ext}`);
+        if (ext === "css") {
+          // noinspection JSUnresolvedReference
+          import.meta.glob("../styles/global.css", { query: "?inline" });
+        } else {
+          import(`../styles/global.${ext}`);
+        }
         found = true;
+        return;
       }
     }
 
