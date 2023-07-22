@@ -169,7 +169,7 @@ class PamyuCore implements IPamyu {
     for (const ext of ["css", "scss"]) {
       const response = await fetch(`${src}/styles/global.${ext}`);
       if (response.ok) {
-        import(`../styles/global.${ext}`);
+        import(`../styles/global.${ext}`, { assert: { type: "css" } });
         found = true;
         return;
       }
