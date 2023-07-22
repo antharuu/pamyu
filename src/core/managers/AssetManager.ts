@@ -4,7 +4,7 @@ import { Pamyu } from "../Pamyu";
 import { AssetList, Assets } from "../types/app";
 
 export class AssetManager implements IAssetManager {
-  private expressionPatern = "";
+  private expressionPattern = "";
 
   private readonly expressionSides = ["left", "right"];
 
@@ -89,8 +89,8 @@ export class AssetManager implements IAssetManager {
     character: string,
     params?: { [key: string]: string }
   ): string {
-    const match = this.expressionPatern.match(/{[a-zA-Z0-9]+}/g) || [];
-    let result = this.expressionPatern;
+    const match = this.expressionPattern.match(/{[a-zA-Z0-9]+}/g) || [];
+    let result = this.expressionPattern;
 
     for (const item of match) {
       const key = item.replace("{", "").replace("}", "");
@@ -142,7 +142,7 @@ export class AssetManager implements IAssetManager {
       }
     }
 
-    this.expressionPatern = pattern;
+    this.expressionPattern = pattern;
 
     return this;
   }
@@ -197,12 +197,12 @@ export class AssetManager implements IAssetManager {
     side: string,
     expression: string
   ): string {
-    const patern = this.expressionPatern
+    const pattern = this.expressionPattern
       .replace("{character}", character)
       .replace("{side}", side)
       .replace("{expression}", expression);
 
-    return this.getAsset(patern, "expressions");
+    return this.getAsset(pattern, "expressions");
   }
 
   public getExpression(
