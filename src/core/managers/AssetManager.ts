@@ -6,7 +6,7 @@ import { AssetList, Assets } from "../types/app";
 export class AssetManager implements IAssetManager {
   private expressionPatern = "";
 
-  private expressionSides = ["left", "right"];
+  private readonly expressionSides = ["left", "right"];
 
   private expressions: object = {};
 
@@ -153,12 +153,9 @@ export class AssetManager implements IAssetManager {
     }
     const unFetchedExpressions: string[] = [];
     character.allowedExpressions.forEach((expression: string) => {
-      console.log(
-        `Looking for ${character.name} with expression: ${expression}`
-      );
-
       this.expressionSides.forEach((side: string) => {
         import(
+          /* @vite-ignore */
           "../../assets/" +
             this.generateExpressionPath(character.name, { side, expression })
         )
