@@ -17,7 +17,6 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build && sass src/styles/global.scss lib/styles/global.css --style compressed",
-    "preview": "vite preview",
     "lint": "eslint --fix src/core/*.{ts,tsx}"
   },
   "dependencies": {
