@@ -2,8 +2,11 @@
 
 ## Introduction
 
-**Pamyu** is a Visual Novel game engine/framework project. It is developed in Typescript and uses Tauri for the Desktop
-part.
+**Pamyu** is a Visual Novel game engine/framework project. It is developed in Typescript.
+
+## Installation
+
+Coming soon. But probably `npm i pamyu`.
 
 ## Usage
 

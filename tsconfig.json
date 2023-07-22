@@ -1,18 +1,21 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
+    "target": "es2017",
     "module": "ESNext",
     "lib": ["ESNext", "DOM"],
+    "sourceMap": true,
     "moduleResolution": "Node",
     "strict": true,
-    "sourceMap": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "types": ["vite/client"],
-    "noEmit": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noImplicitReturns": true
+    "noImplicitReturns": true,
+    "declaration": true,
+    "outDir": "./lib",
+    "rootDir": "./src"
   },
-  "include": ["./src"]
+  "include": ["./src"],
+  "exclude": ["node_modules"]
 }

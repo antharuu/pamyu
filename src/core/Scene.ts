@@ -62,7 +62,7 @@ export class Scene implements IScene {
         background,
       },
       exec: async (): Promise<boolean> => {
-        await Pamyu.i.assetManager.setBackground(background, 500);
+        await Pamyu.assetManager.setBackground(background, 500);
         return true;
       },
     } as IEvent);
@@ -159,7 +159,7 @@ export class Scene implements IScene {
       },
       exec: async (): Promise<boolean> => {
         this.setExpression(character, expression);
-        await Pamyu.i.messageManager.showMessage(
+        await Pamyu.messageManager.showMessage(
           character,
           `ch${this.chapter}.sc${this.scene}.${message}`,
           thinking
@@ -199,7 +199,10 @@ export class Scene implements IScene {
         scene: this.name,
       },
       exec: async (): Promise<boolean> => {
-        console.error("Save not implemented");
+        await Pamyu.saveManager.save({
+          version: "0.0.2",
+          value: 5,
+        } as SaveFormat);
         return true;
       },
     } as IEvent);

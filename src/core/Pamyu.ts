@@ -8,8 +8,10 @@ import { MessageManager } from "./managers/MessageManager";
 import { IMessageManager } from "./interfaces/managers/IMessageManager";
 import { IConfig } from "./interfaces/IConfig";
 import { Config } from "./Config";
+import ISaveManager from "./interfaces/managers/ISaveManager";
+import SaveManager from "./managers/SaveManager";
 
-export class Pamyu implements IPamyu {
+class PamyuCore implements IPamyu {
   private static _instance: IPamyu;
 
   public container: HTMLElement | null = null;
@@ -17,6 +19,8 @@ export class Pamyu implements IPamyu {
   public assetManager: IAssetManager;
 
   public messageManager: IMessageManager;
+
+  public saveManager: ISaveManager;
 
   public config: IConfig;
 
@@ -28,16 +32,19 @@ export class Pamyu implements IPamyu {
 
   private constructor() {
     this.config = new Config({});
+    console.info("Pamyu version: ", this.config.pamyuVersion);
+    console.warn("Pamyu is in development, use at your own risk.");
     this.assetManager = new AssetManager();
     this.messageManager = new MessageManager();
+    this.saveManager = new SaveManager("0.0.1");
   }
 
   public static get i(): IPamyu {
-    if (Pamyu._instance === undefined) {
-      Pamyu._instance = new Pamyu();
+    if (PamyuCore._instance === undefined) {
+      PamyuCore._instance = new PamyuCore();
     }
 
-    return Pamyu._instance;
+    return PamyuCore._instance;
   }
 
   public configure(config: Partial<IConfig>): IPamyu {
@@ -45,8 +52,6 @@ export class Pamyu implements IPamyu {
       ...this.config,
       ...config,
     };
-
-    console.log(this.config);
 
     return this;
   }
@@ -100,7 +105,6 @@ export class Pamyu implements IPamyu {
   public prepare(elements: unknown[]): IPamyu {
     const max = elements.length;
     elements.forEach((_, i) => {
-      console.clear();
       if (i === max - 1) console.info("Loading complete");
       else {
         const percent = Math.round(((i + 1) / max) * 100);
@@ -139,7 +143,7 @@ export class Pamyu implements IPamyu {
     msgBox.id = "message-box";
     msgBox.style.setProperty(
       "--msg-box-background-image",
-      `url(${this.assetManager.getAssetPath("ui/msg-box.png")})`
+      `url(${this.assetManager.getAsset("MsgBox", "UI")})`
     );
     return msgBox;
   }
@@ -151,4 +155,4 @@ export class Pamyu implements IPamyu {
   }
 }
 
-export default Pamyu.i;
+export const Pamyu = PamyuCore.i;
