@@ -15,17 +15,18 @@ export class Translation implements ITranslation {
   }
 
   public constructor() {
-    const trads = Pamyu.config.translation;
-    const defaultTrads = (trads as { [key: string]: unknown }).default;
+    const translations = Pamyu.config.translation;
+    const defaultTranslations = (translations as { [key: string]: unknown })
+      .default;
     if (
-      defaultTrads === undefined ||
-      defaultTrads === null ||
-      typeof defaultTrads !== "object"
+      defaultTranslations === undefined ||
+      defaultTranslations === null ||
+      typeof defaultTranslations !== "object"
     ) {
       throw new Error(`Malformed translation file "default" is not an object.`);
     }
 
-    this.i18n = new I18n(defaultTrads as Dict);
+    this.i18n = new I18n(defaultTranslations as Dict);
   }
 
   public setLanguage(language: string): ITranslation {
