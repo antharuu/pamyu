@@ -4,6 +4,8 @@ import { Dict, I18n } from "i18n-js";
 import { Pamyu } from "./Pamyu";
 
 export class Translation implements ITranslation {
+  public static useTranslation = false;
+
   private static _instance: Translation;
 
   private readonly i18n: I18n | null = null;
@@ -15,9 +17,24 @@ export class Translation implements ITranslation {
   }
 
   public constructor() {
-    const translations = Pamyu.config.translation;
-    const defaultTranslations = (translations as { [key: string]: unknown })
-      .default;
+    const translations: unknown = Pamyu.config.translation;
+
+    if (
+      translations === null ||
+      translations === undefined ||
+      typeof translations !== "object" ||
+      Object.keys(translations).length === 0
+    ) {
+      return;
+    }
+
+    if (!("default" in translations)) {
+      throw new Error(
+        `Malformed translation file "default" is a reserved keyword.`
+      );
+    }
+
+    const defaultTranslations = translations.default;
     if (
       defaultTranslations === undefined ||
       defaultTranslations === null ||
@@ -27,6 +44,7 @@ export class Translation implements ITranslation {
     }
 
     this.i18n = new I18n(defaultTranslations as Dict);
+    Translation.useTranslation = true;
   }
 
   public setLanguage(language: string): ITranslation {

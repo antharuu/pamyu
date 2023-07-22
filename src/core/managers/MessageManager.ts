@@ -22,8 +22,11 @@ export class MessageManager implements IMessageManager {
   private intervalId: number | null = null;
 
   public constructor() {
-    this.boxElement = document.querySelector<HTMLDivElement>("#message-box");
-    this.textElement = document.querySelector<HTMLDivElement>("#text-box");
+    this.boxElement = document.querySelector<HTMLDivElement>(
+      ".pamyu__message-box"
+    );
+    this.textElement =
+      document.querySelector<HTMLDivElement>(".pamyu__text-box");
   }
 
   // Toggles the message box visibility

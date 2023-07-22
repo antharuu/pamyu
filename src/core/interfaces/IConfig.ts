@@ -5,6 +5,13 @@ export interface IConfig {
   pamyuVersion: string;
 
   /**
+   * If the environment is pamyu development
+   * /!\ Do not use this unless you know what you are doing
+   * @default false
+   */
+  pamyuDevEnv: boolean;
+
+  /**
    * The speed of the default transition
    * @default 0
    */
@@ -39,4 +46,10 @@ export interface IConfig {
    * @default 2
    */
   positions: number;
+
+  /**
+   * If the base styles should be imported
+   * @default true
+   */
+  importBaseStyles: boolean;
 }

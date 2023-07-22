@@ -10,6 +10,7 @@ Pamyu.configure({
   // @ts-ignore
   translation: await import("./trad.yaml"),
   defaultLanguage: "fr",
+  pamyuDevEnv: true,
 })
   .create("#app", "purple", {
     background: "Global",
