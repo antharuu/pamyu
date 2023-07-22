@@ -37,6 +37,8 @@ class PamyuCore implements IPamyu {
     this.assetManager = new AssetManager();
     this.messageManager = new MessageManager();
     this.saveManager = new SaveManager("0.0.1");
+
+    import("../styles/global.scss");
   }
 
   public static get i(): IPamyu {
