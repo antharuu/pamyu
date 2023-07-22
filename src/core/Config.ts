@@ -14,6 +14,10 @@ export class Config implements IConfig {
 
   public defaultLanguage = "en";
 
+  public sides = ["left", "right"];
+
+  public positions = 2;
+
   public constructor(config: Partial<IConfig>) {
     Object.assign(this, config);
 

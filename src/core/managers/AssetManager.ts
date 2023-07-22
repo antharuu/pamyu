@@ -6,8 +6,6 @@ import { AssetList, Assets } from "../types/app";
 export class AssetManager implements IAssetManager {
   private expressionPattern = "";
 
-  private readonly expressionSides = ["left", "right"];
-
   private expressions: object = {};
 
   private assets: Assets = {};
@@ -59,8 +57,8 @@ export class AssetManager implements IAssetManager {
   }
 
   public registerSide(side: string): IAssetManager {
-    if (!this.expressionSides.includes(side)) {
-      this.expressionSides.push(side);
+    if (!Pamyu.config.sides.includes(side)) {
+      Pamyu.config.sides.push(side);
     }
     return this;
   }
@@ -148,12 +146,12 @@ export class AssetManager implements IAssetManager {
   }
 
   public registerExpressions(character: Character): IAssetManager {
-    if (this.expressionSides.length === 0) {
-      this.expressionSides.push("");
+    if (Pamyu.config.sides.length === 0) {
+      Pamyu.config.sides.push("");
     }
     const unFetchedExpressions: string[] = [];
     character.allowedExpressions.forEach((expression: string) => {
-      this.expressionSides.forEach((side: string) => {
+      Pamyu.config.sides.forEach((side: string) => {
         import(
           /* @vite-ignore */
           "../../assets/" +
