@@ -17,6 +17,12 @@ rules:
       "endOfLine": "auto"
     }
   ]
+  'no-console':
+    - 'error'
+    - allow:
+        - warn
+        - info
+        - error
   '@typescript-eslint/explicit-function-return-type': 'error'
   '@typescript-eslint/no-explicit-any': 'error'
   '@typescript-eslint/no-unsafe-assignment': 'error'
@@ -31,7 +37,7 @@ rules:
   'import/extensions': 'off'
   'import/no-extraneous-dependencies': 'off'
   'react/jsx-filename-extension': 'off'
-  '@typescript-eslint/explicit-member-accessibility': ['error']
+  '@typescript-eslint/explicit-member-accessibility': [ 'error' ]
   '@typescript-eslint/member-ordering':
     - 'error'
     - default:
