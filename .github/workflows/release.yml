@@ -11,5 +11,18 @@ jobs:
         uses: actions/checkout@v2
       - name: Install dependencies
         run: yarn install --frozen-lockfile
+      - name: Init git user
+        run: |
+          git config --global user.name "Antharuu"
+          git config --global user.email "antho.eclips@gmail.com"
+      - name: Configure npm
+        run: npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Release
+        run: yarn up
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: End message
         run: echo "End of release"
