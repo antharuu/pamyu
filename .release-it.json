@@ -9,7 +9,7 @@
     "publish": false
   },
   "npm": {
-    "publish": true
+    "publish": false
   },
   "github": {
     "release": false
