@@ -1,7 +1,7 @@
 {
   "name": "pamyu",
   "private": false,
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Pamyu is a Visual Novel game engine/framework project. It is developed in Typescript.",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
