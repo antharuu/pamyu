@@ -9,18 +9,18 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18.x'
+          registry-url: 'https://registry.npmjs.org'
       - name: Install dependencies
         run: yarn install --frozen-lockfile
-      - name: Init git user
-        run: |
-          git config --global user.name "Antharuu"
-          git config --global user.email "antho.eclips@gmail.com"
-      - name: Configure npm
-        run: npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
-      - name: Release
-        run: yarn up
+      - name: Build
+        run: yarn build
+      - name: Publish package on NPM 📦
+        run: npm publish
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: End message
         run: echo "End of release"
