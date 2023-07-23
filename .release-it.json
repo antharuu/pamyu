@@ -1,0 +1,25 @@
+{
+  "git": {
+    "tagName": "v${version}",
+    "requireCleanWorkingDir": false,
+    "commitMessage": "Release v${version}",
+    "tag": true,
+    "push": true,
+    "commit": true,
+    "publish": false
+  },
+  "npm": {
+    "publish": true
+  },
+  "github": {
+    "release": false
+  },
+  "prompt": false,
+  "hooks": {
+    "before:init": [
+      "yarn",
+      "yarn build"
+    ],
+    "after:bump": "yarn changelog:update"
+  }
+}
