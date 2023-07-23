@@ -10,6 +10,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Install dependencies
-        run: npm ci
+        run: yarn install --frozen-lockfile
       - name: End message
         run: echo "End of release"
