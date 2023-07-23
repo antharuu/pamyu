@@ -16,9 +16,7 @@ jobs:
           git config --global user.name "Antharuu"
           git config --global user.email "antho.eclips@gmail.com"
       - name: Configure npm
-        run: npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
       - name: Release
         run: yarn up
         env:
