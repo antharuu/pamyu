@@ -13,16 +13,16 @@ export default class Scene implements IScene {
     constructor(name: string, chapter: number | string, scene: number | string);
     execNext(): Promise<EventExecReturn>;
     changeBackground(background: string): IScene;
-    choice(character: Character, message: string, choices: IChoice[], expression?: unknown): IScene;
+    choice(character: Character, message: string, choices: IChoice[], expression?: string): IScene;
     goto(scene: string): IScene;
-    join(character: Character, position: number, expression?: unknown): IScene;
+    join(character: Character, position: number | string, expression?: string): IScene;
     leave(character: Character): IScene;
-    msg(character: Character, message: string, thinking: boolean, expression?: unknown): IScene;
-    think(character: Character, message: string, expression?: unknown): IScene;
-    talk(character: Character, message: string, expression?: unknown): IScene;
+    msg(character: Character, message: string, thinking: boolean, expression?: string): IScene;
+    think(character: Character, message: string, expression?: string): IScene;
+    talk(character: Character, message: string, expression?: string): IScene;
     save(): IScene;
     setAchievement(achievement: string): IScene;
     variable(action: keyof IVariable, name: string, value?: unknown): IScene;
-    setExpression(character: Character, expression?: unknown): IScene;
+    setExpression(character: Character, expression: string | undefined): IScene;
     private addAction;
 }

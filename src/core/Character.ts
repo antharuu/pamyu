@@ -9,21 +9,16 @@ export default class Character implements ICharacter {
 
   public readonly isDemon: boolean;
 
-  public readonly allowedExpressions: string[] = [];
-
   public visible = true;
 
   public position = 0;
 
-  public expression = "normal";
+  private sprite: string | undefined;
 
   public constructor(name: string, options: CharacterOptions = {}) {
     this.name = name;
     this.color = options.color ?? "#F3ECF3";
     this.isDemon = options.isDemon ?? false;
-    this.allowedExpressions = this.getAllowedExpressions(options);
-
-    Pamyu.assetManager.registerExpressions(this);
   }
 
   public getName = (isThinking: boolean): string => {
@@ -40,7 +35,15 @@ export default class Character implements ICharacter {
 
   public getPosition = (): number => this.position;
 
-  public getExpression = (): string => this.expression;
+  public setSprite(expression: string | undefined): ICharacter {
+    this.sprite = expression;
+
+    return this;
+  }
+
+  public getSprite(): string | undefined {
+    return this.sprite;
+  }
 
   public setVisible = (visible: boolean): ICharacter => {
     this.visible = visible;
@@ -50,18 +53,6 @@ export default class Character implements ICharacter {
 
   public setPosition = (position: number): ICharacter => {
     this.position = position;
-
-    return this;
-  };
-
-  public setExpression = (expression: string): ICharacter => {
-    if (this.allowedExpressions.includes(expression)) {
-      if (this.expression !== expression) this.expression = expression;
-    } else {
-      console.error(
-        `Character ${this.name} does not have expression ${expression}`
-      );
-    }
 
     return this;
   };
@@ -80,15 +71,5 @@ export default class Character implements ICharacter {
       prefix: thinkCharacters.prefix ?? "",
       suffix: thinkCharacters.suffix ?? "",
     };
-  }
-
-  private getAllowedExpressions(options: CharacterOptions): string[] {
-    if (options.expressions == "*") {
-      return Pamyu.assetManager.getExpressions();
-    } else {
-      return Array.isArray(options.expressions)
-        ? options.expressions
-        : ["normal"];
-    }
   }
 }

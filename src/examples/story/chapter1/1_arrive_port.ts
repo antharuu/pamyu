@@ -1,7 +1,9 @@
 import { Scene } from "../../../index";
 
 import { Baal, Lucy, Marian } from "../characters";
-import E from "../expressions";
+
+import LucyEmbarrassed from "../../assets/chars/Lucy/Gauche/Embarrassed.png";
+import MarianHappy from "../../assets/chars/Marian/Droite/Happy.png";
 
 const scene = new Scene("1_arrive_port", 1, 1);
 
@@ -13,10 +15,10 @@ scene
   .think(Lucy, "ville_brouillard")
   .think(Lucy, "odeur_salete")
   .think(Lucy, "ambiance_lugubre")
-  .join(Lucy, 1)
-  .talk(Lucy, "incertitude_navire", E.Embarrassed)
-  .join(Marian, 5)
-  .talk(Marian, "confiance_port_ami", E.Happy)
+  .join(Lucy, "Gauche", LucyEmbarrassed)
+  .talk(Lucy, "incertitude_navire")
+  .join(Marian, "Droite", MarianHappy)
+  .talk(Marian, "confiance_port_ami")
   .talk(Lucy, "confiance_ami")
   .think(Baal, "confiance_maître")
   .choice(Lucy, "doutes", [

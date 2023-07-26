@@ -107,6 +107,17 @@ class PamyuCore implements IPamyu {
     return this;
   }
 
+  public async waitConfig(): Promise<void> {
+    return new Promise<void>((resolve) => {
+      const interval = setInterval(() => {
+        if (this.config.pamyuVersion !== "") {
+          clearInterval(interval);
+          resolve();
+        }
+      }, 100);
+    });
+  }
+
   private createElements(
     selector: string | HTMLElement,
     color = "black",

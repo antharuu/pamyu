@@ -1,5 +1,4 @@
 import { AssetList } from "../../types/app";
-import Character from "../../Character";
 
 export default interface IAssetManager {
   registerAsset(key: string, path: string, assetType?: string): IAssetManager;
@@ -22,34 +21,9 @@ export default interface IAssetManager {
 
   getUI(ui: string): string;
 
-  getExpressions(): string[];
-
-  generateExpressionPath(
-    character: string,
-    params?: { [key: string]: string }
-  ): string;
-
   setBackground(
     background: string,
     ms?: number,
     fading?: string
   ): Promise<void>;
-
-  registerExpressionPattern(pattern: string): IAssetManager;
-
-  registerExpressions(character: Character): IAssetManager;
-
-  setExpressions(expressionsEnum: object): IAssetManager;
-
-  getExpressionPath(
-    character: string,
-    side: string,
-    expression: string
-  ): string;
-
-  getExpression(
-    character: string,
-    side: string,
-    expression: string
-  ): string | null;
 }

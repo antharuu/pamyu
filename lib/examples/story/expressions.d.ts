@@ -1,14 +1,14 @@
 export declare enum Expression {
-    Angry = "angry",
-    Confused = "confused",
-    Determined = "determined",
-    Embarrassed = "embarrassed",
-    Happy = "happy",
-    Normal = "normal",
-    Regret = "regret",
-    Sad = "sad",
-    Shy = "shy",
-    Surprised = "surprised",
-    Worried = "worried"
+    Angry = "Angry",
+    Confused = "Confused",
+    Determined = "Determined",
+    Embarrassed = "Embarrassed",
+    Happy = "Happy",
+    Normal = "Normal",
+    Regret = "Regret",
+    Sad = "Sad",
+    Shy = "Shy",
+    Surprised = "Surprised",
+    Worried = "Worried"
 }
 export default Expression;

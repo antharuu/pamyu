@@ -4,20 +4,18 @@ export default class Character implements ICharacter {
     readonly name: string;
     readonly color: string;
     readonly isDemon: boolean;
-    readonly allowedExpressions: string[];
     visible: boolean;
     position: number;
-    expression: string;
+    private sprite;
     constructor(name: string, options?: CharacterOptions);
     getName: (isThinking: boolean) => string;
     getColor: () => string;
     getIsDemon: () => boolean;
     getVisible: () => boolean;
     getPosition: () => number;
-    getExpression: () => string;
+    setSprite(expression: string | undefined): ICharacter;
+    getSprite(): string | undefined;
     setVisible: (visible: boolean) => ICharacter;
     setPosition: (position: number) => ICharacter;
-    setExpression: (expression: string) => ICharacter;
     private getThinkCharacters;
-    private getAllowedExpressions;
 }

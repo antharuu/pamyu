@@ -23,14 +23,18 @@ export interface IScene {
     character: Character,
     message: string,
     thinking: boolean,
-    expression?: unknown
+    expression?: string
   ): IScene;
 
-  think(character: Character, message: string, expression?: unknown): IScene;
+  think(character: Character, message: string, expression?: string): IScene;
 
-  talk(character: Character, message: string, expression?: unknown): IScene;
+  talk(character: Character, message: string, expression?: string): IScene;
 
-  join(character: Character, position: number, expression?: unknown): IScene;
+  join(
+    character: Character,
+    position: number | string,
+    expression?: string
+  ): IScene;
 
   leave(character: Character): IScene;
 
@@ -38,12 +42,12 @@ export interface IScene {
     character: Character,
     message: string,
     choices: IChoice[],
-    expression?: unknown
+    expression?: string
   ): IScene;
 
   goto(scene: string): IScene;
 
   variable(action: keyof IVariable, name: string, value?: unknown): IScene;
 
-  setExpression(character: Character, expression: object): IScene;
+  setExpression(character: Character, expression: string | undefined): IScene;
 }

@@ -1,11 +1,9 @@
 import ICharacterManager from "../interfaces/managers/ICharacterManager";
 import Pamyu from "../Pamyu";
+import Character from "../Character";
 
 export default class CharacterManager implements ICharacterManager {
-  private readonly positions: {
-    name: string;
-    element: HTMLDivElement;
-  }[] = [];
+  private readonly positions: Position[] = [];
 
   public createPlacements(): void {
     const characterContainer = document.createElement("div");
@@ -25,18 +23,31 @@ export default class CharacterManager implements ICharacterManager {
 
     Object.keys(positions).forEach((position: string) =>
       characterContainer.appendChild(
-        this.createSideElement(
-          position,
-          (
-            positions as {
-              [key: string]: number;
-            }
-          )[position]
-        )
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        this.createSideElement(position, positions[position])
       )
     );
 
     this.setAlignments();
+  }
+
+  public join(
+    character: Character,
+    position: number | string
+  ): ICharacterManager {
+    if (!this.checkPosition(position)) {
+      throw new Error(`Position ${position} does not exist`);
+    }
+
+    const currentPosition = this.getPosition(position) as Position;
+
+    currentPosition.element.style.backgroundImage = `url(${
+      character.getSprite() ?? ""
+    })`;
+
+    return this;
   }
 
   private createSideElement(
@@ -159,5 +170,17 @@ export default class CharacterManager implements ICharacterManager {
         `pamyu__character--align:${align}`
       );
     });
+  }
+
+  private getPosition(position: number | string): Position | undefined {
+    if (typeof position === "number") {
+      return this.positions[position - 1];
+    } else {
+      return this.positions.find((pos) => pos.name === position);
+    }
+  }
+
+  private checkPosition(position: number | string): boolean {
+    return this.getPosition(position) !== undefined;
   }
 }

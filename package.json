@@ -17,7 +17,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build && sass src/styles/global.scss lib/styles/global.css --style compressed",
-    "lint": "eslint --fix src/core/*.{ts,tsx}",
+    "lint": "eslint --fix src/core/**/*.{ts,tsx}",
     "up": "yarn cmd::release",
     "cmd::release": "yarn lint && release-it --ci",
     "changelog:update": "npx auto-changelog --commit-limit false --hide-empty-releases --hide-credit --release-summary false -p && git add CHANGELOG.md"

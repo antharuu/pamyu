@@ -74,7 +74,7 @@ export default class Scene implements IScene {
     character: Character,
     message: string,
     choices: IChoice[],
-    expression?: unknown
+    expression?: string
   ): IScene {
     this.addAction({
       type: EventType.Choice,
@@ -109,8 +109,8 @@ export default class Scene implements IScene {
 
   public join(
     character: Character,
-    position: number,
-    expression?: unknown
+    position: number | string,
+    expression?: string
   ): IScene {
     this.addAction({
       type: EventType.Join,
@@ -120,8 +120,8 @@ export default class Scene implements IScene {
       },
       exec: async (): Promise<boolean> => {
         this.setExpression(character, expression);
+        Pamyu.characterManager.join(character, position);
         character.setVisible(true);
-        console.warn("Join not completely implemented");
         return true;
       },
     } as IEvent);
@@ -149,7 +149,7 @@ export default class Scene implements IScene {
     character: Character,
     message: string,
     thinking: boolean,
-    expression?: unknown
+    expression?: string
   ): IScene {
     this.addAction({
       type: EventType.Msg,
@@ -175,7 +175,7 @@ export default class Scene implements IScene {
   public think(
     character: Character,
     message: string,
-    expression?: unknown
+    expression?: string
   ): IScene {
     this.msg(character, message, true, expression);
 
@@ -185,7 +185,7 @@ export default class Scene implements IScene {
   public talk(
     character: Character,
     message: string,
-    expression?: unknown
+    expression?: string
   ): IScene {
     this.msg(character, message, false, expression);
 
@@ -246,9 +246,12 @@ export default class Scene implements IScene {
     return this;
   }
 
-  public setExpression(character: Character, expression?: unknown): IScene {
-    if (!Boolean(expression)) return this;
-    if (typeof expression === "string") character.setExpression(expression);
+  public setExpression(
+    character: Character,
+    expression: string | undefined
+  ): IScene {
+    if (expression !== undefined) character.setSprite(expression);
+
     return this;
   }
 
