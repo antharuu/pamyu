@@ -40,7 +40,7 @@ export default interface IConfig {
      */
     positions: {
         [key: string]: number;
-    } | string[];
+    } | string[] | string;
     /**
      * If the base styles should be imported
      * @default true
