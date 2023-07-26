@@ -9,7 +9,7 @@ export declare class Config implements IConfig {
     sides: string[];
     positions: {
         [key: string]: number;
-    } | string[];
+    } | string[] | string;
     importBaseStyles: boolean;
     thinkCharacters: [string, string] | {
         prefix?: string;

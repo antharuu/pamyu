@@ -18,7 +18,7 @@ export class Config implements IConfig {
 
   public sides = ["left", "right"];
 
-  public positions: { [key: string]: number } | string[] = {
+  public positions: { [key: string]: number } | string[] | string = {
     left: 1,
     right: 1,
   };
