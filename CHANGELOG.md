@@ -2,7 +2,26 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
-#### 0.0.5
+#### [v0.0.6](https://github.com/antharuu/pamyu/compare/v0.0.5...v0.0.6)
+
+- Dev antharuu [`#13`](https://github.com/antharuu/pamyu/pull/13)
+- remove very bad things [`#12`](https://github.com/antharuu/pamyu/pull/12)
+- Dev antharuu [`#11`](https://github.com/antharuu/pamyu/pull/11)
+- Character now can join [`52058c8`](https://github.com/antharuu/pamyu/commit/52058c86385061be8f8cc8f495438d6f4f9fdfca)
+- Dependencies upgrade [`09cf09a`](https://github.com/antharuu/pamyu/commit/09cf09ac81f3633dabb81c578636e68b58491053)
+- Refactor imports [`7c38a16`](https://github.com/antharuu/pamyu/commit/7c38a1690490a0181a9fc0696577fb60e1400585)
+- Eslint max lines per functions is now 25 [`b8b96bd`](https://github.com/antharuu/pamyu/commit/b8b96bdabf33396e935ec9b1e0ff011b70b62a6a)
+- Add string to available positions [`78a8bb0`](https://github.com/antharuu/pamyu/commit/78a8bb07c1059afb61969a1d382032dacc99fd31)
+- Add string to available positions [`0078952`](https://github.com/antharuu/pamyu/commit/0078952a1f0f9ea84375221bc97ba110764c29a5)
+- Add character positions [`40733ca`](https://github.com/antharuu/pamyu/commit/40733ca235e7b3d97acb836ab3b501a03afe7c67)
+- Refacto character manager to be more readable/maintainable [`f5f0238`](https://github.com/antharuu/pamyu/commit/f5f0238f0e40e4fcc506c026eae0fc3687dc6551)
+- Character alignment [`7b3cc00`](https://github.com/antharuu/pamyu/commit/7b3cc00157a8ae03f05fb2ad34e3045665a4b73a)
+- Configurable thinking characters [`1bfd9bb`](https://github.com/antharuu/pamyu/commit/1bfd9bb19d826689831d345430a68a9a302dd28b)
+- Replace example assets [`0cfdb99`](https://github.com/antharuu/pamyu/commit/0cfdb99751591eaf521e789259f183e86e6a5cf3)
+
+#### v0.0.5
+
+> 23 July 2023
 
 - Update actions 2 [`#10`](https://github.com/antharuu/pamyu/pull/10)
 - Update actions [`#9`](https://github.com/antharuu/pamyu/pull/9)
@@ -32,6 +51,7 @@ All notable changes to this project will be documented in this file. Dates are d
 - Refactor code for readability and efficiency [`3d09ab0`](https://github.com/antharuu/pamyu/commit/3d09ab06e4faaf4f6d63164dab32d716502b411b)
 - continue actions [`5a23234`](https://github.com/antharuu/pamyu/commit/5a23234696d8be74885af766122d3e3c8b28bca2)
 - feat: Implement save functionality [`c991ab3`](https://github.com/antharuu/pamyu/commit/c991ab3c53d74c531d35aea094b8d59e721393e2)
+- Release v0.0.5 [`2ff7c40`](https://github.com/antharuu/pamyu/commit/2ff7c4054873c708abb6231f0e74ce7c8538c333)
 - message skip upgrade [`dc46343`](https://github.com/antharuu/pamyu/commit/dc463430ba74adabf2cf146a94ad0937e66348d7)
 - [Assets Manager] Add expression pattern and modify expression retrieval [`9439bfe`](https://github.com/antharuu/pamyu/commit/9439bfe828a1ccbda1f01b78e8122345e1fbc21d)
 - set background [`fc4306f`](https://github.com/antharuu/pamyu/commit/fc4306f26c88ab7f89f35319a19f91afdea1d698)

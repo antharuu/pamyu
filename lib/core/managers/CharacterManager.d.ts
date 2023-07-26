@@ -3,7 +3,7 @@ import Character from "../Character";
 export default class CharacterManager implements ICharacterManager {
     private readonly positions;
     createPlacements(): void;
-    join(character: Character, position: number | string, expression?: string): ICharacterManager;
+    join(character: Character, position: number | string): ICharacterManager;
     private createSideElement;
     private createCharacterElement;
     private getSidePositions;
