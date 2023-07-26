@@ -8,4 +8,5 @@ export declare class Translation implements ITranslation {
     setLanguage(language: string): ITranslation;
     t(key: string): string;
     translate(key: string): string;
+    private initI18n;
 }

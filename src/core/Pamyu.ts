@@ -72,37 +72,14 @@ class PamyuCore implements IPamyu {
       );
     }
 
-    if (typeof selector === "string") {
-      const element = document.querySelector<HTMLElement>(selector);
-
-      if (element === null) {
-        console.error(`Element with selector ${selector} not found.`);
-      }
-
-      this.container = element;
-    } else this.container = selector;
-
-    if (options.hasOwnProperty("background")) {
-      if ("background" in options && options.background !== undefined) {
-        void this.assetManager.setBackground(options.background);
-      }
-    }
-
-    if (this.container === null) throw new Error("Container is null");
-    this.container.classList.add("pamyu__app");
-    this.container.style.setProperty("--background-color", color);
+    this.createElements(selector, color, options);
 
     void this.importStyles();
     this.initHtmlElements();
 
     Translation.i.setLanguage("fr");
 
-    addEventListener("keydown", (event: KeyboardEvent) => {
-      if (event.key === "Enter" && this.canContinue) {
-        this.canContinue = false;
-        void this.next().then(() => (this.canContinue = true));
-      }
-    });
+    this.listenNext();
 
     this.characterManager.createPlacements();
 
@@ -128,6 +105,41 @@ class PamyuCore implements IPamyu {
     });
 
     return this;
+  }
+
+  private createElements(
+    selector: string | HTMLElement,
+    color = "black",
+    options: AppOptions = {}
+  ): void {
+    if (typeof selector === "string") {
+      const element = document.querySelector<HTMLElement>(selector);
+
+      if (element === null) {
+        console.error(`Element with selector ${selector} not found.`);
+      }
+
+      this.container = element;
+    } else this.container = selector;
+
+    if (options.hasOwnProperty("background")) {
+      if ("background" in options && options.background !== undefined) {
+        void this.assetManager.setBackground(options.background);
+      }
+    }
+
+    if (this.container === null) throw new Error("Container is null");
+    this.container.classList.add("pamyu__app");
+    this.container.style.setProperty("--background-color", color);
+  }
+
+  private listenNext(): void {
+    addEventListener("keydown", (event: KeyboardEvent) => {
+      if (event.key === "Enter" && this.canContinue) {
+        this.canContinue = false;
+        void this.next().then(() => (this.canContinue = true));
+      }
+    });
   }
 
   private async next(): Promise<void> {

@@ -21,14 +21,7 @@ export default class Character implements ICharacter {
     this.name = name;
     this.color = options.color ?? "#F3ECF3";
     this.isDemon = options.isDemon ?? false;
-
-    if (options.expressions == "*") {
-      this.allowedExpressions = Pamyu.assetManager.getExpressions();
-    } else {
-      this.allowedExpressions = Array.isArray(options.expressions)
-        ? options.expressions
-        : ["normal"];
-    }
+    this.allowedExpressions = this.getAllowedExpressions(options);
 
     Pamyu.assetManager.registerExpressions(this);
   }
@@ -87,5 +80,15 @@ export default class Character implements ICharacter {
       prefix: thinkCharacters.prefix ?? "",
       suffix: thinkCharacters.suffix ?? "",
     };
+  }
+
+  private getAllowedExpressions(options: CharacterOptions): string[] {
+    if (options.expressions == "*") {
+      return Pamyu.assetManager.getExpressions();
+    } else {
+      return Array.isArray(options.expressions)
+        ? options.expressions
+        : ["normal"];
+    }
   }
 }

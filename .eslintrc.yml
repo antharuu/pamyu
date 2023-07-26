@@ -51,3 +51,8 @@ rules:
           - 'public-instance-method'
           - 'private-instance-method'
         order: 'as-written'
+  max-lines-per-function:
+    - 'error'
+    - max: 25
+      skipBlankLines: true
+      skipComments: true

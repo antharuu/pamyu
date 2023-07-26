@@ -34,16 +34,8 @@ export class Translation implements ITranslation {
       );
     }
 
-    const defaultTranslations = translations.default;
-    if (
-      defaultTranslations === undefined ||
-      defaultTranslations === null ||
-      typeof defaultTranslations !== "object"
-    ) {
-      throw new Error(`Malformed translation file "default" is not an object.`);
-    }
+    this.i18n = this.initI18n(translations.default as Dict);
 
-    this.i18n = new I18n(defaultTranslations as Dict);
     Translation.useTranslation = true;
   }
 
@@ -67,5 +59,17 @@ export class Translation implements ITranslation {
     }
 
     return this.i18n.t(key);
+  }
+
+  private initI18n(defaultTranslations: Dict): I18n {
+    if (
+      defaultTranslations === undefined ||
+      defaultTranslations === null ||
+      typeof defaultTranslations !== "object"
+    ) {
+      throw new Error(`Malformed translation file "default" is not an object.`);
+    }
+
+    return new I18n(defaultTranslations);
   }
 }

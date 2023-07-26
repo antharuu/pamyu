@@ -19,4 +19,5 @@ export default class Character implements ICharacter {
     setPosition: (position: number) => ICharacter;
     setExpression: (expression: string) => ICharacter;
     private getThinkCharacters;
+    private getAllowedExpressions;
 }
