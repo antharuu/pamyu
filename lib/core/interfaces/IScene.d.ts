@@ -1,8 +1,8 @@
-import { IVariable } from "./IVariable";
+import IVariable from "./IVariable";
 import { IEvent } from "./IEvent";
-import { IChoice } from "./IChoice";
+import IChoice from "./IChoice";
 import { EventExecReturn } from "../types/app";
-import { Character } from "../Character";
+import Character from "../Character";
 export interface IScene {
     name: string;
     timeline: IEvent[];

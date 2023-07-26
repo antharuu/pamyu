@@ -1,8 +1,8 @@
 import { IScene } from "./IScene";
-import { IAssetManager } from "./managers/IAssetManager";
+import IAssetManager from "./managers/IAssetManager";
 import { AppOptions } from "../types/app";
-import { IMessageManager } from "./managers/IMessageManager";
-import { IConfig } from "./IConfig";
+import IMessageManager from "./managers/IMessageManager";
+import IConfig from "./IConfig";
 import ISaveManager from "./managers/ISaveManager";
 
 export interface IPamyu {

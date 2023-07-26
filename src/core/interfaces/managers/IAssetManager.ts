@@ -1,7 +1,7 @@
 import { AssetList } from "../../types/app";
-import { Character } from "../../Character";
+import Character from "../../Character";
 
-export interface IAssetManager {
+export default interface IAssetManager {
   registerAsset(key: string, path: string, assetType?: string): IAssetManager;
 
   registerAssets(newAssets: AssetList, assetType?: string): IAssetManager;

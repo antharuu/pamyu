@@ -1,12 +1,12 @@
 import { IScene } from "./interfaces/IScene";
-import { IChoice } from "./interfaces/IChoice";
-import { IVariable } from "./interfaces/IVariable";
-import { Pamyu } from "./Pamyu";
+import IChoice from "./interfaces/IChoice";
+import IVariable from "./interfaces/IVariable";
+import Pamyu from "./Pamyu";
 import { EventExecReturn } from "./types/app";
 import { EventType, IEvent } from "./interfaces/IEvent";
-import { Character } from "./Character";
+import Character from "./Character";
 
-export class Scene implements IScene {
+export default class Scene implements IScene {
   public name: string;
 
   public timeline: IEvent[];

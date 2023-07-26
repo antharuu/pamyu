@@ -1,6 +1,6 @@
-import { Character } from "../../Character";
+import Character from "../../Character";
 
-export interface IMessageManager {
+export default interface IMessageManager {
   hasBoxVisible: boolean;
 
   toggleBox(state?: boolean): Promise<void>;

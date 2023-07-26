@@ -1,6 +1,6 @@
 import { CharacterOptions } from "./types/app";
-import { ICharacter } from "./interfaces/ICharacter";
-export declare class Character implements ICharacter {
+import ICharacter from "./interfaces/ICharacter";
+export default class Character implements ICharacter {
     readonly name: string;
     readonly color: string;
     readonly isDemon: boolean;
@@ -18,4 +18,5 @@ export declare class Character implements ICharacter {
     setVisible: (visible: boolean) => ICharacter;
     setPosition: (position: number) => ICharacter;
     setExpression: (expression: string) => ICharacter;
+    private getThinkCharacters;
 }

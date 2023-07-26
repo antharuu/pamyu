@@ -1,2 +1,3 @@
 import { IPamyu } from "./interfaces/IPamyu";
-export declare const Pamyu: IPamyu;
+declare const _default: IPamyu;
+export default _default;

@@ -1,9 +1,9 @@
-import { Character } from "../Character";
-import { IAssetManager } from "../interfaces/managers/IAssetManager";
-import { Pamyu } from "../Pamyu";
+import Character from "../Character";
+import IAssetManager from "../interfaces/managers/IAssetManager";
+import Pamyu from "../Pamyu";
 import { AssetList, Assets } from "../types/app";
 
-export class AssetManager implements IAssetManager {
+export default class AssetManager implements IAssetManager {
   private expressionPattern = "";
 
   private expressions: object = {};

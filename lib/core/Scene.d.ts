@@ -1,10 +1,10 @@
 import { IScene } from "./interfaces/IScene";
-import { IChoice } from "./interfaces/IChoice";
-import { IVariable } from "./interfaces/IVariable";
+import IChoice from "./interfaces/IChoice";
+import IVariable from "./interfaces/IVariable";
 import { EventExecReturn } from "./types/app";
 import { IEvent } from "./interfaces/IEvent";
-import { Character } from "./Character";
-export declare class Scene implements IScene {
+import Character from "./Character";
+export default class Scene implements IScene {
     name: string;
     timeline: IEvent[];
     timelineIndex: number;

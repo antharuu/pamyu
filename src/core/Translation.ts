@@ -1,7 +1,7 @@
-import { ITranslation } from "./interfaces/ITranslation";
+import ITranslation from "./interfaces/ITranslation";
 
 import { Dict, I18n } from "i18n-js";
-import { Pamyu } from "./Pamyu";
+import Pamyu from "./Pamyu";
 
 export class Translation implements ITranslation {
   public static useTranslation = false;

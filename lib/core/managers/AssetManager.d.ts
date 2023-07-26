@@ -1,7 +1,7 @@
-import { Character } from "../Character";
-import { IAssetManager } from "../interfaces/managers/IAssetManager";
+import Character from "../Character";
+import IAssetManager from "../interfaces/managers/IAssetManager";
 import { AssetList } from "../types/app";
-export declare class AssetManager implements IAssetManager {
+export default class AssetManager implements IAssetManager {
     private expressionPattern;
     private expressions;
     private assets;

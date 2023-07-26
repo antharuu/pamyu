@@ -1,4 +1,4 @@
-export interface ICharacter {
+export default interface ICharacter {
   name: string;
   color: string;
   isDemon: boolean;

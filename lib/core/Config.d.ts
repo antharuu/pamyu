@@ -1,4 +1,4 @@
-import { IConfig } from "./interfaces/IConfig";
+import IConfig from "./interfaces/IConfig";
 export declare class Config implements IConfig {
     pamyuVersion: string;
     pamyuDevEnv: boolean;
@@ -9,6 +9,10 @@ export declare class Config implements IConfig {
     sides: string[];
     positions: number;
     importBaseStyles: boolean;
+    thinkCharacters: [string, string] | {
+        prefix?: string;
+        suffix?: string;
+    };
     constructor(config: Partial<IConfig>);
     getTransitionSpeed: () => number;
     getMessageSpeed: () => number;

@@ -1,4 +1,4 @@
-export interface IVariable {
+export default interface IVariable {
     variables: {
         name: string;
         value: unknown;

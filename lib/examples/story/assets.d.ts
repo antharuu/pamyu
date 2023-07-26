@@ -1,5 +1,5 @@
 declare const _default: {
-    UI: import("../../core/interfaces/managers/IAssetManager").IAssetManager;
-    Backgrounds: import("../../core/interfaces/managers/IAssetManager").IAssetManager;
+    UI: import("../../core/interfaces/managers/IAssetManager").default;
+    Backgrounds: import("../../core/interfaces/managers/IAssetManager").default;
 };
 export default _default;

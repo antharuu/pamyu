@@ -1,6 +1,6 @@
-import { IMessageManager } from "../interfaces/managers/IMessageManager";
-import { Character } from "../Character";
-export declare class MessageManager implements IMessageManager {
+import IMessageManager from "../interfaces/managers/IMessageManager";
+import Character from "../Character";
+export default class MessageManager implements IMessageManager {
     hasBoxVisible: boolean;
     private readonly boxElement;
     private readonly textElement;

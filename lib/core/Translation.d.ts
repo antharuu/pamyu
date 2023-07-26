@@ -1,4 +1,4 @@
-import { ITranslation } from "./interfaces/ITranslation";
+import ITranslation from "./interfaces/ITranslation";
 export declare class Translation implements ITranslation {
     static useTranslation: boolean;
     private static _instance;

@@ -1,8 +1,8 @@
 import { CharacterOptions } from "./types/app";
-import { ICharacter } from "./interfaces/ICharacter";
-import { Pamyu } from "./Pamyu";
+import ICharacter from "./interfaces/ICharacter";
+import Pamyu from "./Pamyu";
 
-export class Character implements ICharacter {
+export default class Character implements ICharacter {
   public readonly name: string;
 
   public readonly color: string;

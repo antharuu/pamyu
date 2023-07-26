@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { version } from "../../package.json";
-import { IConfig } from "./interfaces/IConfig";
+import IConfig from "./interfaces/IConfig";
 
 export class Config implements IConfig {
   public pamyuVersion = "0.0.0";

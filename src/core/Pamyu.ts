@@ -1,15 +1,16 @@
 import { Translation } from "./Translation";
 import { IScene } from "./interfaces/IScene";
-import { IAssetManager } from "./interfaces/managers/IAssetManager";
-import { AssetManager } from "./managers/AssetManager";
 import { IPamyu } from "./interfaces/IPamyu";
 import { AppOptions } from "./types/app";
-import { MessageManager } from "./managers/MessageManager";
-import { IMessageManager } from "./interfaces/managers/IMessageManager";
-import { IConfig } from "./interfaces/IConfig";
+import MessageManager from "./managers/MessageManager";
+import IConfig from "./interfaces/IConfig";
 import { Config } from "./Config";
 import ISaveManager from "./interfaces/managers/ISaveManager";
+import IAssetManager from "./interfaces/managers/IAssetManager";
+import IMessageManager from "./interfaces/managers/IMessageManager";
+// import ICharacterManager from "./interfaces/managers/ICharacterManager";
 import SaveManager from "./managers/SaveManager";
+import AssetManager from "./managers/AssetManager";
 
 class PamyuCore implements IPamyu {
   private static _instance: IPamyu;
@@ -19,6 +20,8 @@ class PamyuCore implements IPamyu {
   public assetManager: IAssetManager;
 
   public messageManager: IMessageManager;
+
+  // public characterManager: ICharacterManager;
 
   public saveManager: ISaveManager;
 
@@ -178,4 +181,4 @@ class PamyuCore implements IPamyu {
   }
 }
 
-export const Pamyu = PamyuCore.i;
+export default PamyuCore.i;

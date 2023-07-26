@@ -1,6 +1,6 @@
-import { IChoice } from "./IChoice";
-import { IVariable } from "./IVariable";
-import { Character } from "../Character";
+import IChoice from "./IChoice";
+import IVariable from "./IVariable";
+import Character from "../Character";
 
 export enum EventType {
   Msg = "msg",

@@ -1,10 +1,10 @@
-import { IMessageManager } from "../interfaces/managers/IMessageManager";
+import IMessageManager from "../interfaces/managers/IMessageManager";
 import { Translation } from "../Translation";
 import { slugify } from "../utils/string";
-import { Character } from "../Character";
-import { Pamyu } from "../Pamyu";
+import Character from "../Character";
+import Pamyu from "../Pamyu";
 
-export class MessageManager implements IMessageManager {
+export default class MessageManager implements IMessageManager {
   public hasBoxVisible = false;
 
   private readonly boxElement: HTMLDivElement | null = null;
