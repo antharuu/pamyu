@@ -2,7 +2,10 @@ import ICharacterManager from "../interfaces/managers/ICharacterManager";
 import Pamyu from "../Pamyu";
 
 export default class CharacterManager implements ICharacterManager {
-  private positions: { [key: string]: HTMLDivElement } = {};
+  private readonly positions: {
+    name: string;
+    element: HTMLDivElement;
+  }[] = [];
 
   public createPlacements(): void {
     const characterContainer = document.createElement("div");
@@ -32,6 +35,8 @@ export default class CharacterManager implements ICharacterManager {
         )
       )
     );
+
+    this.setAlignments();
   }
 
   private createSideElement(
@@ -66,9 +71,10 @@ export default class CharacterManager implements ICharacterManager {
     }
 
     placement.classList.add(className);
-    this.positions[
-      hasMultiplePositions ? `${positionName}-${index}` : positionName
-    ] = placement;
+    this.positions.push({
+      name: hasMultiplePositions ? `${positionName}-${index}` : positionName,
+      element: placement,
+    });
     return placement;
   }
 
@@ -127,5 +133,31 @@ export default class CharacterManager implements ICharacterManager {
       pos[position] = 1;
     });
     return pos;
+  }
+
+  private setAlignments(): void {
+    const max = this.positions.length;
+    const odd = max % 2 === 1;
+    this.positions.forEach((_, i) => {
+      let align = "center";
+
+      if (!odd) {
+        if (i < max / 2) {
+          align = "left";
+        } else {
+          align = "right";
+        }
+      } else {
+        if (i < Math.floor(max / 2)) {
+          align = "left";
+        } else if (i > Math.floor(max / 2)) {
+          align = "right";
+        }
+      }
+
+      this.positions[i].element.classList.add(
+        `pamyu__character--align:${align}`
+      );
+    });
   }
 }
