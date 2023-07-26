@@ -1,1 +1,3 @@
-export default interface ICharacterManager {}
+export default interface ICharacterManager {
+  createPlacements(): void;
+}

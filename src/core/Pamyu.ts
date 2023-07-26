@@ -2,15 +2,16 @@ import { Translation } from "./Translation";
 import { IScene } from "./interfaces/IScene";
 import { IPamyu } from "./interfaces/IPamyu";
 import { AppOptions } from "./types/app";
-import MessageManager from "./managers/MessageManager";
-import IConfig from "./interfaces/IConfig";
 import { Config } from "./Config";
+import IConfig from "./interfaces/IConfig";
+import MessageManager from "./managers/MessageManager";
 import ISaveManager from "./interfaces/managers/ISaveManager";
 import IAssetManager from "./interfaces/managers/IAssetManager";
 import IMessageManager from "./interfaces/managers/IMessageManager";
-// import ICharacterManager from "./interfaces/managers/ICharacterManager";
+import ICharacterManager from "./interfaces/managers/ICharacterManager";
 import SaveManager from "./managers/SaveManager";
 import AssetManager from "./managers/AssetManager";
+import CharacterManager from "./managers/CharacterManager";
 
 class PamyuCore implements IPamyu {
   private static _instance: IPamyu;
@@ -21,7 +22,7 @@ class PamyuCore implements IPamyu {
 
   public messageManager: IMessageManager;
 
-  // public characterManager: ICharacterManager;
+  public characterManager: ICharacterManager;
 
   public saveManager: ISaveManager;
 
@@ -40,6 +41,7 @@ class PamyuCore implements IPamyu {
     this.assetManager = new AssetManager();
     this.messageManager = new MessageManager();
     this.saveManager = new SaveManager("0.0.1");
+    this.characterManager = new CharacterManager();
   }
 
   public static get i(): IPamyu {
@@ -101,6 +103,8 @@ class PamyuCore implements IPamyu {
         void this.next().then(() => (this.canContinue = true));
       }
     });
+
+    this.characterManager.createPlacements();
 
     return this;
   }

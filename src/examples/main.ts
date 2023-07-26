@@ -11,6 +11,7 @@ Pamyu.configure({
   translation: await import("./trad.yaml"),
   defaultLanguage: "fr",
   pamyuDevEnv: true,
+  positions: ["left", "right"],
 })
   .create("#app", "purple", {
     background: "Global",

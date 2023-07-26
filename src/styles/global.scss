@@ -97,3 +97,20 @@
     text-align: right;
   }
 }
+
+.pamyu__character-container {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  gap: 2.5vw;
+  padding: 0 2.5vw;
+}
+
+.pamyu__character-side {
+  display: grid;
+  gap: 2.5vw;
+}
+
+.pamyu__character {
+  background-color: red;
+}

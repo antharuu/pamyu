@@ -7,7 +7,9 @@ export declare class Config implements IConfig {
     translation: null;
     defaultLanguage: string;
     sides: string[];
-    positions: number;
+    positions: {
+        [key: string]: number;
+    } | string[];
     importBaseStyles: boolean;
     thinkCharacters: [string, string] | {
         prefix?: string;

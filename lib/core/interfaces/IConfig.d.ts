@@ -36,9 +36,11 @@ export default interface IConfig {
     sides: string[];
     /**
      * The number of positions
-     * @default 2
+     * @default { left: 1, right: 1 }
      */
-    positions: number;
+    positions: {
+        [key: string]: number;
+    } | string[];
     /**
      * If the base styles should be imported
      * @default true

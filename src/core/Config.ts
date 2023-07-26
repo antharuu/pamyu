@@ -18,7 +18,10 @@ export class Config implements IConfig {
 
   public sides = ["left", "right"];
 
-  public positions = 2;
+  public positions: { [key: string]: number } | string[] = {
+    left: 1,
+    right: 1,
+  };
 
   public importBaseStyles = true;
 
