@@ -52,4 +52,9 @@ export interface IConfig {
    * @default true
    */
   importBaseStyles: boolean;
+
+  /**
+   * The characters used for thinking
+   */
+  thinkCharacters: [string, string] | { prefix?: string; suffix?: string };
 }

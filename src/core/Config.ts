@@ -22,6 +22,13 @@ export class Config implements IConfig {
 
   public importBaseStyles = true;
 
+  public thinkCharacters:
+    | [string, string]
+    | {
+        prefix?: string;
+        suffix?: string;
+      } = ["( ", " )"];
+
   public constructor(config: Partial<IConfig>) {
     Object.assign(this, config);
 

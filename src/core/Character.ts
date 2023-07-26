@@ -34,7 +34,8 @@ export class Character implements ICharacter {
   }
 
   public getName = (isThinking: boolean): string => {
-    if (isThinking) return `( ${this.name} )`;
+    const { prefix, suffix } = this.getThinkCharacters();
+    if (isThinking) return prefix + this.name + suffix;
     return this.name;
   };
 
@@ -71,4 +72,20 @@ export class Character implements ICharacter {
 
     return this;
   };
+
+  private getThinkCharacters(): { prefix: string; suffix: string } {
+    let thinkCharacters = Pamyu.config.thinkCharacters;
+
+    if (Array.isArray(thinkCharacters)) {
+      thinkCharacters = {
+        prefix: thinkCharacters[0],
+        suffix: thinkCharacters[1],
+      };
+    }
+
+    return {
+      prefix: thinkCharacters.prefix ?? "",
+      suffix: thinkCharacters.suffix ?? "",
+    };
+  }
 }
