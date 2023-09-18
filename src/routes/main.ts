@@ -1,14 +1,15 @@
-import {RouteRecord} from "vue-router";
+import Project from "../pages/project.vue";
+import NotFound from "../pages/not-found.vue";
 
-export const routes: RouteRecord[] = [
+export const routes = [
     {
         path: "/",
         name: "project",
-        component: () => import("../pages/project.vue")
+        component: Project
     },
     {
         path: "/:pathMatch(.*)*",
         name: "not-found",
-        component: () => import("../pages/not-found.vue")
+        component: NotFound
     }
 ];

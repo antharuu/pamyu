@@ -7,7 +7,7 @@ import {routes} from "./routes/main";
 const router = createRouter({
     mode: "history",
     history: createWebHistory(),
-    routes: routes
+    routes
 } as any)
 
 const app = createApp(App);
