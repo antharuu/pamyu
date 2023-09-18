@@ -1,11 +1,14 @@
 <script setup lang="ts">
-
+import {useCounterStore} from "../stores/counter";
 </script>
 
 <template>
   <div>
-    <h1>404</h1>
+    <h1>{{ useCounterStore().doubleCount }}</h1>
     <p>Page not found</p>
+    <button @click="useCounterStore().increment">
+      + Increment
+    </button>
   </div>
 </template>
 
