@@ -1,6 +1,6 @@
 use std::fs;
 use std::path::Path;
-use std::io::{Write, Read};
+use std::io::{Read};
 
 #[tauri::command]
 pub fn save_data(path: String, data: String) -> Result<(), String> {

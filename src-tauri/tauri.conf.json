@@ -1,13 +1,13 @@
 {
   "build": {
-    "beforeDevCommand": "npm run dev",
-    "beforeBuildCommand": "npm run build",
+    "beforeDevCommand": "pnpm run dev",
+    "beforeBuildCommand": "pnpm run build",
     "devPath": "http://localhost:1420",
     "distDir": "../dist",
     "withGlobalTauri": false
   },
   "package": {
-    "productName": "renpy-ui",
+    "productName": "pamyu",
     "version": "0.0.1"
   },
   "tauri": {
@@ -21,7 +21,7 @@
     "bundle": {
       "active": true,
       "targets": "all",
-      "identifier": "renpy-ui.antharuu.dev",
+      "identifier": "pamyu.antharuu.dev",
       "icon": [
         "icons/32x32.png",
         "icons/128x128.png",
@@ -37,9 +37,11 @@
       {
         "fullscreen": false,
         "resizable": true,
-        "title": "renpy-ui",
+        "title": "Pamyu",
         "width": 1280,
-        "height": 720
+        "height": 720,
+        "minWidth": 800,
+        "minHeight": 600
       }
     ]
   }
