@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "types": ["@intlify/unplugin-vue-i18n/messages"],
     "target": "ES2020",
     "useDefineForClassFields": true,
     "module": "ESNext",

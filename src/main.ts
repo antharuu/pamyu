@@ -5,6 +5,7 @@ import {createRouter, createWebHistory} from "vue-router";
 import {routes} from "./routes/main";
 import {createPinia} from "pinia";
 import {invoke} from "@tauri-apps/api/tauri";
+import i18n from "./utils/i18n";
 
 const router = createRouter({
     mode: "history",
@@ -30,4 +31,5 @@ watch(pinia.state, (state) => {
 const app = createApp(App);
 app.use(pinia)
 app.use(router)
+app.use(i18n)
 app.mount("#app");

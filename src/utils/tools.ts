@@ -7,3 +7,7 @@ export function getRandomToken(lentgh: number = 32): string {
     }
     return result;
 }
+
+export function capitalize(str: string): string {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}

@@ -1,5 +1,13 @@
 <script setup lang="ts">
 import Navigation from "./layout/Navigation.vue";
+import {useUserConfig} from "./stores/userConfigStore.ts";
+import {useI18n} from "vue-i18n";
+
+const userConfig = useUserConfig();
+const { locale } = useI18n()
+
+locale.value = userConfig.getLocale;
+
 </script>
 
 <template>
@@ -39,7 +47,7 @@ html, body {
   height: 100vh;
   background-color: var(--color-dark);
   display: grid;
-  grid-template-columns: clamp(100px, 6vw, 120px) 1fr;
+  grid-template-columns: 120px 1fr;
 }
 
 .content {

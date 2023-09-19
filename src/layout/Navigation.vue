@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import Icon from "../components/Icon.vue";
+import {useI18n} from "vue-i18n";
+import {capitalize} from "../utils/tools.ts";
+
+const { t } = useI18n()
 
 const navigationItems = [
-  {name: "Settings", icon: "settings", path: "/settings",},
-  {name: "Characters", icon: "face", path: "/characters",},
-  {name: "Assets", icon: "image", path: "/assets",},
-  {name: "Scenes", icon: "theater_comedy", path: "/scenes",},
+  {name: t("settings"), icon: "settings", path: "/settings",},
+  {name: t("characters"), icon: "face", path: "/characters",},
+  {name: t("assets"), icon: "image", path: "/assets",},
+  {name: t("scenes"), icon: "theater_comedy", path: "/scenes",},
 ];
 </script>
 
@@ -17,7 +21,7 @@ const navigationItems = [
     <nav class="navigation__nav">
       <router-link :to="item.path" v-for="item in navigationItems" :key="item.name" :active-class="'active'">
         <Icon :name="item.icon"/>
-        <span>{{ item.name }}</span>
+        <span>{{ capitalize(item.name) }}</span>
       </router-link>
     </nav>
   </div>

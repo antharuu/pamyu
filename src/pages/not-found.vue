@@ -4,7 +4,7 @@
 <template>
   <div>
     <p>
-      This functionality is not yet implemented.
+      {{ $t('not_implemented') }}
     </p>
   </div>
 </template>
