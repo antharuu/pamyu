@@ -3,7 +3,9 @@
 
 <template>
   <div>
-    <p>Page not found</p>
+    <p>
+      This functionality is not yet implemented.
+    </p>
   </div>
 </template>
 

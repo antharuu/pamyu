@@ -39,7 +39,7 @@ html, body {
   height: 100vh;
   background-color: var(--color-dark);
   display: grid;
-  grid-template-columns: clamp(80px, 6vw, 120px) 1fr;
+  grid-template-columns: clamp(100px, 6vw, 120px) 1fr;
 }
 
 .content {
