@@ -6,7 +6,7 @@ import Navigation from "./layout/Navigation.vue";
   <div id="renpy-ui">
     <Navigation/>
     <div class="content">
-      <router-view />
+      <router-view/>
     </div>
   </div>
 </template>
@@ -18,6 +18,7 @@ import Navigation from "./layout/Navigation.vue";
   --color-grey: #2e333d;
   --color-lightgrey: #a7acb8;
   --color-primary: #6b8afd;
+  --color-white: #dbfcff;
 }
 
 html, body {
@@ -38,13 +39,13 @@ html, body {
   height: 100vh;
   background-color: var(--color-dark);
   display: grid;
-  grid-template-columns: 120px 1fr;
+  grid-template-columns: clamp(80px, 6vw, 120px) 1fr;
 }
 
 .content {
   background-color: var(--color-darkgrey);
   overflow: hidden;
-  padding: 80px;
+  padding: 20px;
   border-radius: 25px 0 0 25px;
 }
 </style>

@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import {useCounterStore} from "../stores/counter";
 </script>
 
 <template>
   <div>
-    <h1>Project ! ({{useCounterStore().count}})</h1>
+    <h1>Project !</h1>
     <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus explicabo molestias mollitia vero. At in
       odit recusandae repellendus tempora! Aliquid asperiores beatae blanditiis, commodi corporis dignissimos earum modi
       natus quia?
