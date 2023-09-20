@@ -1,19 +1,16 @@
 <script setup lang="ts">
 import Icon from "../components/Icon.vue";
-import {useI18n} from "vue-i18n";
 import {capitalize} from "../utils/tools.ts";
 
-const {t} = useI18n()
-
 const navigationItems = [
-    {name: t("project"), icon: "folder", path: "/project", disabled: true,},
-    {name: t("characters"), icon: "face", path: "/characters",},
-    {name: t("assets"), icon: "image", path: "/assets", disabled: true,},
-    {name: t("scenes"), icon: "theater_comedy", path: "/scenes", disabled: true,},
-    {name: t("variables"), icon: "switches", path: "/variables", disabled: true,},
-    {name: t("scripts"), icon: "code", path: "/scripts", disabled: true,},
-    {name: t("translations"), icon: "translate", path: "/translations", disabled: true,},
-    {name: t("settings"), icon: "settings", path: "/settings"},
+    {name: "project", icon: "folder", path: "/project", disabled: true,},
+    {name: "characters", icon: "face", path: "/characters",},
+    {name: "assets", icon: "image", path: "/assets", disabled: true,},
+    {name: "scenes", icon: "theater_comedy", path: "/scenes", disabled: true,},
+    {name: "variables", icon: "switches", path: "/variables", disabled: true,},
+    {name: "scripts", icon: "code", path: "/scripts", disabled: true,},
+    {name: "translations", icon: "translate", path: "/translations", disabled: true,},
+    {name: "settings", icon: "settings", path: "/settings"},
 ];
 </script>
 
@@ -32,7 +29,7 @@ const navigationItems = [
                     class="navigation__link-element"
                 >
                     <Icon :name="item.icon"/>
-                    <span>{{ capitalize(item.name) }}</span>
+                    <span>{{ capitalize($t(item.name)) }}</span>
                 </router-link>
                 <span
                     v-else
@@ -40,7 +37,7 @@ const navigationItems = [
                     :title="$t('not_implemented')"
                 >
                     <Icon :name="item.icon"/>
-                    {{ capitalize(item.name) }}
+                    {{ capitalize($t(item.name)) }}
                 </span>
             </span>
         </nav>

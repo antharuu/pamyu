@@ -1,12 +1,13 @@
 <script setup lang="ts">
+import PageLayout from "../layout/PageLayout.vue";
 </script>
 
 <template>
-  <div>
-    <p>
-      {{ $t('not_implemented') }}
-    </p>
-  </div>
+  <PageLayout>
+      <p>
+          {{ $t("not_implemented") }}
+      </p>
+  </PageLayout>
 </template>
 
 <style scoped>

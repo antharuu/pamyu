@@ -7,5 +7,6 @@
   "scripts": "scripts",
   "translations": "translations",
   "settings": "settings",
-  "not_implemented": "This functionality is not yet implemented."
+  "not_implemented": "This functionality is not yet implemented.",
+  "language": "Language"
 }

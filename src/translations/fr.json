@@ -6,6 +6,7 @@
   "variables": "variables",
   "scripts": "scripts",
   "translations": "traductions",
-  "settings": "options",
-  "not_implemented": "Cette fonctionnalité n'est pas encore implémentée."
+  "settings": "paramètres",
+  "not_implemented": "Cette fonctionnalité n'est pas encore implémentée.",
+  "language": "Langue"
 }

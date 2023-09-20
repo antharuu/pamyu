@@ -1,7 +1,6 @@
 import {defineStore} from "pinia";
 
-export const useSettingStore = defineStore({
-    id: "Settings",
+export const useSettingStore = defineStore('Settings', {
     state: (): {
         locale: string;
     } => ({
@@ -11,6 +10,12 @@ export const useSettingStore = defineStore({
         getLocale: (state) => state.locale
     },
     actions: {
-        setLocale: (locale: string) => this.locale = locale
+        setLocale(locale: string) {
+            console.log("Setting locale to", locale);
+            console.log(this)
+            console.log(this.locale)
+            this.locale = locale;
+            console.log(this.locale)
+        }
     }
 })
