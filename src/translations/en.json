@@ -1,7 +1,11 @@
 {
-  "settings": "settings",
+  "project": "project",
   "characters": "characters",
   "assets": "assets",
   "scenes": "scenes",
+  "variables": "variables",
+  "scripts": "scripts",
+  "translations": "translations",
+  "settings": "settings",
   "not_implemented": "This functionality is not yet implemented."
 }

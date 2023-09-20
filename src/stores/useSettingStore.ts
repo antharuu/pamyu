@@ -1,7 +1,7 @@
 import {defineStore} from "pinia";
 
-export const useUserConfig = defineStore({
-    id: "Config",
+export const useSettingStore = defineStore({
+    id: "Settings",
     state: (): {
         locale: string;
     } => ({

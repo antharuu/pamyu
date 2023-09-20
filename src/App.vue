@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import Navigation from "./layout/Navigation.vue";
-import {useUserConfig} from "./stores/userConfigStore.ts";
+import {useSettingStore} from "./stores/useSettingStore.ts";
 import {useI18n} from "vue-i18n";
 
-const userConfig = useUserConfig();
+const userConfig = useSettingStore();
 const { locale } = useI18n()
 
 locale.value = userConfig.getLocale;
