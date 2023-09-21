@@ -26,7 +26,7 @@ if(baseData) {
 
 watch(pinia.state, (state) => {
     // noinspection JSIgnoredPromiseFromCall
-    invoke("save_data", {path, data: JSON.stringify(state)})
+    invoke("save_data", {path, data: JSON.stringify(state,null,2)})
 }, {deep: true})
 
 const app = createApp(App);
