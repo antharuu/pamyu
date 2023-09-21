@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Icon from "../components/Icon.vue";
-import {capitalize} from "../utils/tools.ts";
+import {capitalize} from "../utils/tools";
+import PamyuLogo from "../assets/pamyu.svg";
 
 const navigationItems = [
     {name: "project", icon: "folder", path: "/project", disabled: true,},
@@ -17,7 +18,7 @@ const navigationItems = [
 <template>
     <div class="navigation">
         <a href="https://github.com/antharuu/pamyu" target="_blank">
-            <img class="navigation__logo" src="pamyu.svg" alt="logo"/>
+            <img class="navigation__logo" :src="PamyuLogo" alt="logo"/>
         </a>
         <nav class="navigation__nav">
             <span class="navigation__link" v-for="item in navigationItems">

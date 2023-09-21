@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {useSettingStore} from "../../stores/useSettingStore";
-
 </script>
 
 <template>

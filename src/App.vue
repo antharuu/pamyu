@@ -3,6 +3,7 @@ import Navigation from "./layout/Navigation.vue";
 import {useSettingStore} from "./stores/useSettingStore.ts";
 import {useI18n} from "vue-i18n";
 import {useRoute} from "vue-router";
+import {watchEffect} from "vue";
 
 const userConfig = useSettingStore();
 const {locale} = useI18n()
@@ -14,6 +15,10 @@ const route = useRoute()
 route.meta.props = {
     pageTitle: String,
 }
+
+watchEffect(() => {
+    document.documentElement.style.setProperty('--color-primary', useSettingStore().getThemeColor);
+})
 </script>
 
 <template>
@@ -31,7 +36,6 @@ route.meta.props = {
     --color-darkgrey: #202329;
     --color-grey: #2e333d;
     --color-lightgrey: #a7acb8;
-    --color-primary: #6b8afd;
     --color-white: #dbfcff;
 }
 
@@ -70,6 +74,5 @@ select {
     padding: .5rem 1rem;
     color: var(--color-lightgrey);
     font-size: 16px;
-    font-family: 'Roboto', sans-serif;
 }
 </style>

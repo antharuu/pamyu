@@ -1,21 +1,28 @@
 import {defineStore} from "pinia";
+import {Color} from "../types/globals";
+import {colorAsString} from "../utils/tools";
 
 export const useSettingStore = defineStore('Settings', {
     state: (): {
-        locale: string;
+        locale?: 'fr' | 'en';
+        theme?: {
+            color?: Color;
+        }
     } => ({
-        locale: "fr"
+        locale: "en",
+        theme: {color: "#6b8afd"}
     }),
     getters: {
-        getLocale: (state) => state.locale
+        getLocale: (state) => state?.locale ?? 'en',
+        getThemeColor: (state) => colorAsString(state?.theme?.color ?? '#6b8afd')
     },
     actions: {
         setLocale(locale: string) {
-            console.log("Setting locale to", locale);
-            console.log(this)
-            console.log(this.locale)
             this.locale = locale;
-            console.log(this.locale)
+        },
+        setThemeColor(color: Color) {
+            const validColor = colorAsString(color);
+            this.theme = {color: validColor};
         }
     }
 })

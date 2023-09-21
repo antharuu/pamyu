@@ -8,5 +8,8 @@
   "translations": "translations",
   "settings": "settings",
   "not_implemented": "This functionality is not yet implemented.",
-  "language": "Language"
+  "language": "Language",
+  "create_character": "Create character",
+  "theme": "Theme",
+  "theme_color": "Main color"
 }
