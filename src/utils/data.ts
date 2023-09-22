@@ -3,7 +3,7 @@ import {path} from "../main";
 import {version} from "../../package.json";
 
 export function save_data(state: object) {
-    const updatedState = update_version(state)
+    update_version(state)
     // noinspection JSIgnoredPromiseFromCall
     invoke("save_data", {path, data: JSON.stringify(state, null, 2)})
 }
@@ -25,17 +25,17 @@ function get_version(stringVersion: string): [number, number, number] {
     return stringVersion.split(".").map((v: string) => parseInt(v)) as [number, number, number]
 }
 
-function is_version_greater_than(version1: string, version2: string): boolean {
-    const [v1, v2, v3] = get_version(version1)
-    const [v4, v5, v6] = get_version(version2)
+function is_version_greater_than(version_a: string, version_b: string): boolean {
+    const [a_major, a_minor, a_patch] = get_version(version_a)
+    const [b_major, b_minor, b_patch] = get_version(version_b)
 
-    if (v1 > v4) {
+    if (a_major > b_major) {
         return true
-    } else if (v1 === v4) {
-        if (v2 > v5) {
+    } else if (a_major === b_major) {
+        if (a_minor > b_minor) {
             return true
-        } else if (v2 === v5) {
-            return v3 > v6
+        } else if (a_minor === b_minor) {
+            return a_patch > b_patch
         }
     }
 
