@@ -7,57 +7,78 @@ import ActionButton from "../../components/ActionButton.vue";
 import {useCharacterStore} from "../../stores/characterStore";
 import {useRoute, useRouter} from "vue-router";
 import {Character} from "../../types/character";
+import Row from "../../layout/Row.vue";
 
 const route = useRoute();
 const router = useRouter();
 
-const character = computed<Character>(() => useCharacterStore().getCharacterById(`${route.params.id}`))
+const character = computed<Character | undefined>(() => useCharacterStore().getCharacterById(`${route.params.id}`))
 const characterEdit = ref<Character>();
 
 const nameError = computed<string>(() => {
-    if (characterEdit.value.name === undefined) return "";
+    if (!characterEdit.value || characterEdit.value.name === undefined) return "";
     if (characterEdit.value.name.length === 0) return "character_name_required";
     return "";
 });
 
 const isValid = computed<boolean>(() => {
+    if (!characterEdit.value) return false;
     return nameError.value.length === 0 && characterEdit.value.name !== undefined && characterEdit.value.name.length > 0;
 });
 
 function editCharacter() {
     if (!isValid.value) return;
 
-    useCharacterStore().updateCharacter(characterEdit.value)
+    if (characterEdit.value) {
+        useCharacterStore().updateCharacter(characterEdit.value)
+    }
 }
 
 function deleteCharacter() {
-    useCharacterStore().deleteCharacter(characterEdit.value)
-    router.push({name: "character.edit", params: { id: useCharacterStore().getCharacters[0]._id }})
+    if (characterEdit.value) {
+        useCharacterStore().deleteCharacter(characterEdit.value)
+    }
+    router.push({name: "character.edit", params: {id: useCharacterStore().getCharacters[0]._id}})
 }
 
 watch(character, (newVal) => {
     if (!newVal) return;
     characterEdit.value = {...newVal};
-},  {immediate: true})
+}, {immediate: true})
 </script>
 
 <template>
-    <div v-if="character && character._id">
+    <div v-if="character && character._id && characterEdit">
         <h2>{{ $t('edit_character') }}</h2>
         <InputContainer>
-            <InputText label="character_id" :model-value="character._id" readonly/>
-            <InputText
-                label="character_name"
-                v-capitalize
-                :model-value="characterEdit.name"
-                :error="nameError"
-                @update:model-value="characterEdit.name = $event"
-            />
-            <InputColor
-                label="character_color"
-                :model-value="characterEdit.color"
-                @update:model-value="characterEdit.color = $event"
-            />
+            <Row small="2" large="3">
+                <Row class="left">
+                    <InputText label="character_id" :model-value="character._id" readonly/>
+                    <InputText
+                        label="character_name"
+                        v-capitalize
+                        :model-value="characterEdit.name"
+                        :error="nameError"
+                        @update:model-value="characterEdit.name = $event"
+                    />
+                    <InputColor
+                        label="character_color"
+                        :model-value="characterEdit.color"
+                        @update:model-value="characterEdit.color = $event"
+                    />
+                </Row>
+
+                <Row class="right" large="2">
+                    <InputText label="character_what_prefix" :model-value="characterEdit.what_prefix"
+                               @update:model-value="characterEdit.what_prefix = $event"/>
+                    <InputText label="character_what_suffix" :model-value="characterEdit.what_suffix"
+                               @update:model-value="characterEdit.what_suffix = $event"/>
+                    <InputText label="character_who_prefix" :model-value="characterEdit.who_prefix"
+                               @update:model-value="characterEdit.who_prefix = $event"/>
+                    <InputText label="character_who_suffix" :model-value="characterEdit.who_suffix"
+                               @update:model-value="characterEdit.who_suffix = $event"/>
+                </Row>
+            </Row>
 
             <template #actions>
                 <ActionButton @click="deleteCharacter" type="delete">
@@ -72,5 +93,9 @@ watch(character, (newVal) => {
 </template>
 
 <style scoped>
-
+.right {
+    @media (width >= 1400px) {
+        grid-column: span 2;
+    }
+}
 </style>

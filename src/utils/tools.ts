@@ -25,17 +25,7 @@ export function capitalize(str: string): string {
 }
 
 export function colorAsString(color: Color): string {
-    if (typeof color === "string") {
-        return color.startsWith("#") ? color : "#" + color;
-    }
-
-    const {r, g, b} = color;
-
-    const rHex = r.toString(16).padStart(2, "0");
-    const gHex = g.toString(16).padStart(2, "0");
-    const bHex = b.toString(16).padStart(2, "0");
-
-    return `#${rHex}${gHex}${bHex}`;
+    return color.startsWith("#") ? color : "#" + color;
 }
 
 
@@ -85,4 +75,9 @@ export function deepAssign<T extends Record<string, unknown>>(target: T, ...sour
     }
 
     return target;
+}
+
+export function undefinedStringIfEmpty(str: string | unknown): string | undefined {
+    if (typeof str !== "string") return undefined;
+    return str.trim().length === 0 ? undefined : str.trim();
 }

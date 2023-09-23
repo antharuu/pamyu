@@ -1,5 +1,5 @@
 import {defineStore} from "pinia";
-import {getRandomToken} from "../utils/tools.ts";
+import {getRandomToken, undefinedStringIfEmpty} from "../utils/tools.ts";
 import {Character} from "../types/character.ts";
 
 export const useCharacterStore = defineStore({
@@ -31,14 +31,22 @@ export const useCharacterStore = defineStore({
             this.characters.push({
                 _id: randomId,
                 name,
-                color: character.color || "#ffffff"
+                color: character.color || "#ffffff",
+                what_prefix: undefinedStringIfEmpty(character.what_prefix),
+                what_suffix: undefinedStringIfEmpty(character.what_suffix),
+                who_prefix: undefinedStringIfEmpty(character.who_prefix),
+                who_suffix: undefinedStringIfEmpty(character.who_suffix),
             })
         },
         updateCharacter(character: Character) {
             const char = this.getCharacterById(character._id)
             if (char) {
                 char.name = character.name
-                char.color = character.color
+                char.color = undefinedStringIfEmpty(character.color)
+                char.what_prefix = undefinedStringIfEmpty(character.what_prefix)
+                char.what_suffix = undefinedStringIfEmpty(character.what_suffix)
+                char.who_prefix = undefinedStringIfEmpty(character.who_prefix)
+                char.who_suffix = undefinedStringIfEmpty(character.who_suffix)
             }
         },
         deleteCharacter(character: Character) {

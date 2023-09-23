@@ -10,7 +10,7 @@ const props = withDefaults(defineProps<{
     message?: string;
 }>(), {
     modelValue: '#ffffff',
-    width: '300px',
+    width: '100%',
     readonly: false,
     error: '',
     message: '',

@@ -17,6 +17,10 @@
   "character_name_required": "Le nom du personnage est requis.",
   "character_color": "Couleur du personnage",
   "character_id": "ID du personnage",
+  "character_what_prefix": "Préfixe du texte",
+  "character_what_suffix": "Suffixe du texte",
+  "character_who_prefix": "Préfixe du nom",
+  "character_who_suffix": "Suffixe du nom",
   "create" : "Créer",
   "edit" : "Modifier",
   "delete" : "Supprimer"

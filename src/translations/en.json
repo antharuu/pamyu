@@ -17,6 +17,10 @@
   "character_name_required": "Character name is required.",
   "character_color": "Character color",
   "character_id": "Character ID",
+  "character_what_prefix": "Text prefix",
+  "character_what_suffix": "Text suffix",
+  "character_who_prefix": "Name prefix",
+  "character_who_suffix": "Name suffix",
   "create": "Create",
   "edit": "Edit",
   "delete": "Delete"

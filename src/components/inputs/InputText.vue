@@ -15,7 +15,7 @@ const props = withDefaults(defineProps<{
 }>(), {
     type: 'text',
     maxLenght: 9999999999,
-    width: '300px',
+    width: '100%',
     readonly: false,
     textArea: false,
     error: '',
