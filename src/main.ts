@@ -2,7 +2,7 @@ import {version} from "../package.json";
 import {createApp, watch} from "vue";
 import "./styles.css";
 import App from "./App.vue";
-import {createRouter, createWebHistory} from "vue-router";
+import {createRouter, createWebHistory, RouterOptions} from "vue-router";
 import {routes} from "./routes/main";
 import {createPinia} from "pinia";
 import defaultStores from "./default-stores.json";
@@ -14,7 +14,7 @@ const router = createRouter({
     mode: "history",
     history: createWebHistory(),
     routes
-} as any)
+} as RouterOptions)
 
 export const path = "D:/Maana/RenpyUiTestProject"
 

@@ -21,7 +21,7 @@ const navigationItems = [
             <img class="navigation__logo" :src="PamyuLogo" alt="logo"/>
         </a>
         <nav class="navigation__nav">
-            <span class="navigation__link" v-for="item in navigationItems">
+            <span class="navigation__link" v-for="item in navigationItems" :key="item.name">
                 <router-link
                     v-if="!item.disabled"
                     :to="item.path"
