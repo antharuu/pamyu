@@ -9,6 +9,7 @@ import defaultStores from "./default-stores.json";
 import i18n from "./utils/i18n";
 import {load_data, save_data} from "./utils/data";
 import {capitalize, deepAssign} from "./utils/tools.ts";
+import {update_characters} from "./utils/rpy.ts";
 
 const router = createRouter({
     mode: "history",
@@ -63,3 +64,5 @@ app.use(pinia)
 app.use(router)
 app.use(i18n)
 app.mount("#app");
+
+update_characters()

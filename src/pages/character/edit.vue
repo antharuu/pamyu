@@ -11,10 +11,7 @@ import {Character} from "../../types/character";
 const route = useRoute();
 const router = useRouter();
 
-const character = computed<Character>(() => {
-    console.log(route.params.id)
-    return useCharacterStore().getCharacterById(`${route.params.id}`)
-})
+const character = computed<Character>(() => useCharacterStore().getCharacterById(`${route.params.id}`))
 const characterEdit = ref<Character>();
 
 const nameError = computed<string>(() => {
@@ -35,12 +32,10 @@ function editCharacter() {
 
 function deleteCharacter() {
     useCharacterStore().deleteCharacter(characterEdit.value)
-    console.log(useCharacterStore().getCharacters[0]._id)
     router.push({name: "character.edit", params: { id: useCharacterStore().getCharacters[0]._id }})
 }
 
 watch(character, (newVal) => {
-    console.log(newVal)
     if (!newVal) return;
     characterEdit.value = {...newVal};
 },  {immediate: true})

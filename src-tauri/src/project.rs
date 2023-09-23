@@ -42,7 +42,7 @@ pub fn save_new_script(path: String, content: String) -> Result<(), String> {
     Err(format!("This is not a Ren'Py project. - Not found game directory\n\nPath: {}", path))
 }
 
-fn get_valid_path(path: String) -> String {
+pub fn get_valid_path(path: String) -> String {
     if path.ends_with("/") {
         // remove last char
         path[..path.len() - 1].to_string()
@@ -51,7 +51,7 @@ fn get_valid_path(path: String) -> String {
     }
 }
 
-fn is_game_project(path: &String) -> bool {
+pub fn is_game_project(path: &String) -> bool {
     let game_path = format!("{}/game", path);
     match fs::metadata(&game_path) {
         Ok(metadata) => metadata.is_dir(),

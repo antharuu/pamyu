@@ -4,11 +4,13 @@
 mod files;
 mod project;
 mod save;
+mod update_script;
 
 use files::list_files_from_path;
 use project::load_project;
 use project::save_new_script;
 use save::{load_data, save_data};
+use update_script::update_data;
 
 fn main() {
     tauri::Builder::default()
@@ -17,7 +19,8 @@ fn main() {
             load_project,
             save_new_script,
             save_data,
-            load_data
+            load_data,
+            update_data
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

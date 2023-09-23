@@ -7,7 +7,6 @@ import CharacterEdit from "../pages/character/edit.vue";
 export const routes = [
     {
         path: "/",
-        name: "settings",
         redirect: "characters"
     },
     {
