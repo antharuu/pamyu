@@ -88,7 +88,7 @@ const navigationItems = [
 
             .navigation__link-element {
                 position: relative;
-                color: var(--color-white);
+                color: var(--color-light);
                 text-decoration: none;
                 display: inline-flex;
                 flex-direction: column;
@@ -114,6 +114,7 @@ const navigationItems = [
 
                 &.active {
                     color: var(--color-primary);
+                    pointer-events: none;
 
                     &::before {
                         opacity: 1;

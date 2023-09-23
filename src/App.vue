@@ -4,6 +4,7 @@ import {useSettingStore} from "./stores/useSettingStore.ts";
 import {useI18n} from "vue-i18n";
 import {useRoute} from "vue-router";
 import {watchEffect} from "vue";
+import {getDarkenColor, getLightenColor} from "./utils/colors.ts";
 
 const userConfig = useSettingStore();
 const {locale} = useI18n()
@@ -17,7 +18,11 @@ route.meta.props = {
 }
 
 watchEffect(() => {
-    document.documentElement.style.setProperty('--color-primary', useSettingStore().getThemeColor);
+    const themeColor = useSettingStore().getThemeColor;
+    const appStyle = document.documentElement.style;
+    appStyle.setProperty('--color-primary', themeColor);
+    appStyle.setProperty('--color-primary-dark', getDarkenColor(themeColor, 20));
+    appStyle.setProperty('--color-primary-light', getLightenColor(themeColor, 20));
 })
 </script>
 
@@ -32,11 +37,18 @@ watchEffect(() => {
 
 <style>
 :root {
+    /* ---------- COLORS ---------- */
     --color-dark: #131313;
     --color-darkgrey: #202329;
     --color-grey: #2e333d;
     --color-lightgrey: #a7acb8;
-    --color-white: #dbfcff;
+    --color-light: #dbfcff;
+    --color-error: #E74C3C;
+    --color-error-dark: #B93D30;
+    --color-success: #2ECC71;
+    --color-success-dark: #25A35A;
+    --color-info: #6b8afd;
+    --color-info-dark: #566ECA;
 }
 
 html, body {

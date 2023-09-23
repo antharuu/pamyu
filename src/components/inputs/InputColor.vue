@@ -1,23 +1,17 @@
 <script lang="ts" setup>
-import {computed} from "vue";
-import Icon from "../Icon.vue";
+import {computed, onMounted} from "vue";
 
 const props = withDefaults(defineProps<{
     modelValue: string | number | undefined;
     label: string;
-    type?: string;
-    maxLenght?: number;
     width?: string | null;
     readonly?: boolean;
-    textArea?: boolean;
     error?: string;
     message?: string;
 }>(), {
-    type: 'text',
-    maxLenght: 9999999999,
+    modelValue: '#ffffff',
     width: '300px',
     readonly: false,
-    textArea: false,
     error: '',
     message: '',
 })
@@ -35,30 +29,37 @@ const value = computed({
 
 const uniqueId = `input-${Math.random().toString(36).substr(2, 9)}`
 const usableWidth = props.width ? props.width : '100%'
+
+const isLightColor = computed<boolean>(() => {
+    const color = value.value?.toString();
+    if (color === undefined) return false;
+    if (color.length === 0) return false;
+    const r = parseInt(color.substr(1, 2), 16);
+    const g = parseInt(color.substr(3, 2), 16);
+    const b = parseInt(color.substr(5, 2), 16);
+    const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+    return brightness > 155;
+})
+
+onMounted(() => {
+    emit('update:model-value', props.modelValue)
+})
 </script>
 
 <template>
     <div class="input__group" :style="{width: usableWidth}" :class="{'input__group--error': error.length > 0}">
-        <label :for="uniqueId">
-            <Icon name="lock" v-if="props.readonly" class="input__group-icon" />
-            {{ $t(label) }}
-        </label>
+        <label :for="uniqueId">{{ $t(label) }}</label>
         <input
-            aria-autocomplete="none"
-            v-if="!props.textArea"
-            v-model.trim.lazy="value"
-            :type="type"
+            v-model.trim="value"
+            type="color"
             :readonly="props.readonly"
-            :maxlength="props.maxLenght"
             :id="uniqueId"
         />
-        <textarea
-            v-else
-            v-model.trim.lazy="value"
-            :readonly="props.readonly"
-            :maxlength="props.maxLenght"
-            :id="uniqueId"
-        />
+        <span class="input__group-preview" :style="{backgroundColor: value?.toString()}" :class="{
+            'input__group-preview--light': isLightColor
+        }">
+            {{ value }}
+        </span>
         <span class="input__group-message" v-if="message.length > 0 || error.length > 0">
             <span class="input__group-message-error" v-if="error.length > 0">
                 {{ $t(error) }}
@@ -73,41 +74,45 @@ const usableWidth = props.width ? props.width : '100%'
 
 <style lang="scss" scoped>
 .input__group {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: .5rem;
-
-    &-icon {
-        font-size: 16px;
-        position: relative;
-        top: 2px;
-    }
 
     &--error {
         label {
             color: var(--color-error);
         }
 
-        input, textarea {
+        input {
             box-shadow: 0 0 0 2px var(--color-error);
         }
     }
 
-    input, textarea {
+    input {
         background-color: var(--color-grey);
         border: none;
         border-radius: 5px;
-        padding: .5rem 1rem;
-        color: var(--color-lightgrey);
-        font-size: 16px;
+        width: 100%;
+        opacity: 0;
         outline: none;
+        height: 34px;
+    }
 
-        &:focus {
-            box-shadow: 0 0 0 2px var(--color-primary);
+    &-preview {
+        position: absolute;
+        inset: 0;
+        top: 1.7rem;
+        border-radius: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-transform: uppercase;
+        pointer-events: none;
+        color: var(--color-light);
 
-            &:read-only {
-                box-shadow: none;
-            }
+        &--light {
+            color: var(--color-dark);
         }
     }
 

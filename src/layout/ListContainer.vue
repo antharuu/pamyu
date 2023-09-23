@@ -5,7 +5,7 @@
 <template>
     <div class="list-container">
         <div class="left">
-            <slot name="list"></slot>
+            <slot name="list" />
         </div>
         <div class="right">
             <slot/>
@@ -23,6 +23,9 @@
 .left {
     overflow: hidden;
     padding: .5em;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .right {

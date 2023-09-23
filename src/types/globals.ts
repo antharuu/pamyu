@@ -1,1 +1,1 @@
-export type Color = { r: number; g: number; b: number; } | string;
+export type Color = string;

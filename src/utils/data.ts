@@ -2,19 +2,26 @@ import {invoke} from "@tauri-apps/api/tauri";
 import {path} from "../main";
 import {version} from "../../package.json";
 import {State} from "../types/state.ts";
+import {ref} from "vue";
+
+const isSaving = ref<boolean>(false)
 
 /**
  * This `save_data` function is used to persist the current state of the application to a specified path.
  *
  * @param {object} state - The current application state.
  */
-export function save_data(state: object) {
+export async function save_data(state: object) {
+    if (isSaving.value) return
+    isSaving.value = true
     update_version(state)
     // noinspection JSIgnoredPromiseFromCall
-    invoke("save_data", {path, data: JSON.stringify(state, null, 2)})
+    await invoke("save_data", {path, data: JSON.stringify(state, null, 2)})
+    isSaving.value = false
 }
 
 export async function load_data(): Promise<object> {
+    console.log("📂 Loading data from", path)
     const baseData = await invoke("load_data", {path}) as string | null
     if (baseData) {
         try {

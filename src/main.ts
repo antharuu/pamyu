@@ -1,5 +1,5 @@
 import {version} from "../package.json";
-import {createApp, watch} from "vue";
+import {createApp, VNode, VNodeChild, watch} from "vue";
 import "./styles.css";
 import App from "./App.vue";
 import {createRouter, createWebHistory, RouterOptions} from "vue-router";
@@ -8,7 +8,7 @@ import {createPinia} from "pinia";
 import defaultStores from "./default-stores.json";
 import i18n from "./utils/i18n";
 import {load_data, save_data} from "./utils/data";
-import {deepAssign} from "./utils/tools.ts";
+import {capitalize, deepAssign} from "./utils/tools.ts";
 
 const router = createRouter({
     mode: "history",
@@ -36,6 +36,29 @@ if (baseData) {
 watch(pinia.state, (state) => save_data(state), {deep: true})
 
 const app = createApp(App);
+
+function isVNodeWithEl(child: VNodeChild): child is VNode & { el: HTMLElement } {
+    return !!child && (child as VNode).el !== undefined && (child as VNode).el !== null;
+}
+
+app.directive("capitalize", {
+    updated(_el, _binding, vnode: VNode) {
+        if (Array.isArray(vnode.children)) {
+            const input = (vnode.children as VNodeChild[]).find(child => {
+                return isVNodeWithEl(child) && child.el.tagName === "INPUT";
+            });
+
+            if (input && isVNodeWithEl(input)) {
+                input.el.value = capitalize(input.el.value);
+            } else {
+                throw new Error("No input found in capitalize directive");
+            }
+        } else {
+            throw new Error("Children are not an array in capitalize directive");
+        }
+    }
+});
+
 app.use(pinia)
 app.use(router)
 app.use(i18n)

@@ -13,10 +13,9 @@ const updateColor = (event: Event) => {
     <div>
         <h2>{{ $t('theme') }}</h2>
         <div class="color">
-            <label for="theme-color">{{ $t('theme_color') }} ({{themeColor}})</label>
+            <label for="theme-color">{{ $t('theme_color') }}</label>
             <input type="color" id="theme-color" v-model="themeColor" @change="updateColor" />
         </div>
-        {{ JSON.stringify(useSettingStore().$state) }}
     </div>
 </template>
 

@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import PageLayout from "../layout/PageLayout.vue";
 import ListContainer from "../layout/ListContainer.vue";
+import ActionButton from "../components/ActionButton.vue";
+import {useCharacterStore} from "../stores/characterStore.ts";
 </script>
 
 <template>
@@ -8,15 +10,45 @@ import ListContainer from "../layout/ListContainer.vue";
         <ListContainer>
             <template #list>
                 <router-link :to="{name: 'character.create'}">
-                    {{ $t("create_character") }}
+                    <ActionButton block>
+                        {{ $t("create_character") }}
+                    </ActionButton>
                 </router-link>
+
+                <div class="characters">
+                    <router-link
+                        :to="{ name: 'character.edit', params: { id: character._id } }"
+                        class="character"
+                        v-for="character in useCharacterStore().getCharacters"
+                        :key="character._id"
+                    >
+                        <div class="character__name">{{ character.name }}</div>
+                    </router-link>
+                </div>
             </template>
 
-        <router-view/>
+            <router-view/>
         </ListContainer>
     </PageLayout>
 </template>
 
 <style scoped>
+.characters {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 1rem;
 
+    .character {
+        background-color: var(--color-grey);
+        border-radius: 5px;
+        padding: 1rem;
+        cursor: pointer;
+        text-decoration: none;
+        color: var(--color-light);
+
+        &:hover, &.router-link-active {
+            outline: 2px solid var(--color-primary);
+        }
+    }
+}
 </style>

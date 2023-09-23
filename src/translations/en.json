@@ -10,6 +10,14 @@
   "not_implemented": "This functionality is not yet implemented.",
   "language": "Language",
   "create_character": "Create character",
+  "edit_character": "Edit character",
   "theme": "Theme",
-  "theme_color": "Main color"
+  "theme_color": "Main color",
+  "character_name": "Character name",
+  "character_name_required": "Character name is required.",
+  "character_color": "Character color",
+  "character_id": "Character ID",
+  "create": "Create",
+  "edit": "Edit",
+  "delete": "Delete"
 }
