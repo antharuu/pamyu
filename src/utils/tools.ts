@@ -77,7 +77,7 @@ export function deepAssign<T extends Record<string, unknown>>(target: T, ...sour
     return target;
 }
 
-export function undefinedStringIfEmpty(str: string | unknown): string | undefined {
+export function undefinedIfEmptyString(str: string | unknown): string | undefined {
     if (typeof str !== "string") return undefined;
     return str.trim().length === 0 ? undefined : str.trim();
 }

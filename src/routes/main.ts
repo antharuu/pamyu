@@ -3,6 +3,7 @@ import Settings from "../pages/settings.vue";
 import Characters from "../pages/characters.vue";
 import CharacterCreate from "../pages/character/create.vue";
 import CharacterEdit from "../pages/character/edit.vue";
+import CharacterDelete from "../pages/character/delete.vue";
 
 export const routes = [
     {
@@ -16,7 +17,7 @@ export const routes = [
         children: [
             {
                 path: "",
-                redirect: { name: "character.create" }
+                redirect: {name: "character.create"}
             },
             {
                 path: "create",
@@ -24,9 +25,14 @@ export const routes = [
                 component: CharacterCreate
             },
             {
-                path: ":id",
+                path: "edit/:id",
                 name: "character.edit",
                 component: CharacterEdit
+            },
+            {
+                path: "delete/:id",
+                name: "character.delete",
+                component: CharacterDelete
             }
         ]
     },

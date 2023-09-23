@@ -11,6 +11,7 @@
   "language": "Langue",
   "create_character": "Créer un personnage",
   "edit_character": "Modifier un personnage",
+  "delete_character": "Supprimer un personnage",
   "theme": "Thème",
   "theme_color": "Couleur principale",
   "character_name": "Nom du personnage",
@@ -23,5 +24,7 @@
   "character_who_suffix": "Suffixe du nom",
   "create" : "Créer",
   "edit" : "Modifier",
-  "delete" : "Supprimer"
+  "delete" : "Supprimer",
+  "delete_character_message" : "Êtes-vous sûr de vouloir supprimer ce personnage ?",
+  "delete_character_message_warning" : "Attention, cette action est irréversible et rendra les scènes utilisant ce personnage inutilisables."
 }

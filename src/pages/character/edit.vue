@@ -5,12 +5,11 @@ import InputColor from "../../components/inputs/InputColor.vue";
 import InputContainer from "../../layout/InputContainer.vue";
 import ActionButton from "../../components/ActionButton.vue";
 import {useCharacterStore} from "../../stores/characterStore";
-import {useRoute, useRouter} from "vue-router";
+import {useRoute} from "vue-router";
 import {Character} from "../../types/character";
 import Row from "../../layout/Row.vue";
 
 const route = useRoute();
-const router = useRouter();
 
 const character = computed<Character | undefined>(() => useCharacterStore().getCharacterById(`${route.params.id}`))
 const characterEdit = ref<Character>();
@@ -32,13 +31,6 @@ function editCharacter() {
     if (characterEdit.value) {
         useCharacterStore().updateCharacter(characterEdit.value)
     }
-}
-
-function deleteCharacter() {
-    if (characterEdit.value) {
-        useCharacterStore().deleteCharacter(characterEdit.value)
-    }
-    router.push({name: "character.edit", params: {id: useCharacterStore().getCharacters[0]._id}})
 }
 
 watch(character, (newVal) => {
@@ -81,9 +73,11 @@ watch(character, (newVal) => {
             </Row>
 
             <template #actions>
-                <ActionButton @click="deleteCharacter" type="delete">
-                    {{ $t('delete') }}
-                </ActionButton>
+                <router-link :to="{name: 'character.delete', params: {id: character._id}}">
+                    <ActionButton type="delete">
+                        {{ $t('delete') }}
+                    </ActionButton>
+                </router-link>
                 <ActionButton :disabled="!isValid" @click="editCharacter">
                     {{ $t('edit') }}
                 </ActionButton>
