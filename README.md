@@ -10,11 +10,11 @@ Pamyu is a simple and easy way to use "Renpy", with an graphical interface, to c
 
 ## 📦 How to install?
 
-**~ LATER ~**
+~ LATER ~
 
 ## 📖 How to use?
 
-**~ LATER ~**
+~ LATER ~
 
 ## 📝 License
 
@@ -22,7 +22,7 @@ Pamyu is a simple and easy way to use "Renpy", with an graphical interface, to c
 
 ## 📚 Guide
 
-**~ LATER ~**
+~ LATER ~
 
 ## 📜 Credits
 
