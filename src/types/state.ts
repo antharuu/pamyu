@@ -1,7 +1,7 @@
-import {Color} from "./globals.ts";
+import {Color} from './globals.ts';
 
 export type SettingsState = Partial<{
-    locale: "en" | "fr";
+    locale: 'en' | 'fr';
     theme: {
         color: Color;
     }

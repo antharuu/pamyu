@@ -2,7 +2,7 @@
 defineProps<{
     end?: boolean
     center?: boolean
-}>()
+}>();
 </script>
 
 <template>

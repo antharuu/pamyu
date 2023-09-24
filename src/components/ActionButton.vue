@@ -1,11 +1,11 @@
 <script setup lang="ts">
 withDefaults(defineProps<{
     block?: boolean;
-    type?: "default" | "delete";
+    type?: 'default' | 'delete';
 }>(), {
     block: false,
-    type: "default",
-})
+    type: 'default',
+});
 </script>
 
 <template>

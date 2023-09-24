@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {computed, onMounted} from "vue";
+import {computed, onMounted} from 'vue';
 
 const props = withDefaults(defineProps<{
     modelValue: string | number | undefined;
@@ -14,21 +14,21 @@ const props = withDefaults(defineProps<{
     readonly: false,
     error: '',
     message: '',
-})
+});
 
-const emit = defineEmits(['update:model-value'])
+const emit = defineEmits(['update:model-value']);
 
 const value = computed({
     get() {
-        return props.modelValue
+        return props.modelValue;
     },
     set(value) {
-        emit('update:model-value', value)
+        emit('update:model-value', value);
     }
-})
+});
 
-const uniqueId = `input-${Math.random().toString(36).substr(2, 9)}`
-const usableWidth = props.width ? props.width : '100%'
+const uniqueId = `input-${Math.random().toString(36).substr(2, 9)}`;
+const usableWidth = props.width ? props.width : '100%';
 
 const isLightColor = computed<boolean>(() => {
     const color = value.value?.toString();
@@ -39,11 +39,11 @@ const isLightColor = computed<boolean>(() => {
     const b = parseInt(color.substr(5, 2), 16);
     const brightness = (r * 299 + g * 587 + b * 114) / 1000;
     return brightness > 155;
-})
+});
 
 onMounted(() => {
-    emit('update:model-value', props.modelValue)
-})
+    emit('update:model-value', props.modelValue);
+});
 </script>
 
 <template>

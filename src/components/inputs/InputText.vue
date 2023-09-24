@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import {computed} from "vue";
-import Icon from "../Icon.vue";
+import {computed} from 'vue';
+
+import Icon from '../Icon.vue';
 
 const props = withDefaults(defineProps<{
     modelValue: string | number | undefined;
@@ -20,21 +21,21 @@ const props = withDefaults(defineProps<{
     textArea: false,
     error: '',
     message: '',
-})
+});
 
-const emit = defineEmits(['update:model-value'])
+const emit = defineEmits(['update:model-value']);
 
 const value = computed({
     get() {
-        return props.modelValue
+        return props.modelValue;
     },
     set(value) {
-        emit('update:model-value', value)
+        emit('update:model-value', value);
     }
-})
+});
 
-const uniqueId = `input-${Math.random().toString(36).substr(2, 9)}`
-const usableWidth = props.width ? props.width : '100%'
+const uniqueId = `input-${Math.random().toString(36).substr(2, 9)}`;
+const usableWidth = props.width ? props.width : '100%';
 </script>
 
 <template>

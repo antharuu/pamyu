@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import {capitalize} from "../utils/tools";
+import {capitalize} from '../utils/tools';
 
 withDefaults(
     defineProps<{
         pageTitle: string
     }>(),
     {
-        pageTitle: ""
+        pageTitle: ''
     }
-)
+);
 </script>
 
 <template>

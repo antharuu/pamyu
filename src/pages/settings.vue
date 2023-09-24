@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import PageLayout from "../layout/PageLayout.vue";
-import Locale from "../components/settings/Locale.vue";
-import Theme from "../components/settings/Theme.vue";
+import Locale from '../components/settings/Locale.vue';
+import Theme from '../components/settings/Theme.vue';
+
+import PageLayout from '../layout/PageLayout.vue';
 </script>
 
 <template>

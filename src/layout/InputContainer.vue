@@ -16,5 +16,5 @@
 }
 </style>
 <script setup lang="ts">
-import Actions from "./Actions.vue";
+import Actions from './Actions.vue';
 </script>

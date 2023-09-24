@@ -1,17 +1,20 @@
 <script setup lang="ts">
-import {computed, ref} from "vue";
-import InputText from "../../components/inputs/InputText.vue";
-import InputColor from "../../components/inputs/InputColor.vue";
-import InputContainer from "../../layout/InputContainer.vue";
-import ActionButton from "../../components/ActionButton.vue";
-import {useCharacterStore} from "../../stores/characterStore.ts";
-import Row from "../../layout/Row.vue";
+import {computed, ref} from 'vue';
 
+import {useCharacterStore} from '../../stores/characterStore.ts';
+
+import ActionButton from '../../components/ActionButton.vue';
+import InputColor from '../../components/inputs/InputColor.vue';
+import InputText from '../../components/inputs/InputText.vue';
+
+import InputContainer from '../../layout/InputContainer.vue';
+import Row from '../../layout/Row.vue';
+ 
 const name = ref<string>();
 const nameError = computed<string>(() => {
-    if (name.value === undefined) return "";
-    if (name.value.length === 0) return "character_name_required";
-    return "";
+    if (name.value === undefined) return '';
+    if (name.value.length === 0) return 'character_name_required';
+    return '';
 });
 
 const whatPrefix = ref<string>();
@@ -25,7 +28,7 @@ const isValid = computed<boolean>(() => {
     return nameError.value.length === 0 && name.value !== undefined && name.value.length > 0;
 });
 
-const createCharacter = () => {
+function createCharacter(): void {
     if (!isValid.value) return;
 
     useCharacterStore().addCharacter({
@@ -35,7 +38,7 @@ const createCharacter = () => {
         what_suffix: whatSuffix.value,
         who_prefix: whoPrefix.value,
         who_suffix: whoSuffix.value,
-    })
+    });
 
     name.value = undefined;
     color.value = undefined;

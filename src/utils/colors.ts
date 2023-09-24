@@ -1,4 +1,4 @@
-import {clamp} from "./math.ts";
+import {clamp} from './math.ts';
 
 function hexToRgb(hex: string): [number, number, number] {
     // Supprimer le caractère # au début si présent

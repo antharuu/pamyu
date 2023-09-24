@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import PageLayout from "../layout/PageLayout.vue";
-import ListContainer from "../layout/ListContainer.vue";
-import ActionButton from "../components/ActionButton.vue";
-import {useCharacterStore} from "../stores/characterStore.ts";
+import {useCharacterStore} from '../stores/characterStore.ts';
+
+import ActionButton from '../components/ActionButton.vue';
+
+import ListContainer from '../layout/ListContainer.vue';
+import PageLayout from '../layout/PageLayout.vue';
 </script>
 
 <template>
@@ -46,6 +48,7 @@ import {useCharacterStore} from "../stores/characterStore.ts";
         text-decoration: none;
         color: var(--color-light);
 
+        /*noinspection CssUnusedSymbol*/
         &:hover, &.router-link-active {
             outline: 2px solid var(--color-primary);
         }

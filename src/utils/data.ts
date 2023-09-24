@@ -1,37 +1,40 @@
-import {invoke} from "@tauri-apps/api/tauri";
-import {path} from "../main";
-import {version} from "../../package.json";
-import {State} from "../types/state.ts";
-import {ref} from "vue";
+import {invoke} from '@tauri-apps/api/tauri';
+import {ref} from 'vue';
 
-const isSaving = ref<boolean>(false)
+import {State} from '../types/state.ts';
+
+import {version} from '../../package.json';
+import {path} from '../main';
+
+
+const isSaving = ref<boolean>(false);
 
 /**
  * This `save_data` function is used to persist the current state of the application to a specified path.
  *
  * @param {object} state - The current application state.
  */
-export async function save_data(state: object) {
-    if (isSaving.value) return
-    isSaving.value = true
-    update_version(state)
+export async function save_data(state: object): Promise<void> {
+    if (isSaving.value) return;
+    isSaving.value = true;
+    update_version(state);
     // noinspection JSIgnoredPromiseFromCall
-    await invoke("save_data", {path, data: JSON.stringify(state, null, 2)})
-    isSaving.value = false
+    await invoke('save_data', {path, data: JSON.stringify(state, null, 2)});
+    isSaving.value = false;
 }
 
 export async function load_data(): Promise<object> {
-    console.log("📂 Loading data from", path)
-    const baseData = await invoke("load_data", {path}) as string | null
+    console.log('📂 Loading data from', path);
+    const baseData = await invoke('load_data', {path}) as string | null;
     if (baseData) {
         try {
-            return JSON.parse(baseData)
+            return JSON.parse(baseData);
         } catch (e) {
-            console.error(e)
+            console.error(e);
         }
     }
 
-    return {}
+    return {};
 }
 
 /**
@@ -43,7 +46,7 @@ export async function load_data(): Promise<object> {
  * the minor version number, and the patch version number.
  */
 function get_version(stringVersion: string): [number, number, number] {
-    return stringVersion.split(".").map((v: string) => parseInt(v)) as [number, number, number]
+    return stringVersion.split('.').map((v: string) => parseInt(v)) as [number, number, number];
 }
 
 /**
@@ -59,20 +62,20 @@ function get_version(stringVersion: string): [number, number, number] {
  * @returns {boolean} - Returns true if `version_a` is greater than `version_b`, otherwise false.
  */
 function is_version_greater_than(version_a: string, version_b: string): boolean {
-    const [a_major, a_minor, a_patch] = get_version(version_a)
-    const [b_major, b_minor, b_patch] = get_version(version_b)
+    const [aMajor, aMinor, aPatch] = get_version(version_a);
+    const [bMajor, bMinor, bPatch] = get_version(version_b);
 
-    if (a_major > b_major) {
-        return true
-    } else if (a_major === b_major) {
-        if (a_minor > b_minor) {
-            return true
-        } else if (a_minor === b_minor) {
-            return a_patch > b_patch
+    if (aMajor > bMajor) {
+        return true;
+    } else if (aMajor === bMajor) {
+        if (aMinor > bMinor) {
+            return true;
+        } else if (aMinor === bMinor) {
+            return aPatch > bPatch;
         }
     }
 
-    return false
+    return false;
 }
 
 /**
@@ -86,16 +89,16 @@ function is_version_greater_than(version_a: string, version_b: string): boolean 
  *
  * @param {any} state - The state object for the application, which may or may not contain a 'Pamyu' object with a 'version' attribute.
  */
-function update_version(state: State) {
-    const stateVersion = state?.Pamyu?.version ?? "0.0.0"
+function update_version(state: State): void {
+    const stateVersion = state?.Pamyu?.version ?? '0.0.0';
 
     if (is_version_greater_than(version, stateVersion)) {
-        console.log(`⚡️ Updating data to new version, ${stateVersion} -> ${version}`)
+        console.log(`⚡️ Updating data to new version, ${stateVersion} -> ${version}`);
     } else if (version !== stateVersion) {
-        throw new Error(`🚨 Data version is greater than current version, you are using an old version of Pamyu ${stateVersion} > ${version}`)
+        throw new Error(`🚨 Data version is greater than current version, you are using an old version of Pamyu ${stateVersion} > ${version}`);
     } else {
-        console.log("👌 No need to update data")
+        console.log('👌 No need to update data');
     }
 
-    state.Pamyu = {version}
+    state.Pamyu = {version};
 }

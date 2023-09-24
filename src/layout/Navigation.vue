@@ -1,17 +1,19 @@
 <script setup lang="ts">
-import Icon from "../components/Icon.vue";
-import {capitalize} from "../utils/tools";
-import PamyuLogo from "../assets/pamyu.svg";
+import {capitalize} from '../utils/tools';
+
+import Icon from '../components/Icon.vue';
+
+import PamyuLogo from '../assets/pamyu.svg';
 
 const navigationItems = [
-    {name: "project", icon: "folder", path: "/project", disabled: true,},
-    {name: "characters", icon: "face", path: "/characters",},
-    {name: "assets", icon: "image", path: "/assets", disabled: true,},
-    {name: "scenes", icon: "theater_comedy", path: "/scenes", disabled: true,},
-    {name: "variables", icon: "switches", path: "/variables", disabled: true,},
-    {name: "scripts", icon: "code", path: "/scripts", disabled: true,},
-    {name: "translations", icon: "translate", path: "/translations", disabled: true,},
-    {name: "settings", icon: "settings", path: "/settings"},
+    {name: 'project', icon: 'folder', path: '/project', disabled: true,},
+    {name: 'characters', icon: 'face', path: '/characters',},
+    {name: 'assets', icon: 'image', path: '/assets', disabled: true,},
+    {name: 'scenes', icon: 'theater_comedy', path: '/scenes', disabled: true,},
+    {name: 'variables', icon: 'switches', path: '/variables', disabled: true,},
+    {name: 'scripts', icon: 'code', path: '/scripts', disabled: true,},
+    {name: 'translations', icon: 'translate', path: '/translations', disabled: true,},
+    {name: 'settings', icon: 'settings', path: '/settings'},
 ];
 </script>
 

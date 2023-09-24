@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import {useSettingStore} from "../../stores/useSettingStore";
-import {ref} from "vue";
+import {ref} from 'vue';
+
+import {useSettingStore} from '../../stores/useSettingStore';
 
 const themeColor = ref<string>(useSettingStore().getThemeColor);
 
-const updateColor = (event: Event) => {
+function updateColor(event: Event): void {
     useSettingStore().setThemeColor((event.target as HTMLInputElement).value);
 }
 </script>

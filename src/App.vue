@@ -1,21 +1,24 @@
 <script setup lang="ts">
-import Navigation from "./layout/Navigation.vue";
-import {useSettingStore} from "./stores/useSettingStore.ts";
-import {useI18n} from "vue-i18n";
-import {useRoute} from "vue-router";
-import {watchEffect} from "vue";
-import {getDarkenColor, getLightenColor} from "./utils/colors.ts";
+import {watchEffect} from 'vue';
+import {useI18n} from 'vue-i18n';
+import {useRoute} from 'vue-router';
+
+import {useSettingStore} from './stores/useSettingStore.ts';
+
+import {getDarkenColor, getLightenColor} from './utils/colors.ts';
+
+import Navigation from './layout/Navigation.vue';
 
 const userConfig = useSettingStore();
-const {locale} = useI18n()
+const {locale} = useI18n();
 
 locale.value = userConfig.getLocale;
 
-const route = useRoute()
+const route = useRoute();
 
 route.meta.props = {
     pageTitle: String,
-}
+};
 
 watchEffect(() => {
     const themeColor = useSettingStore().getThemeColor;
@@ -23,7 +26,7 @@ watchEffect(() => {
     appStyle.setProperty('--color-primary', themeColor);
     appStyle.setProperty('--color-primary-dark', getDarkenColor(themeColor, 20));
     appStyle.setProperty('--color-primary-light', getLightenColor(themeColor, 20));
-})
+});
 </script>
 
 <template>

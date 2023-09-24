@@ -1,23 +1,27 @@
 <script setup lang="ts">
-import {computed, ref, watch} from "vue";
-import InputText from "../../components/inputs/InputText.vue";
-import InputColor from "../../components/inputs/InputColor.vue";
-import InputContainer from "../../layout/InputContainer.vue";
-import ActionButton from "../../components/ActionButton.vue";
-import {useCharacterStore} from "../../stores/characterStore";
-import {useRoute} from "vue-router";
-import {Character} from "../../types/character";
-import Row from "../../layout/Row.vue";
+import {computed, ref, watch} from 'vue';
+import {useRoute} from 'vue-router';
+
+import {useCharacterStore} from '../../stores/characterStore';
+
+import {Character} from '../../types/character';
+
+import ActionButton from '../../components/ActionButton.vue';
+import InputColor from '../../components/inputs/InputColor.vue';
+import InputText from '../../components/inputs/InputText.vue';
+
+import InputContainer from '../../layout/InputContainer.vue';
+import Row from '../../layout/Row.vue';
 
 const route = useRoute();
 
-const character = computed<Character | undefined>(() => useCharacterStore().getCharacterById(`${route.params.id}`))
+const character = computed<Character | undefined>(() => useCharacterStore().getCharacterById(`${route.params.id}`));
 const characterEdit = ref<Character>();
 
 const nameError = computed<string>(() => {
-    if (!characterEdit.value || characterEdit.value.name === undefined) return "";
-    if (characterEdit.value.name.length === 0) return "character_name_required";
-    return "";
+    if (!characterEdit.value || characterEdit.value.name === undefined) return '';
+    if (characterEdit.value.name.length === 0) return 'character_name_required';
+    return '';
 });
 
 const isValid = computed<boolean>(() => {
@@ -25,18 +29,18 @@ const isValid = computed<boolean>(() => {
     return nameError.value.length === 0 && characterEdit.value.name !== undefined && characterEdit.value.name.length > 0;
 });
 
-function editCharacter() {
+function editCharacter(): void {
     if (!isValid.value) return;
 
     if (characterEdit.value) {
-        useCharacterStore().updateCharacter(characterEdit.value)
+        useCharacterStore().updateCharacter(characterEdit.value);
     }
 }
 
 watch(character, (newVal) => {
     if (!newVal) return;
     characterEdit.value = {...newVal};
-}, {immediate: true})
+}, {immediate: true});
 </script>
 
 <template>

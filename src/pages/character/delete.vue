@@ -1,24 +1,28 @@
 <script setup lang="ts">
-import {useCharacterStore} from "../../stores/characterStore.ts";
-import {Character} from "../../types/character.ts";
-import {useRoute, useRouter} from "vue-router";
-import {computed} from "vue";
-import ActionButton from "../../components/ActionButton.vue";
-import Actions from "../../layout/Actions.vue";
-import Icon from "../../components/Icon.vue";
+import {computed} from 'vue';
+import {useRoute, useRouter} from 'vue-router';
+
+import {useCharacterStore} from '../../stores/characterStore.ts';
+
+import {Character} from '../../types/character.ts';
+
+import ActionButton from '../../components/ActionButton.vue';
+import Icon from '../../components/Icon.vue';
+
+import Actions from '../../layout/Actions.vue';
 
 const route = useRoute();
 const router = useRouter();
-const character = computed<Character | undefined>(() => useCharacterStore().getCharacterById(`${route.params.id}`))
+const character = computed<Character | undefined>(() => useCharacterStore().getCharacterById(`${route.params.id}`));
 
-function deleteCharacter() {
+function deleteCharacter(): void {
     if (character.value) {
-        useCharacterStore().deleteCharacter(character.value)
+        useCharacterStore().deleteCharacter(character.value);
     }
-    router.push({name: "character.edit", params: {id: useCharacterStore().getCharacters[0]._id}})
+    router.push({name: 'character.edit', params: {id: useCharacterStore().getCharacters[0]._id}});
 }
 
-function back() {
+function back(): void {
     router.back();
 }
 </script>

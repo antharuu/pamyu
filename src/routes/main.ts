@@ -1,49 +1,49 @@
-import NotFound from "../pages/not-found.vue";
-import Settings from "../pages/settings.vue";
-import Characters from "../pages/characters.vue";
-import CharacterCreate from "../pages/character/create.vue";
-import CharacterEdit from "../pages/character/edit.vue";
-import CharacterDelete from "../pages/character/delete.vue";
+import CharacterCreate from '../pages/character/create.vue';
+import CharacterDelete from '../pages/character/delete.vue';
+import CharacterEdit from '../pages/character/edit.vue';
+import Characters from '../pages/characters.vue';
+import NotFound from '../pages/not-found.vue';
+import Settings from '../pages/settings.vue';
 
 export const routes = [
     {
-        path: "/",
-        redirect: "characters"
+        path: '/',
+        redirect: 'characters'
     },
     {
-        path: "/characters",
-        name: "characters",
+        path: '/characters',
+        name: 'characters',
         component: Characters,
         children: [
             {
-                path: "",
-                redirect: {name: "character.create"}
+                path: '',
+                redirect: {name: 'character.create'}
             },
             {
-                path: "create",
-                name: "character.create",
+                path: 'create',
+                name: 'character.create',
                 component: CharacterCreate
             },
             {
-                path: "edit/:id",
-                name: "character.edit",
+                path: 'edit/:id',
+                name: 'character.edit',
                 component: CharacterEdit
             },
             {
-                path: "delete/:id",
-                name: "character.delete",
+                path: 'delete/:id',
+                name: 'character.delete',
                 component: CharacterDelete
             }
         ]
     },
     {
-        path: "/settings",
-        name: "settings",
+        path: '/settings',
+        name: 'settings',
         component: Settings
     },
     {
-        path: "/:pathMatch(.*)*",
-        name: "not-found",
+        path: '/:pathMatch(.*)*',
+        name: 'not-found',
         component: NotFound
     }
 ];

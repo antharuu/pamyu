@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import {computed} from "vue";
+import {computed} from 'vue';
 
 const props = defineProps<{
-    small?: 2 | 3 | 4;
-    large?: 2 | 3 | 4;
-}>()
+    small?: '2' | '3' | '4';
+    large?: '2' | '3' | '4';
+}>();
 
 const customStyle = computed(() => {
     const small = props.small ? props.small : 1;
@@ -12,8 +12,8 @@ const customStyle = computed(() => {
     return {
         '--cols-small': `repeat(${small}, 1fr)`,
         '--cols-large': `repeat(${large}, 1fr)`,
-    }
-})
+    };
+});
 </script>
 
 <template>
