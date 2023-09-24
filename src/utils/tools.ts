@@ -24,7 +24,7 @@ export function capitalize(str: string): string {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-export function colorAsString(color: Color): string {
+export function getColorAsHex(color: Color): string {
     return color.startsWith("#") ? color : "#" + color;
 }
 
@@ -77,7 +77,11 @@ export function deepAssign<T extends Record<string, unknown>>(target: T, ...sour
     return target;
 }
 
-export function undefinedIfEmptyString(str: string | unknown): string | undefined {
+export function getUndefinedIfEmptyString(str: string | unknown): string | undefined {
     if (typeof str !== "string") return undefined;
     return str.trim().length === 0 ? undefined : str.trim();
+}
+
+export function getCleanName(name: string) {
+    return name.replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
 }

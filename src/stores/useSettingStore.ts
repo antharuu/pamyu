@@ -1,6 +1,6 @@
 import {defineStore} from "pinia";
 import {Color} from "../types/globals";
-import {colorAsString} from "../utils/tools";
+import {getColorAsHex} from "../utils/tools";
 
 export const useSettingStore = defineStore('Settings', {
     state: (): {
@@ -14,14 +14,14 @@ export const useSettingStore = defineStore('Settings', {
     }),
     getters: {
         getLocale: (state) => state?.locale ?? 'en',
-        getThemeColor: (state) => colorAsString(state?.theme?.color ?? '#6b8afd')
+        getThemeColor: (state) => getColorAsHex(state?.theme?.color ?? '#6b8afd')
     },
     actions: {
         setLocale(locale: string) {
             this.locale = locale;
         },
         setThemeColor(color: Color) {
-            const validColor = colorAsString(color);
+            const validColor = getColorAsHex(color);
             this.theme = {color: validColor};
         }
     }

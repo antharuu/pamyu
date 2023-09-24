@@ -1,5 +1,5 @@
 import {defineStore} from "pinia";
-import {capitalize, getRandomToken, undefinedIfEmptyString} from "../utils/tools.ts";
+import {capitalize, getCleanName, getRandomToken, getUndefinedIfEmptyString} from "../utils/tools.ts";
 import {Character} from "../types/character.ts";
 
 export const useCharacterStore = defineStore({
@@ -19,7 +19,7 @@ export const useCharacterStore = defineStore({
     },
     actions: {
         getUniqueCharacterId(name: string): string {
-            const cleanName = name.replace(/[^a-zA-Z0-9]/g, "").toLowerCase()
+            const cleanName = getCleanName(name)
             const randomId = cleanName + "_" + getRandomToken(8)
             if (this.getCharacterById(randomId)) return this.getUniqueCharacterId(cleanName)
             return randomId
@@ -32,21 +32,21 @@ export const useCharacterStore = defineStore({
                 _id: randomId,
                 name: capitalize(name),
                 color: character.color || "#ffffff",
-                what_prefix: undefinedIfEmptyString(character.what_prefix),
-                what_suffix: undefinedIfEmptyString(character.what_suffix),
-                who_prefix: undefinedIfEmptyString(character.who_prefix),
-                who_suffix: undefinedIfEmptyString(character.who_suffix),
+                what_prefix: getUndefinedIfEmptyString(character.what_prefix),
+                what_suffix: getUndefinedIfEmptyString(character.what_suffix),
+                who_prefix: getUndefinedIfEmptyString(character.who_prefix),
+                who_suffix: getUndefinedIfEmptyString(character.who_suffix),
             })
         },
         updateCharacter(character: Character) {
             const char = this.getCharacterById(character._id)
             if (char) {
                 char.name = capitalize(character.name)
-                char.color = undefinedIfEmptyString(character.color)
-                char.what_prefix = undefinedIfEmptyString(character.what_prefix)
-                char.what_suffix = undefinedIfEmptyString(character.what_suffix)
-                char.who_prefix = undefinedIfEmptyString(character.who_prefix)
-                char.who_suffix = undefinedIfEmptyString(character.who_suffix)
+                char.color = getUndefinedIfEmptyString(character.color)
+                char.what_prefix = getUndefinedIfEmptyString(character.what_prefix)
+                char.what_suffix = getUndefinedIfEmptyString(character.what_suffix)
+                char.who_prefix = getUndefinedIfEmptyString(character.who_prefix)
+                char.who_suffix = getUndefinedIfEmptyString(character.who_suffix)
             }
         },
         deleteCharacter(character: Character) {
