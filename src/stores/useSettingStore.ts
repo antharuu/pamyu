@@ -19,7 +19,7 @@ export const useSettingStore = defineStore('Settings', {
         getThemeColor: (state) => getColorAsHex(state?.theme?.color ?? '#6b8afd')
     },
     actions: {
-        setLocale(locale: string) {
+        setLocale(locale: 'fr' | 'en') {
             this.locale = locale;
         },
         setThemeColor(color: Color) {

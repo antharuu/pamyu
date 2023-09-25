@@ -96,7 +96,7 @@ export function truncatePath(path: string, maxLength: number): string {
     // alors c'est le minimum que nous devons garder.
     if (parts.length <= 2) {
         const diff = maxLength - parts[parts.length - 1].length;
-        if(diff > 0) {
+        if (diff > 0) {
             return parts[0].substr(0, diff) + '/' + parts[parts.length - 1];
         }
         return ellipsis + parts[parts.length - 1].substr(0, maxLength - ellipsis.length);
@@ -120,4 +120,15 @@ export function truncatePath(path: string, maxLength: number): string {
     }
 
     return truncatedPath;
+}
+
+export function unwrap(entry: string | undefined, prev: string = '', next: string = ''): string {
+    if (!entry) return '';
+    if (entry.startsWith(prev) && entry.endsWith(next)) {
+        const startIndex = prev.length;
+        const endIndex = entry.length - next.length;
+        return entry.slice(startIndex, endIndex);
+    } else {
+        return entry;
+    }
 }

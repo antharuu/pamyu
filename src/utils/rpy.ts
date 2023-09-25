@@ -10,7 +10,7 @@ import {get_characters_script} from './pamyu.ts';
 export function update_characters(): void {
     watch(useCharacterStore().getCharacters, () => {
         console.log('📂 Updating', `${path}/game/characters.rpy`);
-        invoke('update_data', {
+        invoke('update_script', {
             path,
             file: 'characters.rpy',
             data: get_characters_script()

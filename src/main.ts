@@ -2,6 +2,8 @@ import {createPinia} from 'pinia';
 import {createApp, VNode, VNodeChild, watch} from 'vue';
 import {createRouter, createWebHistory, RouterOptions} from 'vue-router';
 
+import {useProjectStore} from './stores/useProjectStore.ts';
+
 import {load_data, save_data} from './utils/data';
 import i18n from './utils/i18n';
 import {PathManager} from './utils/path.ts';
@@ -72,3 +74,4 @@ app.use(i18n);
 app.mount('#app');
 
 update_characters();
+useProjectStore().init();
