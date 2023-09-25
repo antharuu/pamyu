@@ -6,7 +6,9 @@
 
 ## 🤔 What is Pamyu?
 
-Pamyu is a simple and easy way to use "Renpy", with an graphical interface, to create visual novels.
+Unveiling Pamyu – a user-friendly graphical interface that allows you to effortlessly craft your visual novels with Renpy, no coding required. View it as a fresh, alternative pathway to game creation using **Renpy**.
+
+This initiative is 100% open-source and free. Currently under development, Pamyu is available in English and French, but we welcome community contributions to expand the language offerings.
 
 ## 📦 How to install?
 
