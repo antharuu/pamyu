@@ -1,5 +1,4 @@
 use std::fs;
-use std::path::Path;
 use crate::project::{get_valid_path, is_game_project};
 
 #[tauri::command]

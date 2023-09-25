@@ -22,7 +22,6 @@ function updateColor(event: Event): void {
         label="theme_color"
         @change="updateColor"
       />
-      <!--      >-->
     </InputContainer>
   </div>
 </template>
