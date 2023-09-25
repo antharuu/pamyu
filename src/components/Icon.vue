@@ -5,7 +5,10 @@ defineProps<{
 </script>
 
 <template>
-  <i class="material-symbols-outlined" v-text="name.trim()"></i>
+  <i
+    class="material-symbols-outlined"
+    v-text="name.trim()"
+  />
 </template>
 
 <style scoped>

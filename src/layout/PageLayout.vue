@@ -12,10 +12,12 @@ withDefaults(
 </script>
 
 <template>
-    <div class="app-container">
-        <h1 v-if="pageTitle.length > 0">{{ capitalize($t(pageTitle)) }}</h1>
-        <slot/>
-    </div>
+  <div class="app-container">
+    <h1 v-if="pageTitle.length > 0">
+      {{ capitalize($t(pageTitle)) }}
+    </h1>
+    <slot />
+  </div>
 </template>
 
 <style scoped>

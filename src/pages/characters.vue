@@ -8,30 +8,32 @@ import PageLayout from '../layout/PageLayout.vue';
 </script>
 
 <template>
-    <PageLayout page-title="characters">
-        <ListContainer>
-            <template #list>
-                <router-link :to="{name: 'character.create'}">
-                    <ActionButton block>
-                        {{ $t("create_character") }}
-                    </ActionButton>
-                </router-link>
+  <PageLayout page-title="characters">
+    <ListContainer>
+      <template #list>
+        <router-link :to="{name: 'character.create'}">
+          <ActionButton block>
+            {{ $t("create_character") }}
+          </ActionButton>
+        </router-link>
 
-                <div class="characters">
-                    <router-link
-                        :to="{ name: 'character.edit', params: { id: character._id } }"
-                        class="character"
-                        v-for="character in useCharacterStore().getCharacters"
-                        :key="character._id"
-                    >
-                        <div class="character__name">{{ character.name }}</div>
-                    </router-link>
-                </div>
-            </template>
+        <div class="characters">
+          <router-link
+            v-for="character in useCharacterStore().getCharacters"
+            :key="character._id"
+            :to="{ name: 'character.edit', params: { id: character._id } }"
+            class="character"
+          >
+            <div class="character__name">
+              {{ character.name }}
+            </div>
+          </router-link>
+        </div>
+      </template>
 
-            <router-view/>
-        </ListContainer>
-    </PageLayout>
+      <router-view />
+    </ListContainer>
+  </PageLayout>
 </template>
 
 <style scoped>

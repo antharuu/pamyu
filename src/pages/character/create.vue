@@ -46,44 +46,65 @@ function createCharacter(): void {
 </script>
 
 <template>
-    <div>
-        <h2>{{ $t('create_character') }}</h2>
-        <InputContainer>
-            <Row small="2" large="3">
-                <Row class="left">
-                    <InputText
-                        label="character_name"
-                        v-capitalize
-                        :model-value="name"
-                        :error="nameError"
-                        @update:model-value="name = $event"
-                    />
-                    <InputColor
-                        label="character_color"
-                        :model-value="color"
-                        @update:model-value="color = $event"
-                    />
-                </Row>
+  <div>
+    <h2>{{ $t('create_character') }}</h2>
+    <InputContainer>
+      <Row
+        small="2"
+        large="3"
+      >
+        <Row class="left">
+          <InputText
+            v-capitalize
+            label="character_name"
+            :model-value="name"
+            :error="nameError"
+            @update:model-value="name = $event"
+          />
+          <InputColor
+            label="character_color"
+            :model-value="color"
+            @update:model-value="color = $event"
+          />
+        </Row>
 
-                <Row class="right" large="2">
-                    <InputText label="character_what_prefix" :model-value="whatPrefix"
-                               @update:model-value="whatPrefix = $event"/>
-                    <InputText label="character_what_suffix" :model-value="whatSuffix"
-                               @update:model-value="whatSuffix = $event"/>
-                    <InputText label="character_who_prefix" :model-value="whoPrefix"
-                               @update:model-value="whoPrefix = $event"/>
-                    <InputText label="character_who_suffix" :model-value="whoSuffix"
-                               @update:model-value="whoSuffix = $event"/>
-                </Row>
-            </Row>
+        <Row
+          class="right"
+          large="2"
+        >
+          <InputText
+            label="character_what_prefix"
+            :model-value="whatPrefix"
+            @update:model-value="whatPrefix = $event"
+          />
+          <InputText
+            label="character_what_suffix"
+            :model-value="whatSuffix"
+            @update:model-value="whatSuffix = $event"
+          />
+          <InputText
+            label="character_who_prefix"
+            :model-value="whoPrefix"
+            @update:model-value="whoPrefix = $event"
+          />
+          <InputText
+            label="character_who_suffix"
+            :model-value="whoSuffix"
+            @update:model-value="whoSuffix = $event"
+          />
+        </Row>
+      </Row>
 
-            <template #actions>
-                <ActionButton :disabled="!isValid" @click="createCharacter">
-                    {{ $t('create') }}
-                </ActionButton>
-            </template>
-        </InputContainer>
-    </div>
+      <template #actions>
+        <ActionButton
+          :disabled="!isValid"
+          @click="createCharacter"
+        >
+          {{ $t('create') }}
+        </ActionButton>
+      </template>
+    </InputContainer>
+  </div>
 </template>
 
 <style scoped>

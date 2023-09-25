@@ -28,23 +28,29 @@ function back(): void {
 </script>
 
 <template>
-    <div v-if="character">
-        <h2>{{ $t('delete_character') }} <small class="text-primary">{{ character.name }}</small></h2>
-        <p>{{ $t('delete_character_message') }}</p>
-        <p class="warn-message">
-            <Icon name="warning" style="position: relative; top: 5px;" />
-            {{ $t('delete_character_message_warning') }}
-        </p>
-        <br>
-        <Actions>
-            <ActionButton type="delete" @click="deleteCharacter">
-                {{ $t('delete') }}
-            </ActionButton>
-            <ActionButton @click="back">
-                {{ $t('cancel') }}
-            </ActionButton>
-        </Actions>
-    </div>
+  <div v-if="character">
+    <h2>{{ $t('delete_character') }} <small class="text-primary">{{ character.name }}</small></h2>
+    <p>{{ $t('delete_character_message') }}</p>
+    <p class="warn-message">
+      <Icon
+        name="warning"
+        style="position: relative; top: 5px;"
+      />
+      {{ $t('delete_character_message_warning') }}
+    </p>
+    <br>
+    <Actions>
+      <ActionButton
+        type="delete"
+        @click="deleteCharacter"
+      >
+        {{ $t('delete') }}
+      </ActionButton>
+      <ActionButton @click="back">
+        {{ $t('cancel') }}
+      </ActionButton>
+    </Actions>
+  </div>
 </template>
 
 <style scoped>

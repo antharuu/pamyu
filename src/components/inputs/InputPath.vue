@@ -1,5 +1,8 @@
 <script lang="ts" setup>
-import {computed, onMounted} from 'vue';
+import {open} from '@tauri-apps/api/dialog';
+import {computed} from 'vue';
+
+import Icon from '../Icon.vue';
 
 const props = withDefaults(defineProps<{
     modelValue: string | number | undefined;
@@ -9,7 +12,6 @@ const props = withDefaults(defineProps<{
     error?: string;
     message?: string;
 }>(), {
-    modelValue: '#ffffff',
     width: '100%',
     readonly: false,
     error: '',
@@ -30,20 +32,16 @@ const value = computed({
 const uniqueId = `input-${Math.random().toString(36).substr(2, 9)}`;
 const usableWidth = props.width ? props.width : '100%';
 
-const isLightColor = computed<boolean>(() => {
-    const color = value.value?.toString();
-    if (color === undefined) return false;
-    if (color.length === 0) return false;
-    const r = parseInt(color.substr(1, 2), 16);
-    const g = parseInt(color.substr(3, 2), 16);
-    const b = parseInt(color.substr(5, 2), 16);
-    const brightness = (r * 299 + g * 587 + b * 114) / 1000;
-    return brightness > 155;
-});
+async function importFolder(): Promise<void> {
+    const selected = await open({
+        multiple: false,
+        directory: true,
+    });
 
-onMounted(() => {
-    emit('update:model-value', props.modelValue);
-});
+    if (typeof selected !== 'string') return;
+
+    emit('update:model-value', selected);
+}
 </script>
 
 <template>
@@ -52,22 +50,27 @@ onMounted(() => {
     :style="{width: usableWidth}"
     :class="{'input__group--error': error.length > 0}"
   >
-    <label :for="uniqueId">{{ $t(label) }}</label>
-    <input
-      :id="uniqueId"
-      v-model.trim="value"
-      type="color"
-      :readonly="props.readonly"
-    >
-    <span
-      class="input__group-preview"
-      :style="{backgroundColor: value?.toString()}"
-      :class="{
-        'input__group-preview--light': isLightColor
-      }"
-    >
-      {{ value }}
-    </span>
+    <label :for="uniqueId">
+      <Icon
+        v-if="props.readonly"
+        name="lock"
+        class="input__group-icon"
+      />
+      {{ $t(label) }}
+    </label>
+    <div class="input__group-folder">
+      <input
+        :id="uniqueId"
+        v-model.trim.lazy="value"
+        aria-autocomplete="none"
+        type="text"
+        :readonly="props.readonly"
+      >
+
+      <button @click="importFolder">
+        {{ $t('browse') }}
+      </button>
+    </div>
     <span
       v-if="message.length > 0 || error.length > 0"
       class="input__group-message"
@@ -91,45 +94,48 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .input__group {
-    position: relative;
     display: flex;
     flex-direction: column;
     gap: .5rem;
+
+    &-icon {
+        font-size: 16px;
+        position: relative;
+        top: 2px;
+    }
 
     &--error {
         label {
             color: var(--color-error);
         }
 
-        input {
+        input, textarea {
             box-shadow: 0 0 0 2px var(--color-error);
         }
+    }
+
+    &-folder {
+        display: flex;
+        gap: .5rem;
+        width: 100%;
     }
 
     input {
         background-color: var(--color-grey);
         border: none;
         border-radius: 5px;
-        width: 100%;
-        opacity: 0;
+        padding: .5rem 1rem;
+        color: var(--color-lightgrey);
+        font-size: 16px;
         outline: none;
-        height: 34px;
-    }
+        width: 100%;
 
-    &-preview {
-        position: absolute;
-        inset: 0;
-        top: 1.7rem;
-        border-radius: 5px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-transform: uppercase;
-        pointer-events: none;
-        color: var(--color-light);
+        &:focus {
+            box-shadow: 0 0 0 2px var(--color-primary);
 
-        &--light {
-            color: var(--color-dark);
+            &:read-only {
+                box-shadow: none;
+            }
         }
     }
 
@@ -142,6 +148,24 @@ onMounted(() => {
 
         &-error {
             color: var(--color-error);
+        }
+    }
+
+    button {
+        background-color: var(--color-grey);
+        border: none;
+        border-radius: 5px;
+        padding: .5rem 1rem;
+        color: var(--color-lightgrey);
+        font-size: 16px;
+        outline: none;
+
+        &:focus {
+            box-shadow: 0 0 0 2px var(--color-primary);
+
+            &:read-only {
+                box-shadow: none;
+            }
         }
     }
 }

@@ -6,12 +6,12 @@ import PageLayout from '../layout/PageLayout.vue';
 </script>
 
 <template>
-    <PageLayout page-title="settings">
-        <div class="page-settings">
-            <Locale/>
-            <Theme/>
-        </div>
-    </PageLayout>
+  <PageLayout page-title="settings">
+    <div class="page-settings">
+      <Locale />
+      <Theme />
+    </div>
+  </PageLayout>
 </template>
 
 <style scoped>

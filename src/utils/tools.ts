@@ -83,3 +83,41 @@ export function getUndefinedIfEmptyString(str: string | unknown): string | undef
 export function getCleanName(name: string): string {
     return name.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
 }
+
+export function truncatePath(path: string, maxLength: number): string {
+    if (path.length <= maxLength) {
+        return path;
+    }
+
+    const ellipsis = '.../';
+    const parts = path.split('/');
+
+    // Si on a seulement le disque (par exemple "C:/") et la dernière partie (le nom du fichier/dossier),
+    // alors c'est le minimum que nous devons garder.
+    if (parts.length <= 2) {
+        const diff = maxLength - parts[parts.length - 1].length;
+        if(diff > 0) {
+            return parts[0].substr(0, diff) + '/' + parts[parts.length - 1];
+        }
+        return ellipsis + parts[parts.length - 1].substr(0, maxLength - ellipsis.length);
+    }
+
+    // Commence par garder la première et la dernière partie
+    let truncatedPath = parts[0] + '/' + ellipsis + parts[parts.length - 1];
+    if (truncatedPath.length > maxLength) {
+        return ellipsis + parts[parts.length - 1].substr(0, maxLength - ellipsis.length);
+    }
+
+    // Essayez d'ajouter des parties intermédiaires tant que nous ne dépassons pas la longueur maximale
+    for (let i = parts.length - 2; i > 0; i--) {
+        const tempPath = truncatedPath.replace(ellipsis, parts[i] + '/' + ellipsis);
+
+        if (tempPath.length > maxLength) {
+            break;
+        }
+
+        truncatedPath = tempPath;
+    }
+
+    return truncatedPath;
+}

@@ -1,50 +1,81 @@
 <script setup lang="ts">
+import {computed} from 'vue';
+
+import {PathManager} from '../utils/path.ts';
 import {capitalize} from '../utils/tools';
 
 import Icon from '../components/Icon.vue';
 
 import PamyuLogo from '../assets/pamyu.svg';
 
-const navigationItems = [
-    {name: 'project', icon: 'folder', path: '/project', disabled: true,},
-    {name: 'characters', icon: 'face', path: '/characters',},
-    {name: 'assets', icon: 'image', path: '/assets', disabled: true,},
-    {name: 'scenes', icon: 'theater_comedy', path: '/scenes', disabled: true,},
-    {name: 'variables', icon: 'switches', path: '/variables', disabled: true,},
-    {name: 'scripts', icon: 'code', path: '/scripts', disabled: true,},
-    {name: 'translations', icon: 'translate', path: '/translations', disabled: true,},
-    {name: 'settings', icon: 'settings', path: '/settings'},
+type MenuItem = {
+    name: string;
+    icon: string;
+    path: string;
+    disabled?: boolean;
+    order: number;
+}
+
+const basesItems: MenuItem[] = [
+    {name: 'projects', icon: 'folder_copy', path: '/projects', order: 0},
 ];
+
+const loadedItems: MenuItem[] = [
+    {name: 'project', icon: 'folder', path: '/project', disabled: true, order: 1},
+    {name: 'characters', icon: 'face', path: '/characters', order: 2},
+    {name: 'assets', icon: 'image', path: '/assets', disabled: true, order: 3},
+    {name: 'scenes', icon: 'theater_comedy', path: '/scenes', disabled: true, order: 4},
+    {name: 'variables', icon: 'switches', path: '/variables', disabled: true, order: 5},
+    {name: 'scripts', icon: 'code', path: '/scripts', disabled: true, order: 6},
+    {name: 'translations', icon: 'translate', path: '/translations', disabled: true, order: 7},
+    {name: 'settings', icon: 'settings', path: '/settings', order: 20},
+];
+
+const navigationItems = computed<MenuItem[]>(() =>
+    (PathManager.isEmpty ? basesItems : [...basesItems, ...loadedItems])
+        .filter(item => !item.disabled || PathManager.isEmpty)
+        .sort((a, b) => a.order - b.order));
 </script>
 
 <template>
-    <div class="navigation">
-        <a href="https://github.com/antharuu/pamyu" target="_blank">
-            <img class="navigation__logo" :src="PamyuLogo" alt="logo"/>
-        </a>
-        <nav class="navigation__nav">
-            <span class="navigation__link" v-for="item in navigationItems" :key="item.name">
-                <router-link
-                    v-if="!item.disabled"
-                    :to="item.path"
-                    :key="item.name"
-                    :active-class="'active'"
-                    class="navigation__link-element"
-                >
-                    <Icon :name="item.icon"/>
-                    <span>{{ capitalize($t(item.name)) }}</span>
-                </router-link>
-                <span
-                    v-else
-                    class="navigation__link-element navigation__link-element--disabled"
-                    :title="$t('not_implemented')"
-                >
-                    <Icon :name="item.icon"/>
-                    {{ capitalize($t(item.name)) }}
-                </span>
-            </span>
-        </nav>
-    </div>
+  <div class="navigation">
+    <a
+      href="https://github.com/antharuu/pamyu"
+      target="_blank"
+    >
+      <img
+        class="navigation__logo"
+        :src="PamyuLogo"
+        alt="logo"
+      >
+    </a>
+    <nav class="navigation__nav">
+      <span
+        v-for="item in navigationItems"
+        :key="item.name"
+        class="navigation__link"
+      >
+        <router-link
+          v-if="!item.disabled"
+          :key="item.name"
+          :to="item.path"
+          :active-class="'active'"
+          class="navigation__link-element"
+        >
+          <Icon :name="item.icon" />
+          <span>{{ capitalize($t(item.name)) }}</span>
+        </router-link>
+        <span
+          v-else
+          class="navigation__link-element navigation__link-element--disabled"
+          :title="$t('not_implemented')"
+        >
+          <Icon :name="item.icon" />
+          {{ capitalize($t(item.name)) }}
+        </span>
+      </span>
+    </nav>
+  </div>
 </template>
 
 <style lang="scss" scoped>

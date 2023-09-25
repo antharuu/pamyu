@@ -9,12 +9,15 @@ withDefaults(defineProps<{
 </script>
 
 <template>
-    <button class="action-button" :class="{
-        'action-button--block': block,
-        'action-button--delete': type === 'delete',
-    }">
-        <slot/>
-    </button>
+  <button
+    class="action-button"
+    :class="{
+      'action-button--block': block,
+      'action-button--delete': type === 'delete',
+    }"
+  >
+    <slot />
+  </button>
 </template>
 
 <style lang="scss" scoped>

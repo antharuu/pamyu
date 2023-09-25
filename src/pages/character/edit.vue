@@ -44,50 +44,75 @@ watch(character, (newVal) => {
 </script>
 
 <template>
-    <div v-if="character && character._id && characterEdit">
-        <h2>{{ $t('edit_character') }}</h2>
-        <InputContainer>
-            <Row small="2" large="3">
-                <Row class="left">
-                    <InputText label="character_id" :model-value="character._id" readonly/>
-                    <InputText
-                        label="character_name"
-                        v-capitalize
-                        :model-value="characterEdit.name"
-                        :error="nameError"
-                        @update:model-value="characterEdit.name = $event"
-                    />
-                    <InputColor
-                        label="character_color"
-                        :model-value="characterEdit.color"
-                        @update:model-value="characterEdit.color = $event"
-                    />
-                </Row>
+  <div v-if="character && character._id && characterEdit">
+    <h2>{{ $t('edit_character') }}</h2>
+    <InputContainer>
+      <Row
+        small="2"
+        large="3"
+      >
+        <Row class="left">
+          <InputText
+            label="character_id"
+            :model-value="character._id"
+            readonly
+          />
+          <InputText
+            v-capitalize
+            label="character_name"
+            :model-value="characterEdit.name"
+            :error="nameError"
+            @update:model-value="characterEdit.name = $event"
+          />
+          <InputColor
+            label="character_color"
+            :model-value="characterEdit.color"
+            @update:model-value="characterEdit.color = $event"
+          />
+        </Row>
 
-                <Row class="right" large="2">
-                    <InputText label="character_what_prefix" :model-value="characterEdit.what_prefix"
-                               @update:model-value="characterEdit.what_prefix = $event"/>
-                    <InputText label="character_what_suffix" :model-value="characterEdit.what_suffix"
-                               @update:model-value="characterEdit.what_suffix = $event"/>
-                    <InputText label="character_who_prefix" :model-value="characterEdit.who_prefix"
-                               @update:model-value="characterEdit.who_prefix = $event"/>
-                    <InputText label="character_who_suffix" :model-value="characterEdit.who_suffix"
-                               @update:model-value="characterEdit.who_suffix = $event"/>
-                </Row>
-            </Row>
+        <Row
+          class="right"
+          large="2"
+        >
+          <InputText
+            label="character_what_prefix"
+            :model-value="characterEdit.what_prefix"
+            @update:model-value="characterEdit.what_prefix = $event"
+          />
+          <InputText
+            label="character_what_suffix"
+            :model-value="characterEdit.what_suffix"
+            @update:model-value="characterEdit.what_suffix = $event"
+          />
+          <InputText
+            label="character_who_prefix"
+            :model-value="characterEdit.who_prefix"
+            @update:model-value="characterEdit.who_prefix = $event"
+          />
+          <InputText
+            label="character_who_suffix"
+            :model-value="characterEdit.who_suffix"
+            @update:model-value="characterEdit.who_suffix = $event"
+          />
+        </Row>
+      </Row>
 
-            <template #actions>
-                <router-link :to="{name: 'character.delete', params: {id: character._id}}">
-                    <ActionButton type="delete">
-                        {{ $t('delete') }}
-                    </ActionButton>
-                </router-link>
-                <ActionButton :disabled="!isValid" @click="editCharacter">
-                    {{ $t('edit') }}
-                </ActionButton>
-            </template>
-        </InputContainer>
-    </div>
+      <template #actions>
+        <router-link :to="{name: 'character.delete', params: {id: character._id}}">
+          <ActionButton type="delete">
+            {{ $t('delete') }}
+          </ActionButton>
+        </router-link>
+        <ActionButton
+          :disabled="!isValid"
+          @click="editCharacter"
+        >
+          {{ $t('edit') }}
+        </ActionButton>
+      </template>
+    </InputContainer>
+  </div>
 </template>
 
 <style scoped>

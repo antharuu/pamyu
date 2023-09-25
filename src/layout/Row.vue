@@ -17,9 +17,12 @@ const customStyle = computed(() => {
 </script>
 
 <template>
-    <div class="row" :style="customStyle">
-        <slot/>
-    </div>
+  <div
+    class="row"
+    :style="customStyle"
+  >
+    <slot />
+  </div>
 </template>
 
 <style scoped>

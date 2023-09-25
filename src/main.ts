@@ -3,11 +3,12 @@ import {createApp, VNode, VNodeChild, watch} from 'vue';
 import {createRouter, createWebHistory, RouterOptions} from 'vue-router';
 
 import {load_data, save_data} from './utils/data';
-import i18n from './utils/i18n'; 
+import i18n from './utils/i18n';
+import {PathManager} from './utils/path.ts';
 import {update_characters} from './utils/rpy.ts';
 import {capitalize, deepAssign} from './utils/tools.ts';
 
-import {routes} from './routes/main';
+import {routes, routesFallback} from './routes/main';
 
 import {version} from '../package.json';
 
@@ -16,18 +17,18 @@ import defaultStores from './default-stores.json';
 
 import './styles.css';
 
+console.clear();
+console.log(`👁️ Pamyu ~ ${version}`);
+
 const router = createRouter({
     mode: 'history',
     history: createWebHistory(),
-    routes
+    routes: !PathManager.isEmpty ? routes : routesFallback
 } as RouterOptions);
 
-export const path = 'D:/Maana/RenpyUiTestProject';
+export const path = PathManager.last?.path ?? '';
 
 const pinia = createPinia();
-
-console.clear();
-console.log(`👁️ Pamyu ~ ${version}`);
 
 const baseData = await load_data();
 if (baseData) {
@@ -35,7 +36,7 @@ if (baseData) {
         const completeData = deepAssign(defaultStores, baseData);
         pinia.state.value = completeData;
 
-        save_data(completeData);
+        void save_data(completeData);
     }
 }
 

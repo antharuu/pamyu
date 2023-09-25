@@ -3,6 +3,9 @@ import {ref} from 'vue';
 
 import {useSettingStore} from '../../stores/useSettingStore';
 
+import InputContainer from '../../layout/InputContainer.vue';
+import InputColor from '../inputs/InputColor.vue';
+
 const themeColor = ref<string>(useSettingStore().getThemeColor);
 
 function updateColor(event: Event): void {
@@ -11,13 +14,17 @@ function updateColor(event: Event): void {
 </script>
 
 <template>
-    <div>
-        <h2>{{ $t('theme') }}</h2>
-        <div class="color">
-            <label for="theme-color">{{ $t('theme_color') }}</label>
-            <input type="color" id="theme-color" v-model="themeColor" @change="updateColor" />
-        </div>
-    </div>
+  <div>
+    <h2>{{ $t('theme') }}</h2>
+    <InputContainer class="color">
+      <InputColor
+        v-model="themeColor"
+        label="theme_color"
+        @change="updateColor"
+      />
+      <!--      >-->
+    </InputContainer>
+  </div>
 </template>
 
 <style scoped>

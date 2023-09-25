@@ -3,14 +3,14 @@
 </script>
 
 <template>
-    <div class="list-container">
-        <div class="left">
-            <slot name="list" />
-        </div>
-        <div class="right">
-            <slot/>
-        </div>
+  <div class="list-container">
+    <div class="left">
+      <slot name="list" />
     </div>
+    <div class="right">
+      <slot />
+    </div>
+  </div>
 </template>
 
 <style scoped>

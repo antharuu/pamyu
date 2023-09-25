@@ -6,9 +6,12 @@ defineProps<{
 </script>
 
 <template>
-    <div class="actions" :class="{'actions--end': end, 'actions--center': center}">
-        <slot />
-    </div>
+  <div
+    class="actions"
+    :class="{'actions--end': end, 'actions--center': center}"
+  >
+    <slot />
+  </div>
 </template>
 
 <style lang="scss" scoped>

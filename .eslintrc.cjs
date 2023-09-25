@@ -1,16 +1,21 @@
 module.exports = {
-    root: true, env: {
+    root: true,
+    env: {
         node: true
-    }, extends: [
-        'plugin:vue/vue3-essential',
-        '@vue/typescript/recommended'
-    ],
-    plugins: [
-        "simple-import-sort"
-    ],
+    },
+    extends: ['plugin:vue/vue3-essential', '@vue/typescript/recommended', 'plugin:vue/recommended'],
+    plugins: ["vue", "simple-import-sort"],
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [".js", ".vue"]
+            }
+        }
+    },
     parserOptions: {
         ecmaVersion: 2020
-    }, rules: {
+    },
+    rules: {
         'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
         'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
         'vue/multi-word-component-names': 'off',
@@ -28,20 +33,7 @@ module.exports = {
         "no-eval": "error",
         "simple-import-sort/exports": "error",
         "simple-import-sort/imports": ["error", {
-            "groups": [
-                ["^\\u0000"],
-                ["^@?\\w"],
-                ["^/"],
-                ["/stores/"],
-                ["/utils/"],
-                ["/routes/"],
-                ["/types/"],
-                ["/layouts/"],
-                ["/components/"],
-                ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
-                ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
-                ["^.+\\.s?css$"],
-            ]
+            "groups": [["^\\u0000"], ["^@?\\w"], ["^/"], ["/stores/"], ["/utils/"], ["/routes/"], ["/types/"], ["/layouts/"], ["/components/"], ["^\\.\\.(?!/?$)", "^\\.\\./?$"], ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"], ["^.+\\.s?css$"],]
         }]
     }
 }

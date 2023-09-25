@@ -39,37 +39,54 @@ const usableWidth = props.width ? props.width : '100%';
 </script>
 
 <template>
-    <div class="input__group" :style="{width: usableWidth}" :class="{'input__group--error': error.length > 0}">
-        <label :for="uniqueId">
-            <Icon name="lock" v-if="props.readonly" class="input__group-icon" />
-            {{ $t(label) }}
-        </label>
-        <input
-            aria-autocomplete="none"
-            v-if="!props.textArea"
-            v-model.trim.lazy="value"
-            :type="type"
-            :readonly="props.readonly"
-            :maxlength="props.maxLenght"
-            :id="uniqueId"
-        />
-        <textarea
-            v-else
-            v-model.trim.lazy="value"
-            :readonly="props.readonly"
-            :maxlength="props.maxLenght"
-            :id="uniqueId"
-        />
-        <span class="input__group-message" v-if="message.length > 0 || error.length > 0">
-            <span class="input__group-message-error" v-if="error.length > 0">
-                {{ $t(error) }}
-                <br>
-            </span>
-            <span class="input__group-message-message" v-if="message.length > 0">
-                {{ $t(message) }}
-            </span>
-        </span>
-    </div>
+  <div
+    class="input__group"
+    :style="{width: usableWidth}"
+    :class="{'input__group--error': error.length > 0}"
+  >
+    <label :for="uniqueId">
+      <Icon
+        v-if="props.readonly"
+        name="lock"
+        class="input__group-icon"
+      />
+      {{ $t(label) }}
+    </label>
+    <input
+      v-if="!props.textArea"
+      :id="uniqueId"
+      v-model.trim.lazy="value"
+      aria-autocomplete="none"
+      :type="type"
+      :readonly="props.readonly"
+      :maxlength="props.maxLenght"
+    >
+    <textarea
+      v-else
+      :id="uniqueId"
+      v-model.trim.lazy="value"
+      :readonly="props.readonly"
+      :maxlength="props.maxLenght"
+    />
+    <span
+      v-if="message.length > 0 || error.length > 0"
+      class="input__group-message"
+    >
+      <span
+        v-if="error.length > 0"
+        class="input__group-message-error"
+      >
+        {{ $t(error) }}
+        <br>
+      </span>
+      <span
+        v-if="message.length > 0"
+        class="input__group-message-message"
+      >
+        {{ $t(message) }}
+      </span>
+    </span>
+  </div>
 </template>
 
 <style lang="scss" scoped>

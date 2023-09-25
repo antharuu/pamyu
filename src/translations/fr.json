@@ -1,4 +1,5 @@
 {
+  "projects": "Projects",
   "project": "projet",
   "characters": "personnages",
   "assets": "ressources",
@@ -8,6 +9,7 @@
   "translations": "traductions",
   "settings": "paramètres",
   "not_implemented": "Cette fonctionnalité n'est pas encore implémentée.",
+  "paths_empty": "Aucun projet n'a été ajouté",
   "language": "Langue",
   "create_character": "Créer un personnage",
   "edit_character": "Modifier un personnage",
@@ -22,9 +24,14 @@
   "character_what_suffix": "Suffixe du texte",
   "character_who_prefix": "Préfixe du nom",
   "character_who_suffix": "Suffixe du nom",
-  "create" : "Créer",
-  "edit" : "Modifier",
-  "delete" : "Supprimer",
-  "delete_character_message" : "Êtes-vous sûr de vouloir supprimer ce personnage ?",
-  "delete_character_message_warning" : "Attention, cette action est irréversible et rendra les scènes utilisant ce personnage inutilisables."
+  "create": "Créer",
+  "edit": "Modifier",
+  "delete": "Supprimer",
+  "delete_character_message": "Êtes-vous sûr de vouloir supprimer ce personnage ?",
+  "delete_character_message_warning": "Attention, cette action est irréversible et rendra les scènes utilisant ce personnage inutilisables.",
+  "load_project": "Charger un projet",
+  "project_path": "Chemin du projet",
+  "add_project": "Ajouter le projet",
+  "project_path_invalid": "Le chemin du projet n'est pas un projet Ren'Py valide.",
+  "browse": "Parcourir"
 }

@@ -30,12 +30,12 @@ watchEffect(() => {
 </script>
 
 <template>
-    <div id="renpy-ui">
-        <Navigation/>
-        <div class="content">
-            <router-view/>
-        </div>
+  <div id="renpy-ui">
+    <Navigation />
+    <div class="content">
+      <router-view />
     </div>
+  </div>
 </template>
 
 <style>
