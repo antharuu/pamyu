@@ -57,13 +57,9 @@ export const useProjectStore = defineStore('Project', {
         }
     },
     actions: {
-        async init(): Promise<void> {
-            if (this.name.length && this.buildName.length) return;
-            console.log('⚓ Getting project configuration');
-            const res: string = await invoke('load_script', {path: PathManager.last?.path, file: 'options.rpy'});
-            if (!res) return;
-            Script.set(res);
-            const data = Script.getVars({
+        getVars: async function () {
+            await this.initScript();
+            return Script.getVars({
                 name: 'config.name',
                 showName: 'gui.show_name',
                 version: 'config.version',
@@ -85,7 +81,37 @@ export const useProjectStore = defineStore('Project', {
                 saveDirectory: 'config.save_directory',
                 windowIcon: 'config.window_icon'
             });
+        },
+        setVars: async function () {
+            console.log('⚓ Setting project configuration');
+            await Script.setVars({
+                'config.name': `_("${this.name}")`,
+                'gui.show_name': this.showName,
+                'config.version': `"${this.version}"`,
+                'gui.about': `_p("""\n${this.about}\n""")`,
+                'build.name': `"${this.buildName}"`,
+                'config.has_sound': this.hasSound,
+                'config.has_music': this.hasMusic,
+                'config.has_voice': this.hasVoice,
+                'config.enter_transition': this.transitionEnter,
+                'config.exit_transition': this.transitionExit,
+                'config.intra_transition': this.transitionIntra,
+                'config.after_load_transition': this.transitionAfterLoad,
+                'config.end_game_transition': this.transitionEndGame,
+                'config.window_show_transition': this.transitionWindowShow,
+                'config.window_hide_transition': this.transitionWindowHide,
+                'config.window': `"${this.window}"`,
+                'preferences.text_cps': this.cps,
+                'preferences.afm_time': this.afm,
+                'config.save_directory': `"${this.saveDirectory}"`,
+                'config.window_icon': `"${this.windowIcon}"`
+            });
+        },
+        async init(): Promise<void> {
+            if (this.name.length && this.buildName.length) return;
+            console.log('⚓ Getting project configuration');
 
+            const data = await this.getVars();
             this.name = unwrap(data.name?.toString(), '_(\"', '")');
             this.showName = !!(data.showName) as boolean;
             this.version = data.version as string;
@@ -107,7 +133,7 @@ export const useProjectStore = defineStore('Project', {
             this.saveDirectory = data.saveDirectory as string;
             this.windowIcon = data.windowIcon as string;
         },
-        updateProject(data: ProjectSettings): void {
+        async updateProject(data: ProjectSettings): Promise<void> {
             this.name = data.name;
             this.showName = data.showName;
             this.version = data.version;
@@ -128,6 +154,14 @@ export const useProjectStore = defineStore('Project', {
             this.afm = data.afm;
             this.saveDirectory = data.saveDirectory;
             this.windowIcon = data.windowIcon;
+
+            await this.initScript();
+            await this.setVars();
+        },
+        async initScript(): Promise<void> {
+            const res: string = await invoke('load_script', {path: PathManager.last?.path, file: 'options.rpy'});
+            if (!res) return;
+            Script.set(res);
         }
     }
 });

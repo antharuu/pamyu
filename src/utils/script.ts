@@ -1,4 +1,8 @@
+import {invoke} from '@tauri-apps/api/tauri';
+
 import {ScriptVar} from '../types/globals.ts';
+
+import {PathManager} from './path.ts';
 
 export class Script {
     private static lines: string[] = [];
@@ -60,5 +64,51 @@ export class Script {
         const endIndex = this.lines.findIndex((line, i) => i >= startIndex && line.includes(delimiter));
         const lines = this.lines.slice(startIndex, endIndex);
         return lines.map(line => line.trim()).join('\n');
+    }
+
+    static async setVars(param: { [key: string]: ScriptVar }): Promise<void> {
+        for (const [key, value] of Object.entries(param)) {
+            this.setVar(key, value);
+        }
+
+        const script = this.lines.join('\n');
+        await invoke('update_script', {path: PathManager.last?.path, file: 'options.rpy', data: script});
+    }
+
+    private static setVar(key: string, value: ScriptVar): void {
+        const index = this.lines.findIndex(line => line.trim().includes(key) && !line.trim().startsWith('#'));
+        if (index === -1) {
+            console.warn(`⚠️ Variable ${key} not found`);
+            return;
+        }
+
+        // Convert ScriptVar to string representation
+        let valueStr: string;
+        if (value === null) {
+            valueStr = 'None';
+        } else if (value === true) {
+            valueStr = 'True';
+        } else if (value === false) {
+            valueStr = 'False';
+        } else if (typeof value === 'number') {
+            valueStr = value.toString();
+        } else if (typeof value === 'string') {
+            // if is multiline string, delete all values with delimiters
+            if (value.includes('"""') || value.includes('\'\'\'')) {
+                const startIndex = index + 1;
+                const endIndex = this.lines.findIndex((line, i) => i >= startIndex && (
+                    line.includes('"""') || line.includes('\'\'\'')
+                )) + 1;
+                this.lines.splice(startIndex, endIndex - startIndex);
+            }
+
+            valueStr = value;
+        } else {
+            console.warn(`⚠️ Unsupported value type for variable ${key}`);
+            return;
+        }
+
+        const line = this.lines[index];
+        this.lines[index] = line.replace(/=.*/, `= ${valueStr}`);
     }
 }

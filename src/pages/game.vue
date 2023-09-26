@@ -20,7 +20,7 @@ function saveProject(): void {
     useProjectStore().updateProject(tempProject.value);
 
     tempProject.value = useProjectStore().getProject;
-    window.location.reload();
+    // window.location.reload();
 }
 
 const windowOptions = [

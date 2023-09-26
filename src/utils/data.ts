@@ -96,8 +96,6 @@ function update_version(state: State): void {
         console.log(`⚡️ Updating data to new version, ${stateVersion} -> ${version}`);
     } else if (version !== stateVersion) {
         throw new Error(`🚨 Data version is greater than current version, you are using an old version of Pamyu ${stateVersion} > ${version}`);
-    } else {
-        console.log('👌 No need to update data');
     }
 
     state.Pamyu = {version};
