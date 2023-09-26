@@ -19,6 +19,7 @@ defineProps<{
     display: flex;
     align-items: center;
     gap: 1rem;
+    margin-bottom: 20px;
 
     &--end {
         justify-content: flex-end;

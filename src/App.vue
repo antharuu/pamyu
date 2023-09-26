@@ -33,12 +33,14 @@ watchEffect(() => {
   <div id="renpy-ui">
     <Navigation />
     <div class="content">
-      <router-view />
+      <div class="page">
+        <router-view />
+      </div>
     </div>
   </div>
 </template>
 
-<style>
+<style lang="scss">
 :root {
     /* ---------- COLORS ---------- */
     --color-dark: #131313;
@@ -65,6 +67,25 @@ html, body {
 
 * {
     box-sizing: border-box;
+
+    &::-webkit-scrollbar {
+        width: 8px;
+        overflow: hidden;
+
+
+        &-track {
+            border-radius: 16px;
+        }
+
+        &-thumb {
+            background: var(--color-grey);
+            border-radius: 16px;
+
+            &:hover {
+                background: var(--color-lightgrey);
+            }
+        }
+    }
 }
 
 #renpy-ui {
@@ -77,9 +98,15 @@ html, body {
 
 .content {
     background-color: var(--color-darkgrey);
-    overflow: hidden;
-    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto;
     border-radius: 25px 0 0 25px;
+
+    .page {
+        padding: 20px;
+        width: 100%;
+        height: 100%;
+    }
 }
 
 select {
