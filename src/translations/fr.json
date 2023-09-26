@@ -54,7 +54,14 @@
     },
     "hasSound": "Avec du son",
     "hasMusic": "Avec de la musique",
-    "hasVoice": "Avec de la voix"
+    "hasVoice": "Avec de la voix",
+    "transitionEnter": "Transition d'entrée du menu",
+    "transitionExit": "Transition de sortie du menu",
+    "transitionIntra": "Transition à l'intérieur du menu",
+    "transitionAfterLoad": "Transition après le chargement",
+    "transitionEndGame": "Transition de fin de jeu",
+    "transitionWindowShow": "Transition pour afficher la fenêtre de dialogue",
+    "transitionWindowHide": "Transition pour masquer la fenêtre de dialogue"
   },
   "transitions": {
     "none": "Aucune transition",

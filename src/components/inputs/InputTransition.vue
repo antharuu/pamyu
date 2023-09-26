@@ -11,7 +11,6 @@ const props = defineProps<{
     readonly?: boolean;
     error?: string;
     message?: string;
-    options: {value: string, label: string}[];
 }>();
 
 const transitions = [
@@ -49,7 +48,6 @@ const value = computed({
     }
 });
 
-console.log(props.modelValue);
 const isAdvancedInput = computed(() => !transitions.some(transition => transition.value === props.modelValue));
 </script>
 

@@ -55,13 +55,13 @@
     "hasSound": "Has sound",
     "hasMusic": "Has music",
     "hasVoice": "Has voice",
-    "transitionEnter": "Transition d'entrée du menu",
-    "transitionExit": "Transition de sortie du menu",
-    "transitionIntra": "Transition à l'intérieur du menu",
-    "transitionAfterLoad": "Transition après le chargement",
-    "transitionEndGame": "Transition de fin de jeu",
-    "transitionWindowShow": "Transition pour afficher la fenêtre de dialogue",
-    "transitionWindowHide": "Transition pour masquer la fenêtre de dialogue"
+    "transitionEnter": "Transition enter menu",
+    "transitionExit": "Transition exit menu",
+    "transitionIntra": "Transition inside menu",
+    "transitionAfterLoad": "Transition after load",
+    "transitionEndGame": "Transition end game",
+    "transitionWindowShow": "Transition show dialog window",
+    "transitionWindowHide": "Transition hide dialog window"
   },
   "transitions": {
     "none": "No transition",
