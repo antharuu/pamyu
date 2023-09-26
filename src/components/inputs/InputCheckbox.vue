@@ -4,21 +4,15 @@ import {computed} from 'vue';
 import Icon from '../Icon.vue';
 
 const props = withDefaults(defineProps<{
-    modelValue: string | number | undefined;
+    modelValue: boolean | undefined;
     label: string;
-    type?: string;
-    maxLenght?: number;
     width?: string | null;
     readonly?: boolean;
-    textArea?: boolean;
     error?: string;
     message?: string;
 }>(), {
-    type: 'text',
-    maxLenght: 9999999999,
     width: '100%',
     readonly: false,
-    textArea: false,
     error: '',
     message: '',
 });
@@ -43,6 +37,7 @@ const usableWidth = props.width ? props.width : '100%';
     class="input__group"
     :style="{width: usableWidth}"
     :class="{'input__group--error': error.length > 0}"
+    @click="value = !value"
   >
     <label :for="uniqueId">
       <Icon
@@ -52,22 +47,29 @@ const usableWidth = props.width ? props.width : '100%';
       />
       {{ $t(label) }}
     </label>
-    <input
-      v-if="!props.textArea"
-      :id="uniqueId"
-      v-model.trim.lazy="value"
-      aria-autocomplete="none"
-      :type="type"
-      :readonly="props.readonly"
-      :maxlength="props.maxLenght"
+    <div
+      class="input__group-checkbox"
     >
-    <textarea
-      v-else
-      :id="uniqueId"
-      v-model.trim.lazy="value"
-      :readonly="props.readonly"
-      :maxlength="props.maxLenght"
-    />
+      <input
+        :id="uniqueId"
+        v-model.trim.lazy="value"
+        aria-autocomplete="none"
+        type="checkbox"
+        :readonly="props.readonly"
+      >
+      <div
+        class="visible"
+      >
+        <Icon
+          v-if="value"
+          name="done"
+          class="input__group-icon"
+        />
+      </div>
+      <div class="sub-label">
+        {{ $t(value ? 'yes' : 'no') }}
+      </div>
+    </div>
     <span
       v-if="message.length > 0 || error.length > 0"
       class="input__group-message"
@@ -94,6 +96,7 @@ const usableWidth = props.width ? props.width : '100%';
     display: flex;
     flex-direction: column;
     gap: .5rem;
+    cursor: pointer;
 
     &-icon {
         font-size: 16px;
@@ -101,17 +104,25 @@ const usableWidth = props.width ? props.width : '100%';
         top: 2px;
     }
 
+    &-checkbox {
+        height: 34px;
+        width: 100%;
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
     &--error {
         label {
             color: var(--color-error);
         }
 
-        input, textarea {
+        input {
             box-shadow: 0 0 0 2px var(--color-error);
         }
     }
 
-    input, textarea {
+    input {
         background-color: var(--color-grey);
         border: none;
         border-radius: 5px;
@@ -119,6 +130,7 @@ const usableWidth = props.width ? props.width : '100%';
         color: var(--color-lightgrey);
         font-size: 16px;
         outline: none;
+        opacity: 0;
 
         &:focus {
             box-shadow: 0 0 0 2px var(--color-primary);
@@ -127,12 +139,6 @@ const usableWidth = props.width ? props.width : '100%';
                 box-shadow: none;
             }
         }
-    }
-
-    textarea {
-        resize: none;
-        min-height: 116px;
-        max-height: 116px;
     }
 
     &-message {
@@ -145,6 +151,30 @@ const usableWidth = props.width ? props.width : '100%';
         &-error {
             color: var(--color-error);
         }
+    }
+
+    .visible {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 34px;
+        height: 34px;
+        border-radius: 5px;
+        background-color: var(--color-grey);
+        cursor: pointer;
+
+        i {
+            color: var(--color-primary);
+            font-weight: bold;
+            position: relative;
+            font-size: 1.8rem;
+        }
+    }
+
+    .sub-label{
+        position: absolute;
+        left: calc(34px + 1rem);
     }
 }
 </style>

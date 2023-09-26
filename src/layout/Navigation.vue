@@ -21,7 +21,7 @@ const basesItems: MenuItem[] = [
 ];
 
 const loadedItems: MenuItem[] = [
-    {name: 'project', icon: 'folder', path: '/project', order: 1},
+    {name: 'game.category', icon: 'sports_esports', path: '/game', order: 1},
     {name: 'characters', icon: 'face', path: '/characters', order: 2},
     {name: 'assets', icon: 'image', path: '/assets', disabled: true, order: 3},
     {name: 'scenes', icon: 'theater_comedy', path: '/scenes', disabled: true, order: 4},

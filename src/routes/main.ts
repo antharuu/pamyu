@@ -2,6 +2,7 @@ import CharacterCreate from '../pages/character/create.vue';
 import CharacterDelete from '../pages/character/delete.vue';
 import CharacterEdit from '../pages/character/edit.vue';
 import Characters from '../pages/characters.vue';
+import Game from '../pages/game.vue';
 import NotFound from '../pages/not-found.vue';
 import Projects from '../pages/projects.vue';
 import Settings from '../pages/settings.vue';
@@ -9,12 +10,17 @@ import Settings from '../pages/settings.vue';
 export const routes = [
     {
         path: '/',
-        redirect: 'characters'
+        redirect: 'game'
     },
     {
         path: '/projects',
         name: 'projects',
         component: Projects
+    },
+    {
+        path: '/game',
+        name: 'game',
+        component: Game
     },
     {
         path: '/characters',

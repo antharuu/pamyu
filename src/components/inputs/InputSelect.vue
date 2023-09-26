@@ -6,19 +6,14 @@ import Icon from '../Icon.vue';
 const props = withDefaults(defineProps<{
     modelValue: string | number | undefined;
     label: string;
-    type?: string;
-    maxLenght?: number;
     width?: string | null;
     readonly?: boolean;
-    textArea?: boolean;
     error?: string;
     message?: string;
+    options: {value: string, label: string}[];
 }>(), {
-    type: 'text',
-    maxLenght: 9999999999,
     width: '100%',
     readonly: false,
-    textArea: false,
     error: '',
     message: '',
 });
@@ -52,22 +47,20 @@ const usableWidth = props.width ? props.width : '100%';
       />
       {{ $t(label) }}
     </label>
-    <input
-      v-if="!props.textArea"
+    <select
       :id="uniqueId"
       v-model.trim.lazy="value"
       aria-autocomplete="none"
-      :type="type"
-      :readonly="props.readonly"
-      :maxlength="props.maxLenght"
+      :disabled="readonly"
     >
-    <textarea
-      v-else
-      :id="uniqueId"
-      v-model.trim.lazy="value"
-      :readonly="props.readonly"
-      :maxlength="props.maxLenght"
-    />
+      <option
+        v-for="item in options"
+        :key="item.value"
+        :value="item.value"
+      >
+        {{ $t(item.label) }}
+      </option>
+    </select>
     <span
       v-if="message.length > 0 || error.length > 0"
       class="input__group-message"
@@ -106,12 +99,12 @@ const usableWidth = props.width ? props.width : '100%';
             color: var(--color-error);
         }
 
-        input, textarea {
+        select {
             box-shadow: 0 0 0 2px var(--color-error);
         }
     }
 
-    input, textarea {
+    select {
         background-color: var(--color-grey);
         border: none;
         border-radius: 5px;
@@ -130,9 +123,9 @@ const usableWidth = props.width ? props.width : '100%';
     }
 
     textarea {
-        resize: none;
-        min-height: 116px;
-        max-height: 116px;
+        resize: vertical;
+        min-height: 100px;
+        max-height: 300px;
     }
 
     &-message {

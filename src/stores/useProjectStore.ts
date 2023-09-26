@@ -5,29 +5,10 @@ import {PathManager} from '../utils/path.ts';
 import {Script} from '../utils/script.ts';
 import {unwrap} from '../utils/tools.ts';
 
+import {ProjectSettings} from '../types/globals.ts';
+
 export const useProjectStore = defineStore('Project', {
-    state: (): {
-        name: string;
-        showName: boolean;
-        version: string;
-        about: string;
-        buildName: string;
-        hasSound: boolean;
-        hasMusic: boolean;
-        hasVoice: boolean;
-        transitionEnter: string;
-        transitionExit: string;
-        transitionIntra: string;
-        transitionAfterLoad: string;
-        transitionEndGame: string;
-        transitionWindowShow: string;
-        transitionWindowHide: string;
-        window: 'auto' | 'show' | 'hide';
-        cps: number;
-        afm: number;
-        saveDirectory: string;
-        windowIcon: string;
-    } => ({
+    state: (): ProjectSettings => ({
         name: '',
         showName: true,
         version: '1.0',
@@ -49,7 +30,32 @@ export const useProjectStore = defineStore('Project', {
         saveDirectory: '',
         windowIcon: ''
     }),
-    getters: {},
+    getters: {
+        getProject(): ProjectSettings {
+            return {
+                name: this.name,
+                showName: this.showName,
+                version: this.version,
+                about: this.about,
+                buildName: this.buildName,
+                hasSound: this.hasSound,
+                hasMusic: this.hasMusic,
+                hasVoice: this.hasVoice,
+                transitionEnter: this.transitionEnter,
+                transitionExit: this.transitionExit,
+                transitionIntra: this.transitionIntra,
+                transitionAfterLoad: this.transitionAfterLoad,
+                transitionEndGame: this.transitionEndGame,
+                transitionWindowShow: this.transitionWindowShow,
+                transitionWindowHide: this.transitionWindowHide,
+                window: this.window,
+                cps: this.cps,
+                afm: this.afm,
+                saveDirectory: this.saveDirectory,
+                windowIcon: this.windowIcon
+            };
+        }
+    },
     actions: {
         async init(): Promise<void> {
             if (this.name.length && this.buildName.length) return;
@@ -80,14 +86,14 @@ export const useProjectStore = defineStore('Project', {
                 windowIcon: 'config.window_icon'
             });
 
-            this.name = unwrap(data.name as string, '_(\"', '")');
-            this.showName = data.showName as boolean;
+            this.name = unwrap(data.name?.toString(), '_(\"', '")');
+            this.showName = !!(data.showName) as boolean;
             this.version = data.version as string;
             this.about = unwrap(data.about as string, '_p(\"\"\"', '');
             this.buildName = data.buildName as string;
-            this.hasSound = data.hasSound as boolean;
-            this.hasMusic = data.hasMusic as boolean;
-            this.hasVoice = data.hasVoice as boolean;
+            this.hasSound = !!(data.hasSound) as boolean;
+            this.hasMusic = !!(data.hasMusic) as boolean;
+            this.hasVoice = !!(data.hasVoice) as boolean;
             this.transitionEnter = data.transitionEnter as string;
             this.transitionExit = data.transitionExit as string;
             this.transitionIntra = data.transitionIntra as string;
@@ -100,6 +106,28 @@ export const useProjectStore = defineStore('Project', {
             this.afm = data.afm as number;
             this.saveDirectory = data.saveDirectory as string;
             this.windowIcon = data.windowIcon as string;
+        },
+        updateProject(data: ProjectSettings): void {
+            this.name = data.name;
+            this.showName = data.showName;
+            this.version = data.version;
+            this.about = data.about;
+            this.buildName = data.buildName.replace(/ /g, '');
+            this.hasSound = data.hasSound;
+            this.hasMusic = data.hasMusic;
+            this.hasVoice = data.hasVoice;
+            this.transitionEnter = data.transitionEnter;
+            this.transitionExit = data.transitionExit;
+            this.transitionIntra = data.transitionIntra;
+            this.transitionAfterLoad = data.transitionAfterLoad;
+            this.transitionEndGame = data.transitionEndGame;
+            this.transitionWindowShow = data.transitionWindowShow;
+            this.transitionWindowHide = data.transitionWindowHide;
+            this.window = data.window;
+            this.cps = data.cps;
+            this.afm = data.afm;
+            this.saveDirectory = data.saveDirectory;
+            this.windowIcon = data.windowIcon;
         }
     }
 });

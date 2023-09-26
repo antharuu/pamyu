@@ -20,10 +20,9 @@ export class Script {
     }
 
     static getVar(varName: string): ScriptVar {
-        const index = this.lines.findIndex(line => line.trim().includes(varName));
+        const index = this.lines.findIndex(line => line.trim().includes(varName) && !line.trim().startsWith('#'));
         const line = this.lines[index];
         if (!line || !Script.filterLine(line)) return null;
-        console.log(line);
         return Script.getValue(line, index);
     }
 
