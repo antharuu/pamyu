@@ -14,7 +14,7 @@ const props = defineProps<{
 }>();
 
 const transitions = [
-    {value: null, label: 'transitions.none'},
+    {value: 'None', label: 'transitions.none'},
     {value: 'fade', label: 'transitions.fade'},
     {value: 'dissolve', label: 'transitions.dissolve'},
     {value: 'pixellate', label: 'transitions.pixellate'},

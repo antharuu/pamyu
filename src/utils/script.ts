@@ -1,8 +1,6 @@
-import {invoke} from '@tauri-apps/api/tauri';
-
 import {ScriptVar} from '../types/globals.ts';
 
-import {PathManager} from './path.ts';
+import {Config} from './config.ts';
 
 export class Script {
     private static lines: string[] = [];
@@ -15,11 +13,13 @@ export class Script {
         return !line.trim().startsWith('#') && line.trim().length > 0;
     }
 
-    static getVars(vars: Record<string, string>): Record<string, ScriptVar> {
+    static getVars(varNames: string[]): Record<string, ScriptVar> {
         const res: Record<string, ScriptVar> = {};
-        for (const [key, value] of Object.entries(vars)) {
-            res[key] = Script.getVar(value);
-        }
+        varNames.forEach(varName => {
+            const key = Config.getKeyFromName(varName);
+            if (!key) return;
+            res[varName] = Script.getVar(key);
+        });
         return res;
     }
 
@@ -38,24 +38,41 @@ export class Script {
         }
 
         const valueStr = match[1].trim();
+        return this.determineValue(valueStr, index);
+    }
 
-        if (valueStr === 'None') {
-            return null;
-        } else if (valueStr === 'True') {
-            return true;
-        } else if (valueStr === 'False') {
-            return false;
-        } else if (/^\d+(\.\d+)?$/.test(valueStr)) {
-            return parseFloat(valueStr);
-        } else if (/^"(.+)"$/.test(valueStr)) {
-            return valueStr.slice(1, -1);
-        } else {
-            if (valueStr.includes('"""') || valueStr.includes('\'\'\'')) {
-                return Script.getMultilineStr(valueStr, index);
-            }
+    private static determineValue(valueStr: string, index: number): ScriptVar {
+        const valueMap: { [key: string]: ScriptVar } = {
+            'None': null,
+            'True': true,
+            'False': false
+        };
 
-            return valueStr;
+        if (valueMap.hasOwnProperty(valueStr)) {
+            return valueMap[valueStr];
         }
+        if (this.isNumeric(valueStr)) {
+            return parseFloat(valueStr);
+        }
+        if (this.isStringLiteral(valueStr)) {
+            return valueStr.slice(1, -1);
+        }
+        if (this.isMultilineString(valueStr)) {
+            return Script.getMultilineStr(valueStr, index);
+        }
+        return valueStr;
+    }
+
+    private static isNumeric(valueStr: string): boolean {
+        return /^\d+(\.\d+)?$/.test(valueStr);
+    }
+
+    private static isStringLiteral(valueStr: string): boolean {
+        return /^"(.+)"$/.test(valueStr);
+    }
+
+    private static isMultilineString(valueStr: string): boolean {
+        return valueStr.includes('"""') || valueStr.includes('\'\'\'');
     }
 
     private static getMultilineStr(valueStr: string, index: number): string {
@@ -66,49 +83,68 @@ export class Script {
         return lines.map(line => line.trim()).join('\n');
     }
 
-    static async setVars(param: { [key: string]: ScriptVar }): Promise<void> {
+    static async setVars(param: { [key: string]: ScriptVar }): Promise<string> {
         for (const [key, value] of Object.entries(param)) {
             this.setVar(key, value);
         }
 
-        const script = this.lines.join('\n');
-        await invoke('update_script', {path: PathManager.last?.path, file: 'options.rpy', data: script});
+        return this.lines.join('\n');
     }
 
     private static setVar(key: string, value: ScriptVar): void {
-        const index = this.lines.findIndex(line => line.trim().includes(key) && !line.trim().startsWith('#'));
+        const index = this.findVarLineIndex(key);
         if (index === -1) {
             console.warn(`⚠️ Variable ${key} not found`);
             return;
         }
 
-        // Convert ScriptVar to string representation
-        let valueStr: string;
-        if (value === null) {
-            valueStr = 'None';
-        } else if (value === true) {
-            valueStr = 'True';
-        } else if (value === false) {
-            valueStr = 'False';
-        } else if (typeof value === 'number') {
-            valueStr = value.toString();
-        } else if (typeof value === 'string') {
-            // if is multiline string, delete all values with delimiters
-            if (value.includes('"""') || value.includes('\'\'\'')) {
-                const startIndex = index + 1;
-                const endIndex = this.lines.findIndex((line, i) => i >= startIndex && (
-                    line.includes('"""') || line.includes('\'\'\'')
-                )) + 1;
-                this.lines.splice(startIndex, endIndex - startIndex);
-            }
-
-            valueStr = value;
-        } else {
+        let valueStr = this.convertValueToString(value, index);
+        if (!valueStr) {
             console.warn(`⚠️ Unsupported value type for variable ${key}`);
             return;
         }
 
+        valueStr = this.updateConfiguredValue(valueStr, key);
+
         const line = this.lines[index];
         this.lines[index] = line.replace(/=.*/, `= ${valueStr}`);
+    }
+
+    private static findVarLineIndex(name: string): number {
+        const key = Config.getKeyFromName(name);
+        return this.lines.findIndex(line => line.trim().includes(key) && !line.trim().startsWith('#'));
+    }
+
+    private static convertValueToString(value: ScriptVar, index: number): string | null {
+        const valueMap: { [key in typeof value]: string } = {
+            'number': value?.toString(),
+            'string': this.handleStringValue(String(value), index),
+            'boolean': value ? 'True' : 'False'
+        };
+
+        return valueMap[typeof value];
+    }
+
+    private static handleStringValue(value: string, index: number): string {
+        const oldLine = this.lines[index];
+        if (oldLine.includes('"""') || oldLine.includes('\'\'\'')) {
+            const startIndex = index + 1;
+            const endIndex = this.lines.findIndex((line, i) => i >= startIndex && (
+                line.includes('"""') || line.includes('\'\'\'')
+            )) + 1;
+            this.lines.splice(startIndex, endIndex - startIndex);
+        }
+        
+        return value;
+    }
+
+    private static updateConfiguredValue(valueStr: string, key: string): string {
+        const conf = Config.getConfigFromName(key);
+        if (conf.unwrap) {
+            return `${conf.prefix}${valueStr}${conf.suffix}`;
+        } else if (conf.type === 'string') {
+            return `"${valueStr}"`;
+        }
+        return valueStr;
     }
 }

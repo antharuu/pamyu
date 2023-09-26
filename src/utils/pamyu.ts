@@ -8,11 +8,10 @@ const warnMessage = `# ${'='.repeat(85)}
 
 function getOptions(character: Character): string {
     let options = '';
-    if (character.color) options += `, color="${character.color}"`;
-    if (character.what_prefix) options += `, what_prefix="${character.what_prefix}"`;
-    if (character.what_suffix) options += `, what_suffix="${character.what_suffix}"`;
-    if (character.who_prefix) options += `, who_prefix="${character.who_prefix}"`;
-    if (character.who_suffix) options += `, who_suffix="${character.who_suffix}"`;
+    const optionsKeys = ['color', 'what_prefix', 'what_suffix', 'who_prefix', 'who_suffix'];
+    optionsKeys.forEach((key) => {
+        if (character[key]) options += `, ${key}="${character[key]}"`;
+    });
     return options;
 }
 

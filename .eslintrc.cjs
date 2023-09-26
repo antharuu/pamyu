@@ -28,7 +28,7 @@ module.exports = {
         "prefer-const": "error",
         "quotes": ["error", "single"],
         "semi": ["error", "always"],
-        "complexity": ["error", {"max": 10}],
+        "complexity": ["error", {"max": 5}],
         "no-with": "error",
         "no-eval": "error",
         "simple-import-sort/exports": "error",

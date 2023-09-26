@@ -1,13 +1,15 @@
 import {invoke} from '@tauri-apps/api/tauri';
 import {defineStore} from 'pinia';
+import {computed} from 'vue';
 
+import {Config} from '../utils/config.ts';
 import {PathManager} from '../utils/path.ts';
 import {Script} from '../utils/script.ts';
-import {unwrap} from '../utils/tools.ts';
 
 import {ProjectSettings} from '../types/globals.ts';
 
-export const useProjectStore = defineStore('Project', {
+
+export const useProjectStore = defineStore('Game', {
     state: (): ProjectSettings => ({
         name: '',
         showName: true,
@@ -32,128 +34,31 @@ export const useProjectStore = defineStore('Project', {
     }),
     getters: {
         getProject(): ProjectSettings {
-            return {
-                name: this.name,
-                showName: this.showName,
-                version: this.version,
-                about: this.about,
-                buildName: this.buildName,
-                hasSound: this.hasSound,
-                hasMusic: this.hasMusic,
-                hasVoice: this.hasVoice,
-                transitionEnter: this.transitionEnter,
-                transitionExit: this.transitionExit,
-                transitionIntra: this.transitionIntra,
-                transitionAfterLoad: this.transitionAfterLoad,
-                transitionEndGame: this.transitionEndGame,
-                transitionWindowShow: this.transitionWindowShow,
-                transitionWindowHide: this.transitionWindowHide,
-                window: this.window,
-                cps: this.cps,
-                afm: this.afm,
-                saveDirectory: this.saveDirectory,
-                windowIcon: this.windowIcon
-            };
+            return computed(() => this.$state).value;
         }
     },
     actions: {
-        getVars: async function () {
-            await this.initScript();
-            return Script.getVars({
-                name: 'config.name',
-                showName: 'gui.show_name',
-                version: 'config.version',
-                about: 'gui.about',
-                buildName: 'build.name',
-                hasSound: 'config.has_sound',
-                hasMusic: 'config.has_music',
-                hasVoice: 'config.has_voice',
-                transitionEnter: 'config.enter_transition',
-                transitionExit: 'config.exit_transition',
-                transitionIntra: 'config.intra_transition',
-                transitionAfterLoad: 'config.after_load_transition',
-                transitionEndGame: 'config.end_game_transition',
-                transitionWindowShow: 'config.window_show_transition',
-                transitionWindowHide: 'config.window_hide_transition',
-                window: 'config.window',
-                cps: 'preferences.text_cps',
-                afm: 'preferences.afm_time',
-                saveDirectory: 'config.save_directory',
-                windowIcon: 'config.window_icon'
-            });
-        },
         setVars: async function () {
             console.log('⚓ Setting project configuration');
-            await Script.setVars({
-                'config.name': `_("${this.name}")`,
-                'gui.show_name': this.showName,
-                'config.version': `"${this.version}"`,
-                'gui.about': `_p("""\n${this.about}\n""")`,
-                'build.name': `"${this.buildName}"`,
-                'config.has_sound': this.hasSound,
-                'config.has_music': this.hasMusic,
-                'config.has_voice': this.hasVoice,
-                'config.enter_transition': this.transitionEnter,
-                'config.exit_transition': this.transitionExit,
-                'config.intra_transition': this.transitionIntra,
-                'config.after_load_transition': this.transitionAfterLoad,
-                'config.end_game_transition': this.transitionEndGame,
-                'config.window_show_transition': this.transitionWindowShow,
-                'config.window_hide_transition': this.transitionWindowHide,
-                'config.window': `"${this.window}"`,
-                'preferences.text_cps': this.cps,
-                'preferences.afm_time': this.afm,
-                'config.save_directory': `"${this.saveDirectory}"`,
-                'config.window_icon': `"${this.windowIcon}"`
-            });
+            const keyValues = {};
+            Config.getNames.forEach(name => keyValues[name] = this[name]);
+            const script = await Script.setVars(keyValues);
+
+            await invoke('update_script', {path: PathManager.last?.path, file: 'options.rpy', data: script});
         },
         async init(): Promise<void> {
             if (this.name.length && this.buildName.length) return;
             console.log('⚓ Getting project configuration');
 
-            const data = await this.getVars();
-            this.name = unwrap(data.name?.toString(), '_(\"', '")');
-            this.showName = !!(data.showName) as boolean;
-            this.version = data.version as string;
-            this.about = unwrap(data.about as string, '_p(\"\"\"', '');
-            this.buildName = data.buildName as string;
-            this.hasSound = !!(data.hasSound) as boolean;
-            this.hasMusic = !!(data.hasMusic) as boolean;
-            this.hasVoice = !!(data.hasVoice) as boolean;
-            this.transitionEnter = data.transitionEnter as string;
-            this.transitionExit = data.transitionExit as string;
-            this.transitionIntra = data.transitionIntra as string;
-            this.transitionAfterLoad = data.transitionAfterLoad as string;
-            this.transitionEndGame = data.transitionEndGame as string;
-            this.transitionWindowShow = data.transitionWindowShow as string;
-            this.transitionWindowHide = data.transitionWindowHide as string;
-            this.window = data.window as 'auto' | 'show' | 'hide';
-            this.cps = data.cps as number;
-            this.afm = data.afm as number;
-            this.saveDirectory = data.saveDirectory as string;
-            this.windowIcon = data.windowIcon as string;
+            await this.initScript();
+            const data = Script.getVars(Config.getNames);
+            Object.entries(data).forEach(([name, value]) =>
+                this[name] = Config.getValue(name, value));
         },
         async updateProject(data: ProjectSettings): Promise<void> {
-            this.name = data.name;
-            this.showName = data.showName;
-            this.version = data.version;
-            this.about = data.about;
-            this.buildName = data.buildName.replace(/ /g, '');
-            this.hasSound = data.hasSound;
-            this.hasMusic = data.hasMusic;
-            this.hasVoice = data.hasVoice;
-            this.transitionEnter = data.transitionEnter;
-            this.transitionExit = data.transitionExit;
-            this.transitionIntra = data.transitionIntra;
-            this.transitionAfterLoad = data.transitionAfterLoad;
-            this.transitionEndGame = data.transitionEndGame;
-            this.transitionWindowShow = data.transitionWindowShow;
-            this.transitionWindowHide = data.transitionWindowHide;
-            this.window = data.window;
-            this.cps = data.cps;
-            this.afm = data.afm;
-            this.saveDirectory = data.saveDirectory;
-            this.windowIcon = data.windowIcon;
+            data.buildName = data.buildName.replace(/ /g, '');
+
+            Object.entries(data).forEach(([key, value]) => this[key] = value);
 
             await this.initScript();
             await this.setVars();

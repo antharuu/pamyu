@@ -85,40 +85,42 @@ export function getCleanName(name: string): string {
 }
 
 export function truncatePath(path: string, maxLength: number): string {
-    if (path.length <= maxLength) {
-        return path;
-    }
-
     const ellipsis = '.../';
     const parts = path.split('/');
 
-    // Si on a seulement le disque (par exemple "C:/") et la dernière partie (le nom du fichier/dossier),
-    // alors c'est le minimum que nous devons garder.
-    if (parts.length <= 2) {
-        const diff = maxLength - parts[parts.length - 1].length;
-        if (diff > 0) {
-            return parts[0].substr(0, diff) + '/' + parts[parts.length - 1];
-        }
-        return ellipsis + parts[parts.length - 1].substr(0, maxLength - ellipsis.length);
-    }
+    if (path.length <= maxLength) return path;
 
-    // Commence par garder la première et la dernière partie
-    let truncatedPath = parts[0] + '/' + ellipsis + parts[parts.length - 1];
+    if (parts.length <= 2) return handleShortPaths(parts, maxLength, ellipsis);
+
+    return handleLongerPaths(parts, maxLength, ellipsis);
+}
+
+function handleShortPaths(parts: string[], maxLength: number, ellipsis: string): string {
+    const diff = maxLength - parts[parts.length - 1].length;
+    if (diff > 0) {
+        return parts[0].substr(0, diff) + '/' + parts[parts.length - 1];
+    }
+    return ellipsis + parts[parts.length - 1].substr(0, maxLength - ellipsis.length);
+}
+
+function handleLongerPaths(parts: string[], maxLength: number, ellipsis: string): string {
+    const truncatedPath = parts[0] + '/' + ellipsis + parts[parts.length - 1];
+
     if (truncatedPath.length > maxLength) {
         return ellipsis + parts[parts.length - 1].substr(0, maxLength - ellipsis.length);
     }
 
-    // Essayez d'ajouter des parties intermédiaires tant que nous ne dépassons pas la longueur maximale
+    return tryInsertingMiddleParts(parts, truncatedPath, maxLength, ellipsis);
+}
+
+function tryInsertingMiddleParts(parts: string[], truncatedPath: string, maxLength: number, ellipsis: string): string {
     for (let i = parts.length - 2; i > 0; i--) {
         const tempPath = truncatedPath.replace(ellipsis, parts[i] + '/' + ellipsis);
-
         if (tempPath.length > maxLength) {
             break;
         }
-
         truncatedPath = tempPath;
     }
-
     return truncatedPath;
 }
 
