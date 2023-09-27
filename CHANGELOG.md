@@ -1,5 +1,9 @@
 # Changelog
 
+## Alpha 8
+
+✨ Can now launch the game and Ren'Py directly.
+
 ## Alpha 7
 
 🎉 First public release.

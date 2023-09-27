@@ -3,6 +3,7 @@
     "locale": "en",
     "theme": {
       "color": "#6b8afd"
-    }
+    },
+    "renpyPath": ""
   }
 }

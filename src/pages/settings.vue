@@ -1,23 +1,25 @@
 <script setup lang="ts">
 import Locale from '../components/settings/Locale.vue';
+import Renpy from '../components/settings/Renpy.vue';
 import Theme from '../components/settings/Theme.vue';
 
 import PageLayout from '../layout/PageLayout.vue';
+import Row from '../layout/Row.vue';
 </script>
 
 <template>
   <PageLayout page-title="settings">
-    <div class="page-settings">
-      <Locale />
-      <Theme />
-    </div>
+    <Row large="2">
+      <Row>
+        <Renpy />
+      </Row>
+      <Row small="3">
+        <Locale />
+        <Theme />
+      </Row>
+    </Row>
   </PageLayout>
 </template>
 
 <style scoped>
-.page-settings {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    grid-gap: 1rem;
-}
 </style>

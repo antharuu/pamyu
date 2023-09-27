@@ -2,9 +2,11 @@
 withDefaults(defineProps<{
     block?: boolean;
     type?: 'default' | 'delete';
+    disabled?: boolean;
 }>(), {
     block: false,
     type: 'default',
+    disabled: false,
 });
 </script>
 
@@ -15,6 +17,7 @@ withDefaults(defineProps<{
       'action-button--block': block,
       'action-button--delete': type === 'delete',
     }"
+    :disabled="disabled"
   >
     <slot />
   </button>
@@ -31,6 +34,10 @@ withDefaults(defineProps<{
     transition: background-color .2s ease-in-out;
     font-weight: bold;
     height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .25rem;
 
     &--block {
         display: inline-block;
