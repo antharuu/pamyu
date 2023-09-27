@@ -8,14 +8,26 @@
   },
   "package": {
     "productName": "pamyu",
-    "version": "0.0.1"
+    "version": "0.0.7"
   },
   "tauri": {
     "allowlist": {
       "all": false,
       "shell": {
-        "all": false,
-        "open": true
+        "all": true,
+        "open": true,
+        "scope": [
+          {
+            "name": "go-renpy",
+            "cmd": "cd",
+            "args": [{ "validator": ".*" }]
+          },
+          {
+            "name" : "renpy",
+            "cmd": "renpy.exe",
+            "args": []
+          }
+        ]
       },
       "dialog": {
         "open": true
