@@ -86,7 +86,7 @@ const navigationItems = computed<MenuItem[]>(() =>
     width: 90px;
 
     &__logo {
-        padding: 10px;
+        padding: 1.5rem;
         width: 100%;
         aspect-ratio: 1 / 1;
         transition: transform .2s ease-in-out;
