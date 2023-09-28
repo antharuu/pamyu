@@ -88,6 +88,11 @@
   "renpy_path": "Chemin de l'exécutable Ren'Py",
   "renpy_path_error": "Le chemin de l'exécutable Ren'Py n'est pas valide.",
   "play_game": "Lancer le jeu",
+  "start_renpy": "Lancer Ren'Py",
+  "lang": {
+    "en": "English",
+    "fr": "Français"
+  },
   "color": {
     "vivid_violet": "Violet vif",
     "cobalt_blue": "Bleu cobalt",
