@@ -81,7 +81,7 @@ async function startRenpy(): Promise<void> {
 .top {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     margin-bottom: 1rem;
 }
 

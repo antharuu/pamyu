@@ -1,31 +1,98 @@
 <script setup lang="ts">
-import {ref} from 'vue';
+import {computed} from 'vue';
 
 import {useSettingStore} from '../../stores/useSettingStore';
 
-import InputContainer from '../../layout/InputContainer.vue';
-import InputColor from '../inputs/InputColor.vue';
+import InputBase from '../inputs/InputBase.vue';
 
-const themeColor = ref<string>(useSettingStore().getThemeColor);
+const themeColor = computed<string>(() => useSettingStore().getThemeColor);
 
-function updateColor(event: Event): void {
-    useSettingStore().setThemeColor((event.target as HTMLInputElement).value);
+function updateColor(newValue: string): void {
+    useSettingStore().setThemeColor(newValue);
 }
+
+const themes = [
+    {name: 'color.vivid_violet', color: '#7D5FFF'},
+    {name: 'color.cobalt_blue', color: '#4A6BFF'},
+    {name: 'color.dark_turquoise', color: '#3AB0CD'},
+    {name: 'color.berry_pink', color: '#FF5FA2'},
+    {name: 'color.emerald_green', color: '#2DCD91'},
+    {name: 'color.burnt_orange', color: '#FF8F5F'}
+];
+
 </script>
 
 <template>
   <div>
-    <h2>{{ $t('theme') }}</h2>
-    <InputContainer class="color">
-      <InputColor
-        v-model="themeColor"
-        label="theme_color"
-        @change="updateColor"
-      />
-    </InputContainer>
+    <InputBase label="theme">
+      <div class="color-container">
+        <button
+          v-for="theme in themes"
+          :key="theme.color"
+          :style="{ backgroundColor: theme.color }"
+          :class="{ 'color-container--active': themeColor === theme.color}"
+          @click="updateColor(theme.color)"
+        >
+          <span class="color-name">
+            {{ $t(theme.name) }}
+          </span>
+        </button>
+      </div>
+    </InputBase>
   </div>
 </template>
 
 <style scoped>
+.color-container {
+    display: flex;
+    grid-template-columns: repeat(6, 1fr);
+    grid-gap: 1rem;
+    justify-items: start;
+    height: 34px;
+    align-items: center;
+}
 
+.color-container button {
+    position: relative;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.color-container button .color-name {
+    position: absolute;
+    bottom: calc(100% + 0.5rem);
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    color: var(--color-text);
+    background-color: var(--color-background-dark);
+    padding: .5rem 2rem;
+    border-radius: 1rem;
+    white-space: nowrap;
+    display: none;
+}
+
+.color-container button:hover .color-name {
+    display: inline-block;
+}
+
+.color-container--active::before {
+    content: '';
+    position: absolute;
+    inset: .2rem;
+    background-color: var(--color-background);
+    border-radius: 50%;
+    transition: inset 0.2s ease-in-out;
+}
+
+.color-container--active:hover::before {
+    inset: 5rem;
+}
 </style>

@@ -6,6 +6,8 @@
 
 ✨ Refinement of the overall design.
 
+✨ New theme selector.
+
 ## Alpha 7
 
 🎉 First public release.
