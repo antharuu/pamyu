@@ -28,8 +28,8 @@ withDefaults(defineProps<{
     padding: .5rem 1.25rem;
     border-radius: 4px;
     border: none;
-    background-color: var(--color-primary);
-    color: var(--color-light);
+    background-color: var(--color-accent);
+    color: var(--color-text);
     cursor: pointer;
     transition: background-color .2s ease-in-out;
     font-weight: bold;
@@ -45,21 +45,21 @@ withDefaults(defineProps<{
     }
 
     &:disabled {
-        background-color: var(--color-grey);
+        background-color: var(--color-background-light);
     }
 
     &:not(:disabled) {
         &:hover {
-            background-color: var(--color-primary-dark);
+            background-color: var(--color-accent-dark);
         }
     }
 
     &--delete {
-        background-color: var(--color-error);
+        background-color: var(--color-danger);
 
         &:not(:disabled) {
             &:hover {
-                background-color: var(--color-error-dark);
+                background-color: var(--color-danger-dark);
             }
         }
     }

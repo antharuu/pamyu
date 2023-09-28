@@ -4,6 +4,8 @@
 
 ✨ Can now launch the game and Ren'Py directly.
 
+✨ Refinement of the overall design.
+
 ## Alpha 7
 
 🎉 First public release.

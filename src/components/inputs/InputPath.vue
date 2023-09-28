@@ -106,11 +106,11 @@ async function importFolder(): Promise<void> {
 
     &--error {
         label {
-            color: var(--color-error);
+            color: var(--color-danger);
         }
 
         input, textarea {
-            box-shadow: 0 0 0 2px var(--color-error);
+            box-shadow: 0 0 0 2px var(--color-danger);
         }
     }
 
@@ -121,7 +121,7 @@ async function importFolder(): Promise<void> {
     }
 
     input {
-        background-color: var(--color-grey);
+        background-color: var(--color-background-light);
         border: none;
         border-radius: 5px;
         padding: .5rem 1rem;
@@ -131,7 +131,7 @@ async function importFolder(): Promise<void> {
         width: 100%;
 
         &:focus {
-            box-shadow: 0 0 0 2px var(--color-primary);
+            box-shadow: 0 0 0 2px var(--color-accent);
 
             &:read-only {
                 box-shadow: none;
@@ -147,12 +147,12 @@ async function importFolder(): Promise<void> {
         gap: .5rem;
 
         &-error {
-            color: var(--color-error);
+            color: var(--color-danger);
         }
     }
 
     button {
-        background-color: var(--color-grey);
+        background-color: var(--color-background-light);
         border: none;
         border-radius: 5px;
         padding: .5rem 1rem;
@@ -161,7 +161,7 @@ async function importFolder(): Promise<void> {
         outline: none;
 
         &:focus {
-            box-shadow: 0 0 0 2px var(--color-primary);
+            box-shadow: 0 0 0 2px var(--color-accent);
 
             &:read-only {
                 box-shadow: none;

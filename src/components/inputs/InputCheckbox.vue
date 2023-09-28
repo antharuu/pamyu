@@ -114,16 +114,16 @@ const usableWidth = props.width ? props.width : '100%';
 
     &--error {
         label {
-            color: var(--color-error);
+            color: var(--color-danger);
         }
 
         input {
-            box-shadow: 0 0 0 2px var(--color-error);
+            box-shadow: 0 0 0 2px var(--color-danger);
         }
     }
 
     input {
-        background-color: var(--color-grey);
+        background-color: var(--color-background-light);
         border: none;
         border-radius: 5px;
         padding: .5rem 1rem;
@@ -133,7 +133,7 @@ const usableWidth = props.width ? props.width : '100%';
         opacity: 0;
 
         &:focus {
-            box-shadow: 0 0 0 2px var(--color-primary);
+            box-shadow: 0 0 0 2px var(--color-accent);
 
             &:read-only {
                 box-shadow: none;
@@ -149,7 +149,7 @@ const usableWidth = props.width ? props.width : '100%';
         gap: .5rem;
 
         &-error {
-            color: var(--color-error);
+            color: var(--color-danger);
         }
     }
 
@@ -161,11 +161,11 @@ const usableWidth = props.width ? props.width : '100%';
         width: 34px;
         height: 34px;
         border-radius: 5px;
-        background-color: var(--color-grey);
+        background-color: var(--color-background-light);
         cursor: pointer;
 
         i {
-            color: var(--color-primary);
+            color: var(--color-accent);
             font-weight: bold;
             position: relative;
             font-size: 1.8rem;
