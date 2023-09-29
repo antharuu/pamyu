@@ -13,6 +13,7 @@ const props = withDefaults(defineProps<{
     textArea?: boolean;
     error?: string;
     message?: string;
+    noTrim?: boolean;
 }>(), {
     type: 'text',
     maxLenght: 9999999999,
@@ -21,6 +22,7 @@ const props = withDefaults(defineProps<{
     textArea: false,
     error: '',
     message: '',
+    noTrim: false
 });
 
 const emit = defineEmits(['update:model-value']);
@@ -30,7 +32,8 @@ const value = computed({
         return props.modelValue;
     },
     set(value) {
-        emit('update:model-value', value);
+        const trimmedValue = props.noTrim ? value : (value ?? '').toString().trim();
+        emit('update:model-value', trimmedValue);
     }
 });
 
@@ -55,7 +58,7 @@ const usableWidth = props.width ? props.width : '100%';
     <input
       v-if="!props.textArea"
       :id="uniqueId"
-      v-model.trim.lazy="value"
+      v-model.lazy="value"
       aria-autocomplete="none"
       :type="type"
       :readonly="props.readonly"
@@ -64,7 +67,7 @@ const usableWidth = props.width ? props.width : '100%';
     <textarea
       v-else
       :id="uniqueId"
-      v-model.trim.lazy="value"
+      v-model.lazy="value"
       :readonly="props.readonly"
       :maxlength="props.maxLenght"
     />

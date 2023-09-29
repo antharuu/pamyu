@@ -77,21 +77,25 @@ watch(character, (newVal) => {
         >
           <InputText
             label="character_what_prefix"
+            no-trim
             :model-value="characterEdit.what_prefix"
             @update:model-value="characterEdit.what_prefix = $event"
           />
           <InputText
             label="character_what_suffix"
+            no-trim
             :model-value="characterEdit.what_suffix"
             @update:model-value="characterEdit.what_suffix = $event"
           />
           <InputText
             label="character_who_prefix"
+            no-trim
             :model-value="characterEdit.who_prefix"
             @update:model-value="characterEdit.who_prefix = $event"
           />
           <InputText
             label="character_who_suffix"
+            no-trim
             :model-value="characterEdit.who_suffix"
             @update:model-value="characterEdit.who_suffix = $event"
           />
