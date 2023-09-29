@@ -4,6 +4,8 @@
 
 ✨ Can now launch the game and Ren'Py directly.
 
+✨ Implementation of character folder feature.
+
 🔧 The prefixes and suffixes have been corrected and displayed.
 
 🎨 Refinement of the overall design.

@@ -3,10 +3,12 @@ withDefaults(defineProps<{
     block?: boolean;
     type?: 'default' | 'delete';
     disabled?: boolean;
+    outlined?: boolean;
 }>(), {
     block: false,
     type: 'default',
     disabled: false,
+    outlined: false,
 });
 </script>
 
@@ -16,6 +18,7 @@ withDefaults(defineProps<{
     :class="{
       'action-button--block': block,
       'action-button--delete': type === 'delete',
+      'action-button--outlined': outlined,
     }"
     :disabled="disabled"
   >
@@ -60,6 +63,32 @@ withDefaults(defineProps<{
         &:not(:disabled) {
             &:hover {
                 background-color: var(--color-danger-dark);
+            }
+        }
+    }
+
+    &--outlined {
+        background-color: transparent;
+        border: 2px solid var(--color-accent);
+        color: var(--color-accent);
+
+        &:not(:disabled) {
+            &:hover {
+                background-color: var(--color-accent);
+                color: var(--color-text);
+            }
+        }
+
+        &--delete {
+            background-color: transparent;
+            border: 2px solid var(--color-danger);
+            color: var(--color-danger);
+
+            &:not(:disabled) {
+                &:hover {
+                    background-color: var(--color-danger);
+                    color: var(--color-text);
+                }
             }
         }
     }

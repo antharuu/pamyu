@@ -100,5 +100,9 @@
     "berry_pink": "Rose baie",
     "emerald_green": "Vert émeraude",
     "burnt_orange": "Orange brûlé"
-  }
+  },
+  "create_folder": "Créer un dossier",
+  "folder": "Dossier",
+  "no_folder": "Aucun dossier",
+  "others": "Autres"
 }

@@ -10,12 +10,14 @@ const props = withDefaults(defineProps<{
     readonly?: boolean;
     error?: string;
     message?: string;
-    options: { value: string, label: string }[];
+    options: { value: string | undefined, label: string }[];
+    noTranslate?: boolean;
 }>(), {
     width: '100%',
     readonly: false,
     error: '',
     message: '',
+    noTranslate: false,
 });
 
 const emit = defineEmits(['update:model-value']);
@@ -59,7 +61,7 @@ const usableWidth = props.width ? props.width : '100%';
           :key="item.value"
           :value="item.value"
         >
-          {{ $t(item.label) }}
+          {{ noTranslate ? item.label : $t(item.label) }}
         </option>
       </select>
       <Icon

@@ -7,9 +7,11 @@ import {Character} from '../types/character.ts';
 export const useCharacterStore = defineStore({
     id: 'CharactersData',
     state: (): {
+        folders: { [key: string]: Character['_id'][] },
         characters: Character[]
     } => ({
         characters: [],
+        folders: {}
     }),
     getters: {
         getCharacters(): Character[] {
@@ -17,9 +19,50 @@ export const useCharacterStore = defineStore({
         },
         getCharacterById(): (id: string) => Character | undefined {
             return (id: string) => this.characters.find((character) => character._id === id);
+        },
+        getCharactersFolders(): string[] {
+            return Object.keys(this.folders || {});
         }
     },
     actions: {
+        createFolder(name: string): void {
+            const cleanName = getCleanName(name);
+            if (!this.folders) this.folders = {};
+            if (!this.folders[cleanName]) this.folders[cleanName] = [];
+        },
+        deleteFolder(key: string): void {
+            if (this.folders && this.folders[key]) {
+                this.characters.forEach((character) => {
+                    if (character.folder === key) character.folder = undefined;
+                });
+
+                delete this.folders[key];
+            }
+        },
+        moveCharacter(character: Character, folder: string | undefined): void {
+            const cleanFolder = folder ? getCleanName(folder) : undefined;
+
+            if (!this.isFolderValid(cleanFolder)) {
+                return;
+            }
+
+            const char = this.getCharacterById(character._id);
+            const oldFolder = char?.folder;
+            if (char) {
+                char.folder = cleanFolder;
+            }
+
+            if (oldFolder) {
+                this.folders[oldFolder] = this.folders[oldFolder].filter((id) => id !== character._id);
+            }
+
+            if (cleanFolder && this.folders[cleanFolder]) {
+                this.folders[cleanFolder].push(character._id);
+            }
+        },
+        isFolderValid(cleanFolder: string | undefined): boolean {
+            return !!(!cleanFolder || (cleanFolder && this.folders && this.folders[cleanFolder]));
+        },
         getUniqueCharacterId(name: string): string {
             const cleanName = getCleanName(name);
             const randomId = cleanName + '_' + getRandomToken(8);

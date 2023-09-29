@@ -100,5 +100,9 @@
     "berry_pink": "Berry pink",
     "emerald_green": "Emerald green",
     "burnt_orange": "Burnt orange"
-  }
+  },
+  "create_folder": "Create folder",
+  "folder": "Folder",
+  "no_folder": "No folder",
+  "others": "Others"
 }
