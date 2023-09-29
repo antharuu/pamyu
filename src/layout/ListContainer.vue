@@ -17,7 +17,10 @@
 .list-container {
     display: grid;
     grid-template-columns: minmax(300px, 1fr) 4fr;
+    grid-template-rows: 1fr;
     grid-gap: 1rem;
+    max-height: calc(100vh - 6.6rem);
+    overflow: hidden;
 }
 
 .left {
@@ -26,6 +29,7 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    overflow-y: auto;
 }
 
 .right {

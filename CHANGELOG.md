@@ -8,6 +8,8 @@
 
 🔧 The prefixes and suffixes have been corrected and displayed.
 
+🔧 Character list is now scrollable.
+
 🎨 Refinement of the overall design.
 
 🎨 New theme selector.
