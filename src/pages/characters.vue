@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import {useCharacterStore} from '../stores/characterStore.ts';
 
+import {getVisibleName} from '../utils/characters.ts';
+
 import ActionButton from '../components/ActionButton.vue';
 
 import ListContainer from '../layout/ListContainer.vue';
@@ -25,7 +27,7 @@ import PageLayout from '../layout/PageLayout.vue';
             class="character"
           >
             <div class="character__name">
-              {{ character.name }}
+              {{ getVisibleName(character) }}
             </div>
           </router-link>
         </div>
