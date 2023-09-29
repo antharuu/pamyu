@@ -4,9 +4,12 @@
 
 ✨ Can now launch the game and Ren'Py directly.
 
-✨ Refinement of the overall design.
+🔧 The prefixes and suffixes have been corrected and displayed.
 
-✨ New theme selector.
+🎨 Refinement of the overall design.
+
+🎨 New theme selector.
+
 
 ## Alpha 7
 
