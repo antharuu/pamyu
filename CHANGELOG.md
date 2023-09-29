@@ -1,5 +1,20 @@
 # Changelog
 
+## Alpha 8
+
+✨ Can now launch the game and Ren'Py directly.
+
+✨ Implementation of character folder feature.
+
+🔧 The prefixes and suffixes have been corrected and displayed.
+
+🔧 Character list is now scrollable.
+
+🎨 Refinement of the overall design.
+
+🎨 New theme selector.
+
+
 ## Alpha 7
 
 🎉 First public release.

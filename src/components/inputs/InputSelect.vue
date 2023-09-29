@@ -10,12 +10,14 @@ const props = withDefaults(defineProps<{
     readonly?: boolean;
     error?: string;
     message?: string;
-    options: {value: string, label: string}[];
+    options: { value: string | undefined, label: string }[];
+    noTranslate?: boolean;
 }>(), {
     width: '100%',
     readonly: false,
     error: '',
     message: '',
+    noTranslate: false,
 });
 
 const emit = defineEmits(['update:model-value']);
@@ -47,20 +49,26 @@ const usableWidth = props.width ? props.width : '100%';
       />
       {{ $t(label) }}
     </label>
-    <select
-      :id="uniqueId"
-      v-model.trim.lazy="value"
-      aria-autocomplete="none"
-      :disabled="readonly"
-    >
-      <option
-        v-for="item in options"
-        :key="item.value"
-        :value="item.value"
+    <div class="input__group__select">
+      <select
+        :id="uniqueId"
+        v-model.trim.lazy="value"
+        aria-autocomplete="none"
+        :disabled="readonly"
       >
-        {{ $t(item.label) }}
-      </option>
-    </select>
+        <option
+          v-for="item in options"
+          :key="item.value"
+          :value="item.value"
+        >
+          {{ noTranslate ? item.label : $t(item.label) }}
+        </option>
+      </select>
+      <Icon
+        name="arrow_drop_down"
+        class="input__group-icon"
+      />
+    </div>
     <span
       v-if="message.length > 0 || error.length > 0"
       class="input__group-message"
@@ -96,25 +104,28 @@ const usableWidth = props.width ? props.width : '100%';
 
     &--error {
         label {
-            color: var(--color-error);
+            color: var(--color-danger);
         }
 
         select {
-            box-shadow: 0 0 0 2px var(--color-error);
+            box-shadow: 0 0 0 2px var(--color-danger);
         }
     }
 
     select {
-        background-color: var(--color-grey);
+        background-color: var(--color-background-light);
         border: none;
         border-radius: 5px;
         padding: .5rem 1rem;
         color: var(--color-lightgrey);
         font-size: 16px;
         outline: none;
+        -webkit-appearance: none;
+        appearance: none;
+        height: 34px;
 
         &:focus {
-            box-shadow: 0 0 0 2px var(--color-primary);
+            box-shadow: 0 0 0 2px var(--color-accent);
 
             &:read-only {
                 box-shadow: none;
@@ -136,8 +147,26 @@ const usableWidth = props.width ? props.width : '100%';
         gap: .5rem;
 
         &-error {
-            color: var(--color-error);
+            color: var(--color-danger);
         }
+    }
+
+    &__select {
+        position: relative;
+
+        > select {
+            width: 100%;
+        }
+    }
+
+    &-icon {
+        position: absolute;
+        right: .5rem;
+        top: 50%;
+        pointer-events: none;
+        color: var(--color-lightgrey);
+        transform: translateY(-50%) scale(1.5);
+        opacity: .75;
     }
 }
 </style>

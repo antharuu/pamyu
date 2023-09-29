@@ -82,9 +82,11 @@ const navigationItems = computed<MenuItem[]>(() =>
 .navigation {
     align-items: center;
     user-select: none;
+    font-size: .9rem;
+    width: 90px;
 
     &__logo {
-        padding: 20px;
+        padding: 1.5rem;
         width: 100%;
         aspect-ratio: 1 / 1;
         transition: transform .2s ease-in-out;
@@ -121,7 +123,7 @@ const navigationItems = computed<MenuItem[]>(() =>
 
             .navigation__link-element {
                 position: relative;
-                color: var(--color-light);
+                color: var(--color-text);
                 text-decoration: none;
                 display: inline-flex;
                 flex-direction: column;
@@ -130,13 +132,13 @@ const navigationItems = computed<MenuItem[]>(() =>
                 padding: clamp(.6rem, 1.75vh, 1rem) 1rem;
 
                 &:hover {
-                    color: var(--color-lightgrey);
+                    color: var(--color-accent-dark);
                 }
 
                 &::before {
                     content: "";
                     width: 4px;
-                    background-color: var(--color-primary);
+                    background-color: var(--color-accent);
                     position: absolute;
                     bottom: 0;
                     left: 0;
@@ -146,7 +148,7 @@ const navigationItems = computed<MenuItem[]>(() =>
                 }
 
                 &.active {
-                    color: var(--color-primary);
+                    color: var(--color-accent);
                     pointer-events: none;
 
                     &::before {

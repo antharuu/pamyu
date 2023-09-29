@@ -74,21 +74,25 @@ function createCharacter(): void {
         >
           <InputText
             label="character_what_prefix"
+            no-trim
             :model-value="whatPrefix"
             @update:model-value="whatPrefix = $event"
           />
           <InputText
             label="character_what_suffix"
+            no-trim
             :model-value="whatSuffix"
             @update:model-value="whatSuffix = $event"
           />
           <InputText
             label="character_who_prefix"
+            no-trim
             :model-value="whoPrefix"
             @update:model-value="whoPrefix = $event"
           />
           <InputText
             label="character_who_suffix"
+            no-trim
             :model-value="whoSuffix"
             @update:model-value="whoSuffix = $event"
           />

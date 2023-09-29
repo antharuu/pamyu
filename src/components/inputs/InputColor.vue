@@ -98,16 +98,16 @@ onMounted(() => {
 
     &--error {
         label {
-            color: var(--color-error);
+            color: var(--color-danger);
         }
 
         input {
-            box-shadow: 0 0 0 2px var(--color-error);
+            box-shadow: 0 0 0 2px var(--color-danger);
         }
     }
 
     input {
-        background-color: var(--color-grey);
+        background-color: var(--color-background-light);
         border: none;
         border-radius: 5px;
         width: 100%;
@@ -141,7 +141,7 @@ onMounted(() => {
         gap: .5rem;
 
         &-error {
-            color: var(--color-error);
+            color: var(--color-danger);
         }
     }
 }

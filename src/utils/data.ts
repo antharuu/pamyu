@@ -50,20 +50,20 @@ function get_version(stringVersion: string): [number, number, number] {
 }
 
 /**
- * The `is_version_greater_than` function compares two software versions given as strings.
+ * The `is_version_lower` function compares two software versions given as strings.
  *
  * It considers major, minor, and patch versions in the comparison. Initially, it compares the major version numbers. If these
  * are equal, it proceeds to compare the minor version numbers. Finally, if the minor version numbers are also the same, it
  * compares the patch version numbers.
  *
- * @param {string} version_a - The first version string to compare, such as "1.2.3".
- * @param {string} version_b - The second version string to compare, such as "4.5.6".
+ * @param {string} version_checked - The first version string to compare, such as "1.2.3".
+ * @param {string} version_to_have - The second version string to compare, such as "4.5.6".
  *
- * @returns {boolean} - Returns true if `version_a` is greater than `version_b`, otherwise false.
+ * @returns {boolean} - Returns true if `version_checked` is greater than `version_to_have`, otherwise false.
  */
-function is_version_greater_than(version_a: string, version_b: string): boolean {
-    const [aMajor, aMinor, aPatch] = get_version(version_a);
-    const [bMajor, bMinor, bPatch] = get_version(version_b);
+function is_version_lower(version_checked: string, version_to_have: string): boolean {
+    const [aMajor, aMinor, aPatch] = get_version(version_to_have);
+    const [bMajor, bMinor, bPatch] = get_version(version_checked);
 
     if (aMajor > bMajor) {
         return true;
@@ -92,11 +92,23 @@ function is_version_greater_than(version_a: string, version_b: string): boolean 
 function update_version(state: State): void {
     const stateVersion = state?.Pamyu?.version ?? '0.0.0';
 
-    if (is_version_greater_than(version, stateVersion)) {
+    if (is_version_lower(stateVersion, version)) {
         console.log(`⚡️ Updating data to new version, ${stateVersion} -> ${version}`);
+        upgrade(stateVersion, state);
     } else if (version !== stateVersion) {
         throw new Error(`🚨 Data version is greater than current version, you are using an old version of Pamyu ${stateVersion} > ${version}`);
     }
 
     state.Pamyu = {version};
+}
+
+function upgrade(oldVersion: string, state: State): void {
+    if (is_version_lower(oldVersion, '0.0.8')) upgrade_to_0_0_8(state);
+}
+
+function upgrade_to_0_0_8(state: State): void {
+    console.log('🚨 Updating to 0.0.8');
+    if (state?.CharactersData) {
+        if(!state?.CharactersData?.folders) state.CharactersData.folders = {};
+    }
 }

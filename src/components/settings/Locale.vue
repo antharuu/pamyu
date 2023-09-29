@@ -1,21 +1,33 @@
 <script setup lang="ts">
 import {useSettingStore} from '../../stores/useSettingStore';
+
+import InputSelect from '../inputs/InputSelect.vue';
+
+const locales = [
+    {
+        label: 'lang.en',
+        value: 'en',
+    },
+    {
+        label: 'lang.fr',
+        value: 'fr',
+    },
+];
+
+function updateLocale(newValue: string): void {
+    useSettingStore().setLocale(newValue as 'en' | 'fr');
+    window.location.reload();
+}
 </script>
 
 <template>
   <div>
-    <h2>{{ $t('language') }}</h2>
-    <select
-      v-model="$i18n.locale"
-      @change="useSettingStore().setLocale($i18n.locale)"
-    >
-      <option value="en">
-        English
-      </option>
-      <option value="fr">
-        Français
-      </option>
-    </select>
+    <InputSelect
+      label="language"
+      :options="locales"
+      :model-value="$i18n.locale"
+      @update:model-value="updateLocale"
+    />
   </div>
 </template>
 

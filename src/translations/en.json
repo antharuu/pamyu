@@ -84,5 +84,25 @@
     "slideawayleft": "Slide away left",
     "pushright": "Push right",
     "irisin": "Iris in"
-  }
+  },
+  "renpy_path": "Ren'Py executable path",
+  "renpy_path_error": "Ren'Py executable path is not valid.",
+  "play_game": "Play game",
+  "start_renpy": "Start Ren'Py",
+  "lang": {
+    "en": "English",
+    "fr": "Français"
+  },
+  "color": {
+    "vivid_violet": "Vivid violet",
+    "cobalt_blue": "Cobalt blue",
+    "dark_turquoise": "Dark turquoise",
+    "berry_pink": "Berry pink",
+    "emerald_green": "Emerald green",
+    "burnt_orange": "Burnt orange"
+  },
+  "create_folder": "Create folder",
+  "folder": "Folder",
+  "no_folder": "No folder",
+  "others": "Others"
 }

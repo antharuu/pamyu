@@ -77,7 +77,7 @@ function prepareTargetForDeepAssign<T extends Record<string, unknown>>(target: T
 
 export function getUndefinedIfEmptyString(str: string | unknown): string | undefined {
     if (typeof str !== 'string') return undefined;
-    return str.trim().length === 0 ? undefined : str.trim();
+    return str.trim().length === 0 ? undefined : str;
 }
 
 export function getCleanName(name: string): string {

@@ -1,11 +1,7 @@
 <script lang="ts" setup>
-import {open} from '@tauri-apps/api/dialog';
-import {computed} from 'vue';
-
 import Icon from '../Icon.vue';
 
 const props = withDefaults(defineProps<{
-    modelValue: string | number | undefined;
     label: string;
     width?: string | null;
     readonly?: boolean;
@@ -18,30 +14,8 @@ const props = withDefaults(defineProps<{
     message: '',
 });
 
-const emit = defineEmits(['update:model-value']);
-
-const value = computed({
-    get() {
-        return props.modelValue;
-    },
-    set(value) {
-        emit('update:model-value', value);
-    }
-});
-
 const uniqueId = `input-${Math.random().toString(36).substr(2, 9)}`;
 const usableWidth = props.width ? props.width : '100%';
-
-async function importFolder(): Promise<void> {
-    const selected = await open({
-        multiple: false,
-        directory: true,
-    });
-
-    if (typeof selected !== 'string') return;
-
-    emit('update:model-value', selected);
-}
 </script>
 
 <template>
@@ -58,19 +32,7 @@ async function importFolder(): Promise<void> {
       />
       {{ $t(label) }}
     </label>
-    <div class="input__group-folder">
-      <input
-        :id="uniqueId"
-        v-model.trim.lazy="value"
-        aria-autocomplete="none"
-        type="text"
-        :readonly="props.readonly"
-      >
-
-      <button @click="importFolder">
-        {{ $t('browse') }}
-      </button>
-    </div>
+    <slot />
     <span
       v-if="message.length > 0 || error.length > 0"
       class="input__group-message"
@@ -114,21 +76,14 @@ async function importFolder(): Promise<void> {
         }
     }
 
-    &-folder {
-        display: flex;
-        gap: .5rem;
-        width: 100%;
-    }
-
-    input {
+    input, textarea {
         background-color: var(--color-background-light);
         border: none;
         border-radius: 5px;
         padding: .5rem 1rem;
-        color: var(--color-lightgrey);
+        color: var(--color-text);
         font-size: 16px;
         outline: none;
-        width: 100%;
 
         &:focus {
             box-shadow: 0 0 0 2px var(--color-accent);
@@ -137,35 +92,28 @@ async function importFolder(): Promise<void> {
                 box-shadow: none;
             }
         }
+
+        &:disabled, &:read-only {
+            color: var(--color-text-dark);
+            opacity: .75;
+        }
+    }
+
+    textarea {
+        resize: none;
+        min-height: 113px;
+        max-height: 113px;
     }
 
     &-message {
         font-size: 12px;
-        color: var(--color-lightgrey);
+        color: var(--color-text-dark);
         display: flex;
         flex-direction: column;
         gap: .5rem;
 
         &-error {
             color: var(--color-danger);
-        }
-    }
-
-    button {
-        background-color: var(--color-background-light);
-        border: none;
-        border-radius: 5px;
-        padding: .5rem 1rem;
-        color: var(--color-lightgrey);
-        font-size: 16px;
-        outline: none;
-
-        &:focus {
-            box-shadow: 0 0 0 2px var(--color-accent);
-
-            &:read-only {
-                box-shadow: none;
-            }
         }
     }
 }

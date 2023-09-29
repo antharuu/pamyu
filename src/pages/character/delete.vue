@@ -55,10 +55,10 @@ function back(): void {
 
 <style scoped>
 .text-primary {
-    color: var(--color-primary);
+    color: var(--color-accent);
 }
 
 .warn-message {
-    color: var(--color-error);
+    color: var(--color-danger);
 }
 </style>

@@ -2,9 +2,13 @@
 withDefaults(defineProps<{
     block?: boolean;
     type?: 'default' | 'delete';
+    disabled?: boolean;
+    outlined?: boolean;
 }>(), {
     block: false,
     type: 'default',
+    disabled: false,
+    outlined: false,
 });
 </script>
 
@@ -14,7 +18,9 @@ withDefaults(defineProps<{
     :class="{
       'action-button--block': block,
       'action-button--delete': type === 'delete',
+      'action-button--outlined': outlined,
     }"
+    :disabled="disabled"
   >
     <slot />
   </button>
@@ -25,12 +31,16 @@ withDefaults(defineProps<{
     padding: .5rem 1.25rem;
     border-radius: 4px;
     border: none;
-    background-color: var(--color-primary);
-    color: var(--color-light);
+    background-color: var(--color-accent);
+    color: var(--color-text);
     cursor: pointer;
     transition: background-color .2s ease-in-out;
     font-weight: bold;
     height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .25rem;
 
     &--block {
         display: inline-block;
@@ -38,21 +48,47 @@ withDefaults(defineProps<{
     }
 
     &:disabled {
-        background-color: var(--color-grey);
+        background-color: var(--color-background-light);
     }
 
     &:not(:disabled) {
         &:hover {
-            background-color: var(--color-primary-dark);
+            background-color: var(--color-accent-dark);
         }
     }
 
     &--delete {
-        background-color: var(--color-error);
+        background-color: var(--color-danger);
 
         &:not(:disabled) {
             &:hover {
-                background-color: var(--color-error-dark);
+                background-color: var(--color-danger-dark);
+            }
+        }
+    }
+
+    &--outlined {
+        background-color: transparent;
+        border: 2px solid var(--color-accent);
+        color: var(--color-accent);
+
+        &:not(:disabled) {
+            &:hover {
+                background-color: var(--color-accent);
+                color: var(--color-text);
+            }
+        }
+
+        &--delete {
+            background-color: transparent;
+            border: 2px solid var(--color-danger);
+            color: var(--color-danger);
+
+            &:not(:disabled) {
+                &:hover {
+                    background-color: var(--color-danger);
+                    color: var(--color-text);
+                }
             }
         }
     }

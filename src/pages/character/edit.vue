@@ -4,10 +4,14 @@ import {useRoute} from 'vue-router';
 
 import {useCharacterStore} from '../../stores/characterStore';
 
+import i18n from '../../utils/i18n.ts';
+import {capitalize} from '../../utils/tools.ts';
+
 import {Character} from '../../types/character';
 
 import ActionButton from '../../components/ActionButton.vue';
 import InputColor from '../../components/inputs/InputColor.vue';
+import InputSelect from '../../components/inputs/InputSelect.vue';
 import InputText from '../../components/inputs/InputText.vue';
 
 import InputContainer from '../../layout/InputContainer.vue';
@@ -35,12 +39,36 @@ function editCharacter(): void {
     if (characterEdit.value) {
         useCharacterStore().updateCharacter(characterEdit.value);
     }
+
+    move();
+}
+
+function move(): void {
+    if (character.value?.folder !== characterEdit.value?.folder && character.value) {
+        useCharacterStore().moveCharacter(character.value, characterEdit.value?.folder ?? undefined);
+    }
 }
 
 watch(character, (newVal) => {
     if (!newVal) return;
     characterEdit.value = {...newVal};
 }, {immediate: true});
+
+const charactersFolders = computed(() => {
+    const folders = useCharacterStore().getCharactersFolders;
+    const base = [{
+        value: undefined,
+        label: i18n.global.t('no_folder'),
+    }];
+    const list = folders.map((folder) => {
+        return {
+            value: folder,
+            label: capitalize(folder),
+        };
+    });
+
+    return [...base, ...list];
+});
 </script>
 
 <template>
@@ -69,6 +97,14 @@ watch(character, (newVal) => {
             :model-value="characterEdit.color"
             @update:model-value="characterEdit.color = $event"
           />
+          <InputSelect
+            v-if="charactersFolders.length > 0"
+            :options="charactersFolders"
+            label="folder"
+            no-translate
+            :model-value="characterEdit.folder"
+            @update:model-value="characterEdit.folder = $event"
+          />
         </Row>
 
         <Row
@@ -77,21 +113,25 @@ watch(character, (newVal) => {
         >
           <InputText
             label="character_what_prefix"
+            no-trim
             :model-value="characterEdit.what_prefix"
             @update:model-value="characterEdit.what_prefix = $event"
           />
           <InputText
             label="character_what_suffix"
+            no-trim
             :model-value="characterEdit.what_suffix"
             @update:model-value="characterEdit.what_suffix = $event"
           />
           <InputText
             label="character_who_prefix"
+            no-trim
             :model-value="characterEdit.who_prefix"
             @update:model-value="characterEdit.who_prefix = $event"
           />
           <InputText
             label="character_who_suffix"
+            no-trim
             :model-value="characterEdit.who_suffix"
             @update:model-value="characterEdit.who_suffix = $event"
           />

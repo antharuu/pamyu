@@ -1,3 +1,4 @@
+import {Character} from './character.ts';
 import {Color} from './globals.ts';
 
 export type SettingsState = Partial<{
@@ -14,4 +15,8 @@ export type PamyuState = Partial<{
 export type State = Partial<{
     Settings: SettingsState;
     Pamyu: PamyuState;
+    CharactersData?: {
+        folders?: { [key: string]: Character['_id'][] };
+        characters?: Character[];
+    }
 }>

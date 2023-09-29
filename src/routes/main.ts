@@ -1,6 +1,7 @@
 import CharacterCreate from '../pages/character/create.vue';
 import CharacterDelete from '../pages/character/delete.vue';
 import CharacterEdit from '../pages/character/edit.vue';
+import CharacterCreateFolder from '../pages/character/folder/create.vue';
 import Characters from '../pages/characters.vue';
 import Game from '../pages/game.vue';
 import NotFound from '../pages/not-found.vue';
@@ -46,6 +47,11 @@ export const routes = [
                 path: 'delete/:id',
                 name: 'character.delete',
                 component: CharacterDelete
+            },
+            {
+                path: 'character.create-folder',
+                name: 'character.create-folder',
+                component: CharacterCreateFolder
             }
         ]
     },

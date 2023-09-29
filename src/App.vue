@@ -23,9 +23,9 @@ route.meta.props = {
 watchEffect(() => {
     const themeColor = useSettingStore().getThemeColor;
     const appStyle = document.documentElement.style;
-    appStyle.setProperty('--color-primary', themeColor);
-    appStyle.setProperty('--color-primary-dark', getDarkenColor(themeColor, 20));
-    appStyle.setProperty('--color-primary-light', getLightenColor(themeColor, 20));
+    appStyle.setProperty('--color-accent', themeColor);
+    appStyle.setProperty('--color-accent-dark', getDarkenColor(themeColor, 15));
+    appStyle.setProperty('--color-accent-light', getLightenColor(themeColor, 15));
 });
 </script>
 
@@ -42,18 +42,32 @@ watchEffect(() => {
 
 <style lang="scss">
 :root {
-    /* ---------- COLORS ---------- */
-    --color-dark: #131313;
-    --color-darkgrey: #202329;
-    --color-grey: #2e333d;
-    --color-lightgrey: #a7acb8;
-    --color-light: #dbfcff;
-    --color-error: #E74C3C;
-    --color-error-dark: #B93D30;
-    --color-success: #2ECC71;
-    --color-success-dark: #25A35A;
-    --color-info: #6b8afd;
-    --color-info-dark: #566ECA;
+    /* Base Colors */
+    --color-background: #1E1E2D;
+    --color-background-light: #3A3A4A;
+    --color-background-dark: #0B0B1B;
+
+    --color-text: #E0E0E6;
+    --color-text-light: #F2F2F7;
+    --color-text-dark: #C0C0C6;
+
+    --color-accent: #7D5FFF;
+    --color-accent-light: #A28DFF;
+    --color-accent-dark: #5C47CC;
+
+    --color-success: #6BCD91;
+    --color-success-light: #8DE3B0;
+    --color-success-dark: #4BA76E;
+
+    --color-warning: #FFC75F;
+    --color-warning-light: #FFDE8D;
+    --color-warning-dark: #E0A93F;
+
+    --color-danger: #FF6B6B;
+    --color-danger-light: #FF8D8D;
+    --color-danger-dark: #E04848;
+
+    font-size: 14px;
 }
 
 html, body {
@@ -61,7 +75,7 @@ html, body {
     padding: 0;
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
-    color: var(--color-lightgrey);
+    color: var(--color-text);
     overflow: hidden;
 }
 
@@ -78,43 +92,38 @@ html, body {
         }
 
         &-thumb {
-            background: var(--color-grey);
+            background: var(--color-background-dark);
             border-radius: 16px;
 
             &:hover {
-                background: var(--color-lightgrey);
+                background: var(--color-background-light);
             }
         }
     }
 }
 
+a {
+    text-decoration: none;
+}
+
 #renpy-ui {
     width: 100vw;
     height: 100vh;
-    background-color: var(--color-dark);
+    background-color: var(--color-background-dark);
     display: grid;
-    grid-template-columns: 120px 1fr;
+    grid-template-columns: auto 1fr;
 }
 
 .content {
-    background-color: var(--color-darkgrey);
+    background-color: var(--color-background);
     overflow-x: hidden;
     overflow-y: auto;
-    border-radius: 25px 0 0 25px;
+    border-radius: 2rem 0 0 2rem;
 
     .page {
-        padding: 20px;
+        padding: 1rem;
         width: 100%;
         height: 100%;
     }
-}
-
-select {
-    background-color: var(--color-grey);
-    border: none;
-    border-radius: 5px;
-    padding: .5rem 1rem;
-    color: var(--color-lightgrey);
-    font-size: 16px;
 }
 </style>

@@ -13,6 +13,7 @@ const props = withDefaults(defineProps<{
     textArea?: boolean;
     error?: string;
     message?: string;
+    noTrim?: boolean;
 }>(), {
     type: 'text',
     maxLenght: 9999999999,
@@ -21,6 +22,7 @@ const props = withDefaults(defineProps<{
     textArea: false,
     error: '',
     message: '',
+    noTrim: false
 });
 
 const emit = defineEmits(['update:model-value']);
@@ -30,7 +32,8 @@ const value = computed({
         return props.modelValue;
     },
     set(value) {
-        emit('update:model-value', value);
+        const trimmedValue = props.noTrim ? value : (value ?? '').toString().trim();
+        emit('update:model-value', trimmedValue);
     }
 });
 
@@ -55,7 +58,7 @@ const usableWidth = props.width ? props.width : '100%';
     <input
       v-if="!props.textArea"
       :id="uniqueId"
-      v-model.trim.lazy="value"
+      v-model.lazy="value"
       aria-autocomplete="none"
       :type="type"
       :readonly="props.readonly"
@@ -64,7 +67,7 @@ const usableWidth = props.width ? props.width : '100%';
     <textarea
       v-else
       :id="uniqueId"
-      v-model.trim.lazy="value"
+      v-model.lazy="value"
       :readonly="props.readonly"
       :maxlength="props.maxLenght"
     />
@@ -103,47 +106,52 @@ const usableWidth = props.width ? props.width : '100%';
 
     &--error {
         label {
-            color: var(--color-error);
+            color: var(--color-danger);
         }
 
         input, textarea {
-            box-shadow: 0 0 0 2px var(--color-error);
+            box-shadow: 0 0 0 2px var(--color-danger);
         }
     }
 
     input, textarea {
-        background-color: var(--color-grey);
+        background-color: var(--color-background-light);
         border: none;
         border-radius: 5px;
         padding: .5rem 1rem;
-        color: var(--color-lightgrey);
+        color: var(--color-text);
         font-size: 16px;
         outline: none;
 
         &:focus {
-            box-shadow: 0 0 0 2px var(--color-primary);
+            box-shadow: 0 0 0 2px var(--color-accent);
 
             &:read-only {
                 box-shadow: none;
             }
         }
+
+        &:disabled, &:read-only {
+            color: var(--color-text-dark);
+            opacity: .75;
+        }
     }
 
     textarea {
         resize: none;
-        min-height: 116px;
-        max-height: 116px;
+        min-height: 113px;
+        max-height: 113px;
     }
 
     &-message {
         font-size: 12px;
-        color: var(--color-lightgrey);
+        color: var(--color-text-dark);
         display: flex;
         flex-direction: column;
         gap: .5rem;
 
         &-error {
-            color: var(--color-error);
+            color: var(--color-danger);
         }
     }
 }

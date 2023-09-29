@@ -46,7 +46,7 @@ function loadProject(path: string): void {
     grid-gap: 1rem;
 
     .path {
-        background-color: var(--color-grey);
+        background-color: var(--color-background-light);
         border-radius: 5px;
         padding: 1rem;
         cursor: pointer;
@@ -56,7 +56,7 @@ function loadProject(path: string): void {
         /*noinspection CssUnusedSymbol*/
 
         &:hover, &.router-link-active, &.active {
-            outline: 2px solid var(--color-primary);
+            outline: 2px solid var(--color-accent);
         }
     }
 }
