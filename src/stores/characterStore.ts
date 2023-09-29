@@ -1,6 +1,12 @@
 import {defineStore} from 'pinia';
 
-import {capitalize, getCleanName, getRandomToken, getUndefinedIfEmptyString} from '../utils/tools.ts';
+import {
+    capitalize,
+    getCleanName,
+    getCleanNameWithSpaces,
+    getRandomToken,
+    getUndefinedIfEmptyString
+} from '../utils/tools.ts';
 
 import {Character} from '../types/character.ts';
 
@@ -26,7 +32,7 @@ export const useCharacterStore = defineStore({
     },
     actions: {
         createFolder(name: string): void {
-            const cleanName = getCleanName(name);
+            const cleanName = getCleanNameWithSpaces(name);
             if (!this.folders) this.folders = {};
             if (!this.folders[cleanName]) this.folders[cleanName] = [];
         },
@@ -40,7 +46,7 @@ export const useCharacterStore = defineStore({
             }
         },
         moveCharacter(character: Character, folder: string | undefined): void {
-            const cleanFolder = folder ? getCleanName(folder) : undefined;
+            const cleanFolder = folder ?? undefined;
 
             if (!this.isFolderValid(cleanFolder)) {
                 return;
