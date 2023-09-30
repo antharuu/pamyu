@@ -15,7 +15,7 @@ function getOptions(character: Character): string {
     return options;
 }
 
-export function get_characters_script(): string {
+export function getCharactersScript(): string {
     const charactersStrings: string[] = [];
 
     useCharacterStore().getCharacters.forEach((character) => {

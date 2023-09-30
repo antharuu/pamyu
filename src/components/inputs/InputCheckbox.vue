@@ -28,7 +28,7 @@ const value = computed({
     }
 });
 
-const uniqueId = `input-${Math.random().toString(36).substr(2, 9)}`;
+const uniqueId = `input-${Math.random().toString(36).substring(2, 11)}`;
 const usableWidth = props.width ? props.width : '100%';
 </script>
 

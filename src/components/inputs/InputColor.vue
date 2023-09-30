@@ -27,16 +27,16 @@ const value = computed({
     }
 });
 
-const uniqueId = `input-${Math.random().toString(36).substr(2, 9)}`;
+const uniqueId = `input-${Math.random().toString(36).substring(2, 11)}`;
 const usableWidth = props.width ? props.width : '100%';
 
 const isLightColor = computed<boolean>(() => {
     const color = value.value?.toString();
     if (color === undefined) return false;
     if (color.length === 0) return false;
-    const r = parseInt(color.substr(1, 2), 16);
-    const g = parseInt(color.substr(3, 2), 16);
-    const b = parseInt(color.substr(5, 2), 16);
+    const r = parseInt(color.substring(5, 7), 16);
+    const g = parseInt(color.substring(5, 7), 16);
+    const b = parseInt(color.substring(5, 7), 16);
     const brightness = (r * 299 + g * 587 + b * 114) / 1000;
     return brightness > 155;
 });

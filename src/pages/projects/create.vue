@@ -20,7 +20,7 @@ function createPath(): void {
     isValid.value = false; // Avoid spamming the button
 
 
-    PathManager.add(path.value);
+    PathManager.addNewPath(path.value);
 }
 
 const isValid = ref<boolean>(false);

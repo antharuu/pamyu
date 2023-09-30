@@ -14,16 +14,16 @@ const isSaving = ref<boolean>(false);
  *
  * @param {object} state - The current application state.
  */
-export async function save_data(state: object): Promise<void> {
+export async function saveData(state: object): Promise<void> {
     if (isSaving.value) return;
     isSaving.value = true;
-    update_version(state);
+    updateVersion(state);
     // noinspection JSIgnoredPromiseFromCall
     await invoke('save_data', {path, data: JSON.stringify(state, null, 2)});
     isSaving.value = false;
 }
 
-export async function load_data(): Promise<object> {
+export async function loadData(): Promise<object> {
     console.log('📂 Loading data from', path);
     const baseData = await invoke('load_data', {path}) as string | null;
     if (baseData) {
@@ -38,14 +38,14 @@ export async function load_data(): Promise<object> {
 }
 
 /**
- * The `get_version` function converts a string representation of a software version into an ordered tuple.
+ * The `getVersion` function converts a string representation of a software version into an ordered tuple.
  *
  * @param {string} stringVersion - A string representation of a version, such as "1.2.3".
  *
  * @returns {[number, number, number]} The returned array contains three elements: the major version number,
  * the minor version number, and the patch version number.
  */
-function get_version(stringVersion: string): [number, number, number] {
+function getVersion(stringVersion: string): [number, number, number] {
     return stringVersion.split('.').map((v: string) => parseInt(v)) as [number, number, number];
 }
 
@@ -56,14 +56,14 @@ function get_version(stringVersion: string): [number, number, number] {
  * are equal, it proceeds to compare the minor version numbers. Finally, if the minor version numbers are also the same, it
  * compares the patch version numbers.
  *
- * @param {string} version_checked - The first version string to compare, such as "1.2.3".
- * @param {string} version_to_have - The second version string to compare, such as "4.5.6".
+ * @param {string} versionChecked - The first version string to compare, such as "1.2.3".
+ * @param {string} versionToHave - The second version string to compare, such as "4.5.6".
  *
- * @returns {boolean} - Returns true if `version_checked` is greater than `version_to_have`, otherwise false.
+ * @returns {boolean} - Returns true if `versionChecked` is greater than `versionToHave`, otherwise false.
  */
-function is_version_lower(version_checked: string, version_to_have: string): boolean {
-    const [aMajor, aMinor, aPatch] = get_version(version_to_have);
-    const [bMajor, bMinor, bPatch] = get_version(version_checked);
+function isVersionLower(versionChecked: string, versionToHave: string): boolean {
+    const [aMajor, aMinor, aPatch] = getVersion(versionToHave);
+    const [bMajor, bMinor, bPatch] = getVersion(versionChecked);
 
     if (aMajor > bMajor) {
         return true;
@@ -79,7 +79,7 @@ function is_version_lower(version_checked: string, version_to_have: string): boo
 }
 
 /**
- * `update_version` updates the version for the provided state object. It first retrieves the current software version from
+ * `updateVersion` updates the version for the provided state object. It first retrieves the current software version from
  * the state. If the recently accessed version of the software is greater than the current one, it logs a message indicating
  * that the data needs to be updated.
  *
@@ -89,10 +89,10 @@ function is_version_lower(version_checked: string, version_to_have: string): boo
  *
  * @param {any} state - The state object for the application, which may or may not contain a 'Pamyu' object with a 'version' attribute.
  */
-function update_version(state: State): void {
+function updateVersion(state: State): void {
     const stateVersion = state?.Pamyu?.version ?? '0.0.0';
 
-    if (is_version_lower(stateVersion, version)) {
+    if (isVersionLower(stateVersion, version)) {
         console.log(`⚡️ Updating data to new version, ${stateVersion} -> ${version}`);
         upgrade(stateVersion, state);
     } else if (version !== stateVersion) {
@@ -103,10 +103,10 @@ function update_version(state: State): void {
 }
 
 function upgrade(oldVersion: string, state: State): void {
-    if (is_version_lower(oldVersion, '0.0.8')) upgrade_to_0_0_8(state);
+    if (isVersionLower(oldVersion, '0.0.8')) upgradeTo_0_0_8(state);
 }
 
-function upgrade_to_0_0_8(state: State): void {
+function upgradeTo_0_0_8(state: State): void {
     console.log('🚨 Updating to 0.0.8');
     if (state?.CharactersData) {
         if(!state?.CharactersData?.folders) state.CharactersData.folders = {};

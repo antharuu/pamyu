@@ -102,16 +102,16 @@ export function truncatePath(path: string, maxLength: number): string {
 function handleShortPaths(parts: string[], maxLength: number, ellipsis: string): string {
     const diff = maxLength - parts[parts.length - 1].length;
     if (diff > 0) {
-        return parts[0].substr(0, diff) + '/' + parts[parts.length - 1];
+        return parts[0].substring(0, diff) + '/' + parts[parts.length - 1];
     }
-    return ellipsis + parts[parts.length - 1].substr(0, maxLength - ellipsis.length);
+    return ellipsis + parts[parts.length - 1].substring(0, maxLength - ellipsis.length);
 }
 
 function handleLongerPaths(parts: string[], maxLength: number, ellipsis: string): string {
     const truncatedPath = parts[0] + '/' + ellipsis + parts[parts.length - 1];
 
     if (truncatedPath.length > maxLength) {
-        return ellipsis + parts[parts.length - 1].substr(0, maxLength - ellipsis.length);
+        return ellipsis + parts[parts.length - 1].substring(0, maxLength - ellipsis.length);
     }
 
     return tryInsertingMiddleParts(parts, truncatedPath, maxLength, ellipsis);

@@ -19,7 +19,10 @@ function deleteCharacter(): void {
     if (character.value) {
         useCharacterStore().deleteCharacter(character.value);
     }
-    router.push({name: 'character.edit', params: {id: useCharacterStore().getCharacters[0]._id}});
+    const characters: Character[] = useCharacterStore().getCharacters;
+    if (characters.length > 0) {
+        router.push({name: 'character.edit', params: {id: characters[0]._id}});
+    }
 }
 
 function back(): void {

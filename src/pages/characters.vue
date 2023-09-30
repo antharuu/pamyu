@@ -13,7 +13,7 @@ import PageLayout from '../layout/PageLayout.vue';
 const characters = computed(() => useCharacterStore().getCharacters);
 const folders = computed(() => useCharacterStore().getCharactersFolders);
 
-function delete_folder(name: string): void {
+function deleteFolder(name: string): void {
     useCharacterStore().deleteFolder(name);
 }
 </script>
@@ -55,7 +55,7 @@ function delete_folder(name: string): void {
                   <div class="folder__title__actions">
                     <span
                       v-if="folder !== '__others'"
-                      @click="delete_folder(folder)"
+                      @click="deleteFolder(folder)"
                     >
                       <Icon name="delete" />
                     </span>
