@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols,JSUnusedLocalSymbols
+
 import {ConfigItem, ScriptVar} from '../types/globals.ts';
 
 export class Config {
@@ -59,7 +61,7 @@ export class Config {
     private static getString(name: string, value: string): string {
         const config = this.getConfigFromName(name);
 
-        if (config.unwrap) {
+        if (config?.unwrap) {
             if (value.startsWith(config.prefix)) {
                 value = value.slice(config.prefix.length);
             }

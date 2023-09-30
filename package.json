@@ -8,8 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "tauri": "tauri",
-    "lint": "eslint --ext .js,.vue,.ts src/",
-    "lint:fix": "eslint --ext .js,.vue,.ts src/ --fix"
+    "check:js": "eslint --ext .js,.vue,.ts src/ --fix",
+    "check:q": "qodana scan --show-report"
   },
   "dependencies": {
     "@intlify/unplugin-vue-i18n": "^1.4.0",
@@ -23,7 +23,7 @@
   "devDependencies": {
     "@faker-js/faker": "^8.1.0",
     "@tauri-apps/cli": "^1.5.0",
-    "@types/node": "^20.7.2",
+    "@types/node": "^20.8.0",
     "@typescript-eslint/eslint-plugin": "^6.7.3",
     "@typescript-eslint/parser": "^6.7.3",
     "@vitejs/plugin-vue": "^4.3.4",

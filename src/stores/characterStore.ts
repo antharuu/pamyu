@@ -53,17 +53,26 @@ export const useCharacterStore = defineStore({
             }
 
             const char = this.getCharacterById(character._id);
-            const oldFolder = char?.folder;
-            if (char) {
-                char.folder = cleanFolder;
+            if (!char) {
+                return;
             }
 
+            this.removeCharacterFromOldFolder(char);
+            this.updateCharacterFolder(char, cleanFolder);
+            this.addCharacterToNewFolder(char, cleanFolder);
+        },
+        updateCharacterFolder(char: Character, folder: string | undefined): void {
+            char.folder = folder;
+        },
+        removeCharacterFromOldFolder(char: Character): void {
+            const oldFolder = char.folder;
             if (oldFolder) {
-                this.folders[oldFolder] = this.folders[oldFolder].filter((id) => id !== character._id);
+                this.folders[oldFolder] = this.folders[oldFolder].filter((id) => id !== char._id);
             }
-
-            if (cleanFolder && this.folders[cleanFolder]) {
-                this.folders[cleanFolder].push(character._id);
+        },
+        addCharacterToNewFolder(char: Character, folder: string | undefined): void {
+            if (folder && this.folders[folder]) {
+                this.folders[folder].push(char._id);
             }
         },
         isFolderValid(cleanFolder: string | undefined): boolean {

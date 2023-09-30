@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import {invoke} from '@tauri-apps/api/tauri';
 import {ref} from 'vue';
 

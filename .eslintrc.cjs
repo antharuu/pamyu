@@ -34,6 +34,11 @@ module.exports = {
         "simple-import-sort/exports": "error",
         "simple-import-sort/imports": ["error", {
             "groups": [["^\\u0000"], ["^@?\\w"], ["^/"], ["/stores/"], ["/utils/"], ["/routes/"], ["/types/"], ["/layouts/"], ["/components/"], ["^\\.\\.(?!/?$)", "^\\.\\./?$"], ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"], ["^.+\\.s?css$"],]
-        }]
+        }],
+        "camelcase": ["error", {"properties": "never"}],
+        "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+        "vue/no-unused-components": ["error", { "ignoreWhenBindingPresent": true }],
+        "vue/no-unused-vars": ["error", { "ignorePattern": "^_" }],
+        "vue/no-v-html": ["error"],
     }
 }
