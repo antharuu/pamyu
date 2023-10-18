@@ -1,0 +1,137 @@
+fr:
+    global:
+        notImplemented: Cette fonctionnalité n'est pas encore implémentée
+        create: Créer
+        edit: Modifier
+        delete: Supprimer
+        save: Sauvegarder
+        cancel: Annuler
+        yes: Oui
+        no: Non
+        browse: Parcourir
+        auto: Automatique
+        show: Afficher
+        hide: Cacher
+        others: Autres
+
+    settings:
+        title: Paramètres
+        language: Langue
+        theme: Thème
+        colors:
+            main: Couleur principale
+
+    projects:
+        title: Projets
+        path: Chemin du projet
+        pathsEmpty: Aucun projet n'a été ajouté
+        load: Charger un projet
+        add: Ajouter un projet
+        errors:
+            pathInvalid: Le chemin du projet n'est pas un projet Ren'Py valide.
+
+    characters:
+        title: Personnages
+        create: Créer un personnage
+        edit: Modifier le personnage
+        delete: Supprimer le personnage
+        name: Nom du personnage
+        color: Couleur du personnage
+        id: ID du personnage
+        what:
+            prefix: Préfixe du texte
+            suffix: Suffixe du texte
+        who:
+            prefix: Préfixe du nom
+            suffix: Suffixe du nom
+        deleteConfirm: Voulez-vous vraiment supprimer ce personnage ?
+        deleteConfirmMessage: Attention, cette action est irréversible et rendra les scènes utilisant ce personnage inutilisables.
+        errors:
+            name: Le nom du personnage est requis
+
+    assets:
+        title: Ressources
+
+    scenes:
+        title: Scènes
+        create: Créer une scène
+        name: Nom de la scène
+
+    scripts:
+        title: Scripts
+
+    variables:
+        title: Variables
+
+    translations:
+        title: Traductions
+
+    game:
+        title: Jeu
+        name: Nom du jeu
+        showName: Afficher le nom du jeu
+        version: Version
+        about: À propos
+        buildName: Nom du build
+        saveDirectory: Répertoire de sauvegarde
+        windowIcon: Icône de la fenêtre
+        mode: Mode de la fenêtre de dialogue
+        has:
+            sound: Avec du son
+            music: Avec de la musique
+            voice: Avec de la voix
+        transitions:
+            enter: Transition d'entrée du menu
+            exit: Transition de sortie du menu
+            intra: Transition à l'intérieur du menu
+            afterLoad: Transition après le chargement
+            endGame: Transition de fin de jeu
+            windowShow: Transition pour afficher la fenêtre de dialogue
+            windowHide: Transition pour masquer la fenêtre de dialogue
+
+    transitions:
+        none: Aucune transition
+        fade: Fondu
+        dissolve: Dissolution
+        pixellate: Pixellisation
+        move: Mouvement
+        moveinright: Entrée depuis la droite
+        moveoutright: Sortie vers la droite
+        ease: Adoucissement
+        zoomin: Zoom avant
+        zoomout: Zoom arrière
+        zoominout: Zoom avant et arrière
+        vpunch: Coup vertical
+        hpunch: Coup horizontal
+        blinds: Persiennes
+        squares: Carrés
+        wipeleft: Balayage à gauche
+        slideleft: Glissement à gauche
+        slideawayleft: Glissement évacuant à gauche
+        pushright: Poussée à droite
+        irisin: Iris entrant
+
+    folders:
+        title: Dossier
+        create: Créer un dossier
+        noFolder: Aucun dossier
+        name: Nom du dossier
+
+    renpy:
+        path: Chemin de l'exécutable Ren'Py
+        runGame: Lancer le jeu
+        runRenpy: Lancer Ren'Py
+        errors:
+            pathInvalid: Le chemin de l'exécutable Ren'Py n'est pas valide
+
+    langs:
+        en: English
+        fr: Français
+
+    colors:
+        vividViolet: Violet vif
+        cobaltBlue: Bleu cobalt
+        darkTurquoise: Turquoise foncé
+        berryPink: Rose baie
+        emeraldGreen: Vert émeraude
+        burntOrange: Orange brûlé

@@ -1,4 +1,5 @@
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
+import ViteYaml from '@modyfi/vite-plugin-yaml';
 import vue from '@vitejs/plugin-vue';
 import {defineConfig} from 'vite';
 
@@ -6,6 +7,7 @@ import {defineConfig} from 'vite';
 export default defineConfig(async () => ({
     plugins: [
         vue(),
+        ViteYaml(),
         VueI18nPlugin({})
     ],
     build: {

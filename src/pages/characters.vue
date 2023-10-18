@@ -19,12 +19,12 @@ function deleteFolder(name: string): void {
 </script>
 
 <template>
-  <PageLayout page-title="characters">
+  <PageLayout page-title="characters.title">
     <ListContainer>
       <template #list>
         <router-link :to="{name: 'character.create'}">
           <ActionButton block>
-            {{ $t("create_character") }}
+            {{ $t("characters.create") }}
           </ActionButton>
         </router-link>
 
@@ -33,7 +33,7 @@ function deleteFolder(name: string): void {
             block
             outlined
           >
-            {{ $t("create_folder") }}
+            {{ $t("folders.create") }}
           </ActionButton>
         </router-link>
 
@@ -51,7 +51,7 @@ function deleteFolder(name: string): void {
                 <div
                   class="folder__title"
                 >
-                  {{ folder !== '__others' ? folder : $t('others') }}
+                  {{ folder !== '__others' ? folder : $t('global.others') }}
                   <div class="folder__title__actions">
                     <span
                       v-if="folder !== '__others'"

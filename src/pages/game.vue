@@ -24,14 +24,14 @@ function saveProject(): void {
 }
 
 const windowOptions = [
-    {value: 'auto', label: 'game.window.auto'},
-    {value: 'show', label: 'game.window.show'},
-    {value: 'hide', label: 'game.window.hide'},
+    {value: 'auto', label: 'global.auto'},
+    {value: 'show', label: 'global.show'},
+    {value: 'hide', label: 'global.hide'},
 ];
 </script>
 
 <template>
-  <PageLayout page-title="game.category">
+  <PageLayout page-title="game.title">
     <InputContainer>
       <Row
         small="3"
@@ -45,7 +45,7 @@ const windowOptions = [
           />
           <InputCheckbox
             :model-value="tempProject.showName"
-            label="game.show_name"
+            label="game.showName"
             @update:model-value="tempProject.showName = $event"
           />
           <InputText
@@ -80,59 +80,59 @@ const windowOptions = [
           <InputSelect
             :model-value="tempProject.window"
             :options="windowOptions"
-            label="game.window.mode"
+            label="game.mode"
             @update:model-value="tempProject.window = $event"
           />
           <InputTransition
             :model-value="tempProject.transitionEnter"
-            label="game.transitionEnter"
+            label="game.transitions.enter"
             @update:model-value="tempProject.transitionEnter = $event"
           />
           <InputTransition
             :model-value="tempProject.transitionExit"
-            label="game.transitionExit"
+            label="game.transitions.exit"
             @update:model-value="tempProject.transitionExit = $event"
           />
           <InputTransition
             :model-value="tempProject.transitionIntra"
-            label="game.transitionIntra"
+            label="game.transitions.intra"
             @update:model-value="tempProject.transitionIntra = $event"
           />
           <InputTransition
             :model-value="tempProject.transitionAfterLoad"
-            label="game.transitionAfterLoad"
+            label="game.transitions.afterLoad"
             @update:model-value="tempProject.transitionAfterLoad = $event"
           />
           <InputTransition
             :model-value="tempProject.transitionEndGame"
-            label="game.transitionEndGame"
+            label="game.transitions.endGame"
             @update:model-value="tempProject.transitionEndGame = $event"
           />
           <InputTransition
             :model-value="tempProject.transitionWindowShow"
-            label="game.transitionWindowShow"
+            label="game.transitions.windowShow"
             @update:model-value="tempProject.transitionWindowShow = $event"
           />
           <InputTransition
             :model-value="tempProject.transitionWindowHide"
-            label="game.transitionWindowHide"
+            label="game.transitions.windowHide"
             @update:model-value="tempProject.transitionWindowHide = $event"
           />
         </Row>
         <Row>
           <InputCheckbox
             :model-value="tempProject.hasSound"
-            label="game.hasSound"
+            label="game.has.sound"
             @update:model-value="tempProject.hasSound = $event"
           />
           <InputCheckbox
             :model-value="tempProject.hasMusic"
-            label="game.hasMusic"
+            label="game.has.music"
             @update:model-value="tempProject.hasMusic = $event"
           />
           <InputCheckbox
             :model-value="tempProject.hasVoice"
-            label="game.hasVoice"
+            label="game.has.voice"
             @update:model-value="tempProject.hasVoice = $event"
           />
         </Row>
@@ -142,7 +142,7 @@ const windowOptions = [
           :disabled="!tempProject.name"
           @click="saveProject"
         >
-          {{ $t('save') }}
+          {{ $t('global.save') }}
         </ActionButton>
       </template>
     </InputContainer>

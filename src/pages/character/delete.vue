@@ -32,14 +32,14 @@ function back(): void {
 
 <template>
   <div v-if="character">
-    <h2>{{ $t('delete_character') }} <small class="text-primary">{{ character.name }}</small></h2>
-    <p>{{ $t('delete_character_message') }}</p>
+    <h2>{{ $t('characters.delete') }} <small class="text-primary">{{ character.name }}</small></h2>
+    <p>{{ $t('characters.deleteConfirm') }}</p>
     <p class="warn-message">
       <Icon
         name="warning"
         style="position: relative; top: 5px;"
       />
-      {{ $t('delete_character_message_warning') }}
+      {{ $t('characters.deleteConfirmMessage') }}
     </p>
     <br>
     <Actions>
@@ -47,10 +47,10 @@ function back(): void {
         type="delete"
         @click="deleteCharacter"
       >
-        {{ $t('delete') }}
+        {{ $t('global.delete') }}
       </ActionButton>
       <ActionButton @click="back">
-        {{ $t('cancel') }}
+        {{ $t('global.cancel') }}
       </ActionButton>
     </Actions>
   </div>

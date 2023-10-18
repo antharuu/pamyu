@@ -1,7 +1,7 @@
-import { createI18n } from 'vue-i18n';
+import {createI18n} from 'vue-i18n';
 
-import en from '../translations/en.json';
-import fr from '../translations/fr.json';
+import en from '../translations/en.yaml';
+import fr from '../translations/fr.yaml';
 
 export default createI18n({
     locale: 'fr',
@@ -9,7 +9,7 @@ export default createI18n({
     legacy: false,
     globalInjection: true,
     messages: {
-        en,
-        fr
+        en: en.en,
+        fr: fr.fr
     }
 });

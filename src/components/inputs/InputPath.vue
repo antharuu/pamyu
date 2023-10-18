@@ -68,7 +68,7 @@ async function importFolder(): Promise<void> {
       >
 
       <button @click="importFolder">
-        {{ $t('browse') }}
+        {{ $t('global.browse') }}
       </button>
     </div>
     <span

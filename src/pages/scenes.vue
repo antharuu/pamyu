@@ -15,12 +15,12 @@ const scenes = useScenesStore().getScenes;
 </script>
 
 <template>
-  <PageLayout page-title="scenes">
+  <PageLayout page-title="scenes.title">
     <ListContainer>
       <template #list>
         <router-link :to="{name: 'scene.create'}">
           <ActionButton block>
-            {{ $t("create_scene") }}
+            {{ $t("scenes.create") }}
           </ActionButton>
         </router-link>
 

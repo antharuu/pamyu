@@ -12,19 +12,19 @@ function updateColor(newValue: string): void {
 }
 
 const themes = [
-    {name: 'color.vivid_violet', color: '#7D5FFF'},
-    {name: 'color.cobalt_blue', color: '#4A6BFF'},
-    {name: 'color.dark_turquoise', color: '#3AB0CD'},
-    {name: 'color.berry_pink', color: '#FF5FA2'},
-    {name: 'color.emerald_green', color: '#2DCD91'},
-    {name: 'color.burnt_orange', color: '#FF8F5F'}
+    {name: 'colors.vividViolet', color: '#7D5FFF'},
+    {name: 'colors.cobaltBlue', color: '#4A6BFF'},
+    {name: 'colors.darkTurquoise', color: '#3AB0CD'},
+    {name: 'colors.berryPink', color: '#FF5FA2'},
+    {name: 'colors.emeraldGreen', color: '#2DCD91'},
+    {name: 'colors.burntOrange', color: '#FF8F5F'}
 ];
 
 </script>
 
 <template>
   <div>
-    <InputBase label="theme">
+    <InputBase label="settings.theme">
       <div class="color-container">
         <button
           v-for="theme in themes"

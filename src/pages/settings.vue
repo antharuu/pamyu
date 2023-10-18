@@ -8,7 +8,7 @@ import Row from '../layout/Row.vue';
 </script>
 
 <template>
-  <PageLayout page-title="settings">
+  <PageLayout page-title="settings.title">
     <Row large="2">
       <Row>
         <Renpy />

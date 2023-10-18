@@ -13,7 +13,7 @@ import Row from '../../layout/Row.vue';
 
 const path = ref<string>('');
 const pathError = computed<string>(() =>
-    path.value.length > 0 && !isValid.value && !isValidating.value ? 'project_path_invalid' : '');
+    path.value.length > 0 && !isValid.value && !isValidating.value ? 'projects.errors.pathInvalid' : '');
 
 function createPath(): void {
     if (!isValid.value) return;
@@ -52,14 +52,14 @@ function getValidRenpyPath(path: string): string {
 
 <template>
   <div>
-    <h2>{{ $t('add_project') }}</h2>
+    <h2>{{ $t('projects.add') }}</h2>
     <InputContainer>
       <Row large="2">
         <Row>
           <InputPath
             :model-value="path"
             :error="pathError"
-            label="project_path"
+            label="projects.path"
             @update:model-value="path = $event"
           />
           <Actions end>
@@ -67,7 +67,7 @@ function getValidRenpyPath(path: string): string {
               :disabled="!isValid || isValidating"
               @click="createPath"
             >
-              {{ $t("add_project") }}
+              {{ $t("projects.add") }}
             </ActionButton>
           </Actions>
         </Row>

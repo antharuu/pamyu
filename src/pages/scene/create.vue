@@ -28,7 +28,7 @@ function createScene(): void {
 
 <template>
   <div>
-    <h2>{{ $t('create_scene') }}</h2>
+    <h2>{{ $t('scenes.create') }}</h2>
     <InputContainer>
       <Row
         small="2"
@@ -36,7 +36,7 @@ function createScene(): void {
       >
         <InputText
           v-model="sceneName"
-          label="scene_name"
+          label="scenes.name"
         />
       </Row>
       <template #actions>
@@ -44,7 +44,7 @@ function createScene(): void {
           :disabled="!isValid"
           @click="createScene"
         >
-          {{ $t('create') }}
+          {{ $t('global.create') }}
         </ActionButton>
       </template>
     </InputContainer>
