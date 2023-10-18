@@ -92,7 +92,6 @@ export type MenuAction = {
     options: MenuOption[];
 };
 
-
 export type ShowAction = {
     type: 'show';
 } & ImageOrCharacter & WithTransition & AtPosition & OnLayer;

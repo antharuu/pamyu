@@ -2,7 +2,7 @@
   "projects": "Projects",
   "characters": "personnages",
   "assets": "ressources",
-  "scenes": "scenes",
+  "scenes": "scènes",
   "variables": "variables",
   "scripts": "scripts",
   "translations": "traductions",
@@ -104,5 +104,7 @@
   "create_folder": "Créer un dossier",
   "folder": "Dossier",
   "no_folder": "Aucun dossier",
-  "others": "Autres"
+  "others": "Autres",
+  "create_scene": "Créer une scène",
+  "scene_name": "Nom de la scène"
 }

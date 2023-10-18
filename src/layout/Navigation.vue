@@ -24,7 +24,7 @@ const loadedItems: MenuItem[] = [
     {name: 'game.category', icon: 'sports_esports', path: '/game', order: 1},
     {name: 'characters', icon: 'face', path: '/characters', order: 2},
     {name: 'assets', icon: 'image', path: '/assets', disabled: true, order: 3},
-    {name: 'scenes', icon: 'theater_comedy', path: '/scenes', disabled: true, order: 4},
+    {name: 'scenes', icon: 'theater_comedy', path: '/scenes', order: 4},
     {name: 'variables', icon: 'switches', path: '/variables', disabled: true, order: 5},
     {name: 'scripts', icon: 'code', path: '/scripts', disabled: true, order: 6},
     {name: 'translations', icon: 'translate', path: '/translations', disabled: true, order: 7},

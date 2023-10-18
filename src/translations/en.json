@@ -104,5 +104,7 @@
   "create_folder": "Create folder",
   "folder": "Folder",
   "no_folder": "No folder",
-  "others": "Others"
+  "others": "Others",
+  "create_scene": "Create scene",
+  "scene_name" : "Scene name"
 }

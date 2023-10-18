@@ -50,7 +50,7 @@ export class Config {
         return this.configKeys.find(k => k.name === name)?.type;
     }
 
-    private static getValue(name: string, value: ScriptVar): ScriptVar {
+    public static getValue(name: string, value: ScriptVar): ScriptVar {
         if (typeof value === 'string') {
             return this.getString(name, value);
         }
@@ -62,15 +62,30 @@ export class Config {
         const config = this.getConfigFromName(name);
 
         if (config?.unwrap) {
-            if (value.startsWith(config.prefix)) {
-                value = value.slice(config.prefix.length);
-            }
-
-            if (value.endsWith(config.suffix)) {
-                value = value.slice(0, -config.suffix.length);
-            }
+            value = this.unwrapPrefix(config, value);
+            value = this.unwrapSuffix(config, value);
 
             return value;
+        }
+
+        return value;
+    }
+
+    private static unwrapPrefix(config: ConfigItem, value: string): string {
+        const prefix = config.prefix ?? '';
+
+        if (value.startsWith(prefix)) {
+            value = value.slice(prefix.length);
+        }
+
+        return value;
+    }
+
+    private static unwrapSuffix(config: ConfigItem, value: string): string {
+        const suffix = config.suffix ?? '';
+
+        if (value.endsWith(suffix)) {
+            value = value.slice(0, -suffix.length);
         }
 
         return value;

@@ -88,6 +88,11 @@ export function getCleanNameWithSpaces(name: string): string {
     return name.replace(/[^a-zA-Z0-9 ]/g, '').toLowerCase();
 }
 
+export function getCleanNameWithDashes(name: string): string {
+    return (name).replace(/ /g, '_')
+        .replace('__', '_');
+}
+
 export function truncatePath(path: string, maxLength: number): string {
     const ellipsis = '.../';
     const parts = path.split('/');
