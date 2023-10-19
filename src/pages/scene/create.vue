@@ -7,6 +7,7 @@ import {useScenesStore} from '../../stores/scenesStore.ts';
 import ActionButton from '../../components/ActionButton.vue';
 import InputText from '../../components/inputs/InputText.vue';
 
+import Actions from '../../layout/Actions.vue';
 import InputContainer from '../../layout/InputContainer.vue';
 import Row from '../../layout/Row.vue';
 
@@ -30,23 +31,22 @@ function createScene(): void {
   <div>
     <h2>{{ $t('scenes.create') }}</h2>
     <InputContainer>
-      <Row
-        small="2"
-        large="3"
-      >
-        <InputText
-          v-model="sceneName"
-          label="scenes.name"
-        />
+      <Row large="2">
+        <Row>
+          <InputText
+            v-model="sceneName"
+            label="scenes.name"
+          />
+          <Actions end>
+            <ActionButton
+              :disabled="!isValid"
+              @click="createScene"
+            >
+              {{ $t('global.create') }}
+            </ActionButton>
+          </Actions>
+        </Row>
       </Row>
-      <template #actions>
-        <ActionButton
-          :disabled="!isValid"
-          @click="createScene"
-        >
-          {{ $t('global.create') }}
-        </ActionButton>
-      </template>
     </InputContainer>
   </div>
 </template>
