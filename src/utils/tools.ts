@@ -90,7 +90,8 @@ export function getCleanNameWithSpaces(name: string): string {
 
 export function getCleanNameWithDashes(name: string): string {
     return (name).replace(/ /g, '_')
-        .replace('__', '_');
+        .replace('__', '_')
+        .toLowerCase();
 }
 
 export function truncatePath(path: string, maxLength: number): string {

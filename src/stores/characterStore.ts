@@ -9,13 +9,11 @@ import {
 } from '../utils/tools.ts';
 
 import {Character} from '../types/character.ts';
+import {CharactersState} from '../types/state.ts';
 
 export const useCharacterStore = defineStore({
     id: 'CharactersData',
-    state: (): {
-        folders: { [key: string]: Character['_id'][] },
-        characters: Character[]
-    } => ({
+    state: (): CharactersState => ({
         characters: [],
         folders: {}
     }),

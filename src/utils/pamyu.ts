@@ -8,8 +8,8 @@ const warnMessage = `# ${'='.repeat(85)}
 
 function getOptions(character: Character): string {
     let options = '';
-    const optionsKeys = ['color', 'what_prefix', 'what_suffix', 'who_prefix', 'who_suffix'];
-    optionsKeys.forEach((key) => {
+    const optionsKeys: (keyof Character)[] = ['color', 'what_prefix', 'what_suffix', 'who_prefix', 'who_suffix'];
+    optionsKeys.forEach((key: keyof Character) => {
         if (character[key]) options += `, ${key}="${character[key]}"`;
     });
     return options;

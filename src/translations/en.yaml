@@ -1,4 +1,4 @@
-fr:
+en:
     global:
         notImplemented: This functionality is not yet implemented
         create: Create
@@ -56,6 +56,8 @@ fr:
         title: Scenes
         create: Create scene
         name: Scene name
+        actions:
+            raw: Raw code
 
     scripts:
         title: Scripts

@@ -7,6 +7,10 @@ import {State} from '../types/state.ts';
 import {version} from '../../package.json';
 import {path} from '../main';
 
+type UpgradeStep = {
+    version: string;
+    method: (state: State) => void;
+};
 
 const isSaving = ref<boolean>(false);
 
@@ -19,6 +23,7 @@ export async function saveData(state: object): Promise<void> {
     if (isSaving.value) return;
     isSaving.value = true;
     updateVersion(state);
+    console.log('💾 Saving data to', path);
     // noinspection JSIgnoredPromiseFromCall
     await invoke('save_data', {path, data: JSON.stringify(state, null, 2)});
     isSaving.value = false;
@@ -104,12 +109,29 @@ function updateVersion(state: State): void {
 }
 
 function upgrade(oldVersion: string, state: State): void {
-    if (isVersionLower(oldVersion, '0.0.8')) upgradeTo_0_0_8(state);
+    const upgrades: UpgradeStep[] = [
+        {version: '0.0.8', method: upgradeTo_0_0_8},
+        {version: '0.0.9', method: upgradeTo_0_0_9},
+    ];
+
+    upgrades.forEach((upgrade: UpgradeStep) => {
+        if (isVersionLower(oldVersion, upgrade.version)) {
+            console.log(`🚨 Updating to ${upgrade.version}`);
+            upgrade.method(state);
+        }
+    });
 }
 
 function upgradeTo_0_0_8(state: State): void {
-    console.log('🚨 Updating to 0.0.8');
     if (state?.CharactersData) {
-        if(!state?.CharactersData?.folders) state.CharactersData.folders = {};
+        if (!state?.CharactersData?.characters) state.CharactersData.characters = [];
+        if (!state?.CharactersData?.folders) state.CharactersData.folders = {};
+    }
+}
+
+function upgradeTo_0_0_9(state: State): void {
+    if (state?.ScenesData) {
+        if (!state?.ScenesData?.scenes) state.ScenesData.scenes = [];
+        if (!state?.ScenesData?.actions) state.ScenesData.actions = [];
     }
 }

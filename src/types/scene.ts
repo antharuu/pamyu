@@ -46,6 +46,7 @@ export type Action = BaseElement & (
     ShowAction |
     HideAction |
     JumpAction |
+    RawAction |
     ReturnAction
     );
 
@@ -104,6 +105,11 @@ export type HideAction = {
 export type JumpAction = {
     type: 'jump';
     label: Label['_id'];
+};
+
+export type RawAction = {
+    type: 'raw';
+    code: string;
 };
 
 export type ReturnAction = {
