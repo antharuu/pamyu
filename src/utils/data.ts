@@ -7,6 +7,8 @@ import {State} from '../types/state.ts';
 import {version} from '../../package.json';
 import {path} from '../main';
 
+import {updateScenesScipts} from './pamyu.ts';
+
 type UpgradeStep = {
     version: string;
     method: (state: State) => void;
@@ -19,13 +21,13 @@ const isSaving = ref<boolean>(false);
  *
  * @param {object} state - The current application state.
  */
-export async function saveData(state: object): Promise<void> {
+export async function saveData(state: State): Promise<void> {
     if (isSaving.value) return;
     isSaving.value = true;
     updateVersion(state);
     console.log('💾 Saving data to', path);
-    // noinspection JSIgnoredPromiseFromCall
     await invoke('save_data', {path, data: JSON.stringify(state, null, 2)});
+    if (state?.ScenesData) updateScenesScipts();
     isSaving.value = false;
 }
 

@@ -138,9 +138,9 @@ const usableWidth = props.width ? props.width : '100%';
     }
 
     textarea {
-        resize: none;
+        resize: vertical;
         min-height: 113px;
-        max-height: 113px;
+        max-height: 600px;
     }
 
     &-message {

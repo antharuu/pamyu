@@ -26,11 +26,13 @@ const rawScript = ref<string>('');
 
 function updateScript(): void {
     if (action.value) {
+        console.log('update');
         useScenesStore().updateAction({
             ...action.value,
             code: rawScript.value,
         } as Action);
     } else {
+        console.log('create');
         useScenesStore().createAction('raw', {
             code: rawScript.value,
         }, scene.value._id);
@@ -45,6 +47,7 @@ function init(): void {
             rawScript.value = action.value.code ?? '';
         }
     } else {
+        action.value = undefined;
         rawScript.value = '';
     }
 }
@@ -63,6 +66,7 @@ useRouter().afterEach(() => init());
           v-model="rawScript"
           text-area
           label="scenes.actions.raw"
+          class="text-area"
         />
       </InputContainer>
       <Actions end>
@@ -74,6 +78,6 @@ useRouter().afterEach(() => init());
   </div>
 </template>
 
-<style scoped>
+<style>
 
 </style>

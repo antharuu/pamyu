@@ -144,3 +144,7 @@ export function unwrap(entry: string | undefined, prev: string = '', next: strin
         return entry;
     }
 }
+
+export function getIndent(level: number): string {
+    return ' '.repeat(4 * level);
+}
