@@ -1,5 +1,15 @@
 # Changelog
 
+## Alpha 9
+
+✨ Add the scene section.
+
+✨ Scene creating and editing.
+
+🔧 Rework all the translation system.
+
+📦 Dependencies have been updated.
+
 ## Alpha 8
 
 ✨ Can now launch the game and Ren'Py directly.
@@ -13,7 +23,6 @@
 🎨 Refinement of the overall design.
 
 🎨 New theme selector.
-
 
 ## Alpha 7
 
