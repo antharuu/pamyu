@@ -1,0 +1,151 @@
+# Diese Übersetzungsdatei wurde mit Chat GPT übersetzt. Einige Übersetzungen könnten ungenau sein.
+# Wenn das der Fall ist, zögern Sie nicht, uns Bescheid zu geben oder eine Änderung auf GitHub vorzuschlagen.
+
+de:
+    global:
+        notImplemented: Diese Funktion ist noch nicht implementiert
+        create: Erstellen
+        edit: Bearbeiten
+        delete: Löschen
+        save: Speichern
+        cancel: Abbrechen
+        yes: Ja
+        no: Nein
+        browse: Durchsuchen
+        auto: Automatisch
+        show: Anzeigen
+        hide: Ausblenden
+        others: Andere
+
+    settings:
+        title: Einstellungen
+        language: Sprache
+        theme: Thema
+        colors:
+            main: Hauptfarbe
+
+    projects:
+        title: Projekte
+        path: Projekt-Pfad
+        pathsEmpty: Es wurde kein Projekt hinzugefügt
+        load: Projekt laden
+        add: Projekt hinzufügen
+        errors:
+            pathInvalid: Der Projekt-Pfad ist in Ren'Py ungültig.
+
+    characters:
+        title: Charaktere
+        create: Charakter erstellen
+        edit: Charakter bearbeiten
+        delete: Charakter löschen
+        name: Name des Charakters
+        color: Farbe des Charakters
+        id: ID des Charakters
+        what:
+            prefix: Textpräfix
+            suffix: Textsuffix
+        who:
+            prefix: Namenspräfix
+            suffix: Namenssuffix
+        deleteConfirm: Möchten Sie diesen Charakter wirklich löschen?
+        deleteConfirmMessage: Achtung, diese Aktion ist nicht rückgängig zu machen und macht Szenen, die diesen Charakter verwenden, unbrauchbar.
+        errors:
+            name: Der Name des Charakters ist erforderlich
+
+    assets:
+        title: Ressourcen
+
+    scenes:
+        title: Szenen
+        create: Szene erstellen
+        name: Szenenname
+        actions:
+            raw: Rohcode
+
+    scripts:
+        title: Skripte
+
+    variables:
+        title: Variablen
+
+    translations:
+        title: Übersetzungen
+
+    game:
+        title: Spiel
+        name: Spielname
+        showName: Spielnamen anzeigen
+        version: Version
+        about: Über
+        buildName: Build-Name
+        saveDirectory: Speicherverzeichnis
+        windowIcon: Fenster-Symbol
+        mode: Dialogfenster-Modus
+        has:
+            sound: Mit Ton
+            music: Mit Musik
+            voice: Mit Sprache
+        transitions:
+            enter: Eintrittsübergang ins Menü
+            exit: Austrittsübergang aus dem Menü
+            intra: Übergang innerhalb des Menüs
+            afterLoad: Übergang nach dem Laden
+            endGame: Übergang am Ende des Spiels
+            windowShow: Übergang zum Anzeigen des Dialogfensters
+            windowHide: Übergang zum Ausblenden des Dialogfensters
+
+    transitions:
+        none: Kein Übergang
+        fade: Verblassen
+        dissolve: Auflösen
+        pixellate: Pixellierung
+        move: Bewegung
+        moveinright: Eintritt von rechts
+        moveoutright: Austritt nach rechts
+        ease: Weichzeichnen
+        zoomin: Hereinzoomen
+        zoomout: Herauszoomen
+        zoominout: Ein- und Auszoomen
+        vpunch: Vertikaler Stoß
+        hpunch: Horizontaler Stoß
+        blinds: Jalousien
+        squares: Quadrate
+        wipeleft: Wischen nach links
+        slideleft: Links gleiten
+        slideawayleft: Weggleiten nach links
+        pushright: Nach rechts schieben
+        irisin: Einblendung Iris
+
+    folders:
+        title: Ordner
+        create: Ordner erstellen
+        noFolder: Kein Ordner
+        name: Ordnername
+
+    renpy:
+        path: Ren'Py ausführbare Datei Pfad
+        runGame: Spiel starten
+        runRenpy: Ren'Py starten
+        errors:
+            pathInvalid: Der Pfad zur Ren'Py ausführbaren Datei ist ungültig
+
+    langs:
+        ar: العربية (Arabisch)
+        bn: বাংলা (Bengalisch)
+        de: Deutsch
+        en: English (Englisch)
+        es: Español (Spanisch)
+        fr: Français (Französisch)
+        hi: हिन्दी (Hindi)
+        ja: 日本語 (Japanisch)
+        pt: Português (Portugiesisch)
+        ru: Русский (Russisch)
+        zh: 中文 (Chinesisch)
+
+    colors:
+        vividViolet: Lebhaftes Violett
+        cobaltBlue: Kobaltblau
+        darkTurquoise: Dunkles Türkis
+        berryPink: Beerenrosa
+        emeraldGreen: Smaragdgrün
+        burntOrange: Verbranntes Orange

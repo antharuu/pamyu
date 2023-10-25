@@ -127,8 +127,17 @@ en:
             pathInvalid: Ren'Py executable path is not valid
 
     langs:
+        ar: العربية (Arabic)
+        bn: বাংলা (Bengali)
+        de: Deutsch (German)
         en: English
-        fr: Français
+        es: Español (Spanish)
+        fr: Français (French)
+        hi: हिन्दी (Hindi)
+        ja: 日本語 (Japanese)
+        pt: Português (Portuguese)
+        ru: Русский (Russian)
+        zh: 中文 (Chinese)
 
     colors:
         vividViolet: Vivid violet

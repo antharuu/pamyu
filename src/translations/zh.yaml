@@ -1,0 +1,151 @@
+# 这个翻译文件是由Chat GPT翻译的，某些翻译可能不准确，
+# 如果是这样，请随时告诉我们或在GitHub上提出修改建议。
+
+zh:
+    global:
+        notImplemented: 此功能尚未实现
+        create: 创建
+        edit: 编辑
+        delete: 删除
+        save: 保存
+        cancel: 取消
+        yes: 是
+        no: 否
+        browse: 浏览
+        auto: 自动
+        show: 显示
+        hide: 隐藏
+        others: 其他
+
+    settings:
+        title: 设置
+        language: 语言
+        theme: 主题
+        colors:
+            main: 主色
+
+    projects:
+        title: 项目
+        path: 项目路径
+        pathsEmpty: 尚未添加任何项目
+        load: 载入项目
+        add: 添加项目
+        errors:
+            pathInvalid: 项目路径无效
+
+    characters:
+        title: 角色
+        create: 创建角色
+        edit: 编辑角色
+        delete: 删除角色
+        name: 角色名
+        color: 角色颜色
+        id: 角色ID
+        what:
+            prefix: 文本前缀
+            suffix: 文本后缀
+        who:
+            prefix: 名字前缀
+            suffix: 名字后缀
+        deleteConfirm: 确定要删除此角色吗？
+        deleteConfirmMessage: 注意，此操作不可逆，将使使用此角色的场景无法使用。
+        errors:
+            name: 角色名不能为空
+
+    assets:
+        title: 资源
+
+    scenes:
+        title: 场景
+        create: 创建场景
+        name: 场景名
+        actions:
+            raw: 原始代码
+
+    scripts:
+        title: 脚本
+
+    variables:
+        title: 变量
+
+    translations:
+        title: 翻译
+
+    game:
+        title: 游戏
+        name: 游戏名称
+        showName: 显示游戏名称
+        version: 版本
+        about: 关于
+        buildName: 构建名称
+        saveDirectory: 保存目录
+        windowIcon: 窗口图标
+        mode: 对话窗口模式
+        has:
+            sound: 声音
+            music: 音乐
+            voice: 语音
+        transitions:
+            enter: 菜单进入过渡
+            exit: 菜单退出过渡
+            intra: 菜单内部过渡
+            afterLoad: 载入后过渡
+            endGame: 游戏结束过渡
+            windowShow: 显示对话窗口过渡
+            windowHide: 隐藏对话窗口过渡
+
+    transitions:
+        none: 无过渡
+        fade: 淡入淡出
+        dissolve: 溶解
+        pixellate: 像素化
+        move: 移动
+        moveinright: 从右侧进入
+        moveoutright: 向右退出
+        ease: 平滑过渡
+        zoomin: 放大
+        zoomout: 缩小
+        zoominout: 放大和缩小
+        vpunch: 垂直冲击
+        hpunch: 水平冲击
+        blinds: 百叶窗
+        squares: 方块
+        wipeleft: 向左擦除
+        slideleft: 向左滑动
+        slideawayleft: 向左滑出
+        pushright: 向右推出
+        irisin: 光圈进入
+
+    folders:
+        title: 文件夹
+        create: 创建文件夹
+        noFolder: 没有文件夹
+        name: 文件夹名
+
+    renpy:
+        path: Ren'Py可执行文件路径
+        runGame: 运行游戏
+        runRenpy: 运行Ren'Py
+        errors:
+            pathInvalid: Ren'Py可执行文件路径无效
+
+    langs:
+        ar: العربية (阿拉伯语)
+        bn: বাংলা (孟加拉语)
+        de: Deutsch (德语)
+        en: English (英语)
+        es: Español (西班牙语)
+        fr: Français (法语)
+        hi: हिन्दी (印地语)
+        ja: 日本語 (日语)
+        pt: Português (葡萄牙语)
+        ru: Русский (俄语)
+        zh: 中文
+
+    colors:
+        vividViolet: 鲜艳紫色
+        cobaltBlue: 钴蓝色
+        darkTurquoise: 深绿松石色
+        berryPink: 果酱粉色
+        emeraldGreen: 翡翠绿色
+        burntOrange: 烧橙色

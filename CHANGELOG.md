@@ -1,5 +1,19 @@
 # Changelog
 
+## Alpha 10
+
+🗯️ Added new translations:
+
+- Arabic
+- Bengali
+- German
+- Spanish
+- Hindi
+- Japanese
+- Portuguese
+- Russian
+- Chinese
+
 ## Alpha 9
 
 ✨ Add the scene section.
