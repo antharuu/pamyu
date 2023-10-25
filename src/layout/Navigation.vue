@@ -17,18 +17,18 @@ type MenuItem = {
 }
 
 const basesItems: MenuItem[] = [
-    {name: 'projects', icon: 'folder_copy', path: '/projects', order: 0},
+    {name: 'projects.title', icon: 'folder_copy', path: '/projects', order: 0},
 ];
 
 const loadedItems: MenuItem[] = [
-    {name: 'game.category', icon: 'sports_esports', path: '/game', order: 1},
-    {name: 'characters', icon: 'face', path: '/characters', order: 2},
-    {name: 'assets', icon: 'image', path: '/assets', disabled: true, order: 3},
-    {name: 'scenes', icon: 'theater_comedy', path: '/scenes', disabled: true, order: 4},
-    {name: 'variables', icon: 'switches', path: '/variables', disabled: true, order: 5},
-    {name: 'scripts', icon: 'code', path: '/scripts', disabled: true, order: 6},
-    {name: 'translations', icon: 'translate', path: '/translations', disabled: true, order: 7},
-    {name: 'settings', icon: 'settings', path: '/settings', order: 20},
+    {name: 'game.title', icon: 'sports_esports', path: '/game', order: 1},
+    {name: 'characters.title', icon: 'face', path: '/characters', order: 2},
+    {name: 'assets.title', icon: 'image', path: '/assets', disabled: true, order: 3},
+    {name: 'scenes.title', icon: 'theater_comedy', path: '/scenes', order: 4},
+    {name: 'variables.title', icon: 'switches', path: '/variables', disabled: true, order: 5},
+    {name: 'scripts.title', icon: 'code', path: '/scripts', disabled: true, order: 6},
+    {name: 'translations.title', icon: 'translate', path: '/translations', disabled: true, order: 7},
+    {name: 'settings.title', icon: 'settings', path: '/settings', order: 20},
 ];
 
 const navigationItems = computed<MenuItem[]>(() =>

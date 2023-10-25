@@ -1,0 +1,139 @@
+en:
+    global:
+        notImplemented: This functionality is not yet implemented
+        create: Create
+        edit: Edit
+        delete: Delete
+        save: Save
+        cancel: Cancel
+        yes: Yes
+        no: No
+        browse: Browse
+        auto: Auto
+        show: Show
+        hide: Hide
+        others: Others
+
+    settings:
+        title: Settings
+        language: Language
+        theme: Theme
+        colors:
+            main: Main color
+
+    projects:
+        title: Projects
+        path: Project path
+        pathsEmpty: No project paths have been set
+        load: Load project
+        add: Add project
+        errors:
+            pathInvalid: Project path is not a valid Ren'Py project.
+
+    characters:
+        title: Characters
+        create: Create character
+        edit: Edit character
+        delete: Delete character
+        name: Character name
+        color: Character color
+        id: Character ID
+        what:
+            prefix: Text prefix
+            suffix: Text suffix
+        who:
+            prefix: Name prefix
+            suffix: Name suffix
+        deleteConfirm: Are you sure you want to delete this character ?
+        deleteConfirmMessage: This action cannot be undone and will break all scenes that use this character.
+        errors:
+            name: Character name is required
+
+    assets:
+        title: Assets
+
+    scenes:
+        title: Scenes
+        create: Create scene
+        name: Scene name
+        actions:
+            raw: Raw code
+
+    scripts:
+        title: Scripts
+
+    variables:
+        title: Variables
+
+    translations:
+        title: Translations
+
+    game:
+        title: Game
+        name: Game name
+        showName: Show name
+        version: Version
+        about: About
+        buildName: Build name
+        saveDirectory: Save directory
+        windowIcon: Window icon
+        mode: Dialog window mode
+        has:
+            sound: Has sound
+            music: Has music
+            voice: Has voice
+        transitions:
+            enter: Transition enter menu
+            exit: Transition exit menu
+            intra: Transition inside menu
+            afterLoad: Transition after load
+            endGame: Transition end game
+            windowShow: Transition show dialog window
+            windowHide: Transition hide dialog window
+
+    transitions:
+        none: No transition
+        fade: Fade
+        dissolve: Dissolve
+        pixellate: Pixellate
+        move:
+        moveinright: Move in from right
+        moveoutright: Move out to right
+        ease: Ease
+        zoomin: Zoom in
+        zoomout: Zoom out
+        zoominout: Zoom in and out
+        vpunch: Vertical punch
+        hpunch: Horizontal punch
+        blinds: Blinds
+        squares: Squares
+        wipeleft: Wipe left
+        slideleft: Slide left
+        slideawayleft: Slide away left
+        pushright: Push right
+        irisin: Iris in
+
+    folders:
+        title: Folder
+        create: Create folder
+        noFolder: No folder
+        name: Folder name
+
+    renpy:
+        path: Ren'Py executable path
+        runGame: Play game
+        runRenpy: Start Ren'Py
+        errors:
+            pathInvalid: Ren'Py executable path is not valid
+
+    langs:
+        en: English
+        fr: Français
+
+    colors:
+        vividViolet: Vivid violet
+        cobaltBlue: Cobalt blue
+        darkTurquoise: Dark turquoise
+        berryPink: Berry pink
+        emeraldGreen: Emerald green
+        burntOrange: Burnt orange

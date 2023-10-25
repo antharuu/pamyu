@@ -1,0 +1,18 @@
+{
+  "git": {
+    "tagName": "v${version}",
+    "requireCleanWorkingDir": false,
+    "commitMessage": "chore: release v${version}",
+    "tag": true,
+    "push": true,
+    "commit": true,
+    "publish": false
+  },
+  "npm": {
+    "publish": false
+  },
+  "github": {
+    "release": true
+  },
+  "prompt": false
+}

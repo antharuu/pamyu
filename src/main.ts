@@ -4,10 +4,10 @@ import {createRouter, createWebHistory, RouterOptions} from 'vue-router';
 
 import {useProjectStore} from './stores/useProjectStore.ts';
 
-import {load_data, save_data} from './utils/data';
+import {loadData, saveData} from './utils/data';
 import i18n from './utils/i18n';
 import {PathManager} from './utils/path.ts';
-import {update_characters} from './utils/rpy.ts';
+import {updateCharacters} from './utils/rpy.ts';
 import {capitalize, deepAssign} from './utils/tools.ts';
 
 import {routes, routesFallback} from './routes/main';
@@ -32,17 +32,17 @@ export const path = PathManager.last?.path ?? '';
 
 const pinia = createPinia();
 
-const baseData = await load_data();
+const baseData = await loadData();
 if (baseData) {
     if (typeof baseData === 'object') {
         const completeData = deepAssign(defaultStores, baseData);
         pinia.state.value = completeData;
 
-        void save_data(completeData);
+        void saveData(completeData);
     }
 }
 
-watch(pinia.state, (state) => save_data(state), {deep: true});
+watch(pinia.state, (state) => saveData(state), {deep: true});
 
 const app = createApp(App);
 
@@ -73,5 +73,5 @@ app.use(router);
 app.use(i18n);
 app.mount('#app');
 
-update_characters();
+updateCharacters();
 useProjectStore().init();

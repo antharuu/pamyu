@@ -1,7 +1,11 @@
-import { createI18n } from 'vue-i18n';
+import {createI18n} from 'vue-i18n';
 
-import en from '../translations/en.json';
-import fr from '../translations/fr.json';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import en from '../translations/en.yaml';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import fr from '../translations/fr.yaml';
 
 export default createI18n({
     locale: 'fr',
@@ -9,7 +13,7 @@ export default createI18n({
     legacy: false,
     globalInjection: true,
     messages: {
-        en,
-        fr
+        en: en.en,
+        fr: fr.fr
     }
 });

@@ -31,13 +31,13 @@ function createFolder(): void {
 
 <template>
   <div>
-    <h2>{{ $t('create_folder') }}</h2>
+    <h2>{{ $t('folders.create') }}</h2>
     <InputContainer>
       <Row large="2">
         <InputText
           :model-value="name"
           :error="nameError"
-          label="folder_name"
+          label="folders.name"
           @update:model-value="name = $event"
         />
         <div />
@@ -46,7 +46,7 @@ function createFolder(): void {
             :disabled="notValid"
             @click="createFolder"
           >
-            {{ $t("create") }}
+            {{ $t("global.create") }}
           </ActionButton>
         </Actions>
       </Row>

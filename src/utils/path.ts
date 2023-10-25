@@ -24,12 +24,7 @@ export class PathManager {
         return returnPath;
     }
 
-    static get(id: string): Path | null {
-        const paths = this.getAll();
-        return paths.find(p => p._id === id) || null;
-    }
-
-    static add(path: string): void {
+    static addNewPath(path: string): void {
         const paths = this.getAll();
 
         const existingPath = paths.find(p => p.path === path);

@@ -58,7 +58,7 @@ const charactersFolders = computed(() => {
     const folders = useCharacterStore().getCharactersFolders;
     const base = [{
         value: undefined,
-        label: i18n.global.t('no_folder'),
+        label: i18n.global.t('folders.noFolder'),
     }];
     const list = folders.map((folder) => {
         return {
@@ -73,7 +73,7 @@ const charactersFolders = computed(() => {
 
 <template>
   <div v-if="character && character._id && characterEdit">
-    <h2>{{ $t('edit_character') }}</h2>
+    <h2>{{ $t('characters.edit') }}</h2>
     <InputContainer>
       <Row
         small="2"
@@ -81,26 +81,26 @@ const charactersFolders = computed(() => {
       >
         <Row class="left">
           <InputText
-            label="character_id"
+            label="characters.id"
             :model-value="character._id"
             readonly
           />
           <InputText
             v-capitalize
-            label="character_name"
+            label="characters.name"
             :model-value="characterEdit.name"
             :error="nameError"
             @update:model-value="characterEdit.name = $event"
           />
           <InputColor
-            label="character_color"
+            label="characters.color"
             :model-value="characterEdit.color"
             @update:model-value="characterEdit.color = $event"
           />
           <InputSelect
             v-if="charactersFolders.length > 0"
             :options="charactersFolders"
-            label="folder"
+            label="folders.title"
             no-translate
             :model-value="characterEdit.folder"
             @update:model-value="characterEdit.folder = $event"
@@ -112,25 +112,25 @@ const charactersFolders = computed(() => {
           large="2"
         >
           <InputText
-            label="character_what_prefix"
+            label="characters.what.prefix"
             no-trim
             :model-value="characterEdit.what_prefix"
             @update:model-value="characterEdit.what_prefix = $event"
           />
           <InputText
-            label="character_what_suffix"
+            label="characters.what.suffix"
             no-trim
             :model-value="characterEdit.what_suffix"
             @update:model-value="characterEdit.what_suffix = $event"
           />
           <InputText
-            label="character_who_prefix"
+            label="characters.who.prefix"
             no-trim
             :model-value="characterEdit.who_prefix"
             @update:model-value="characterEdit.who_prefix = $event"
           />
           <InputText
-            label="character_who_suffix"
+            label="characters.who.suffix"
             no-trim
             :model-value="characterEdit.who_suffix"
             @update:model-value="characterEdit.who_suffix = $event"
@@ -141,14 +141,14 @@ const charactersFolders = computed(() => {
       <template #actions>
         <router-link :to="{name: 'character.delete', params: {id: character._id}}">
           <ActionButton type="delete">
-            {{ $t('delete') }}
+            {{ $t('global.delete') }}
           </ActionButton>
         </router-link>
         <ActionButton
           :disabled="!isValid"
           @click="editCharacter"
         >
-          {{ $t('edit') }}
+          {{ $t('global.edit') }}
         </ActionButton>
       </template>
     </InputContainer>

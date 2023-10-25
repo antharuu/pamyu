@@ -47,7 +47,7 @@ function createCharacter(): void {
 
 <template>
   <div>
-    <h2>{{ $t('create_character') }}</h2>
+    <h2>{{ $t('characters.create') }}</h2>
     <InputContainer>
       <Row
         small="2"
@@ -56,13 +56,13 @@ function createCharacter(): void {
         <Row class="left">
           <InputText
             v-capitalize
-            label="character_name"
+            label="characters.name"
             :model-value="name"
             :error="nameError"
             @update:model-value="name = $event"
           />
           <InputColor
-            label="character_color"
+            label="characters.color"
             :model-value="color"
             @update:model-value="color = $event"
           />
@@ -73,25 +73,25 @@ function createCharacter(): void {
           large="2"
         >
           <InputText
-            label="character_what_prefix"
+            label="characters.what.prefix"
             no-trim
             :model-value="whatPrefix"
             @update:model-value="whatPrefix = $event"
           />
           <InputText
-            label="character_what_suffix"
+            label="characters.what.suffix"
             no-trim
             :model-value="whatSuffix"
             @update:model-value="whatSuffix = $event"
           />
           <InputText
-            label="character_who_prefix"
+            label="characters.who.prefix"
             no-trim
             :model-value="whoPrefix"
             @update:model-value="whoPrefix = $event"
           />
           <InputText
-            label="character_who_suffix"
+            label="characters.who.suffix"
             no-trim
             :model-value="whoSuffix"
             @update:model-value="whoSuffix = $event"
@@ -104,7 +104,7 @@ function createCharacter(): void {
           :disabled="!isValid"
           @click="createCharacter"
         >
-          {{ $t('create') }}
+          {{ $t('global.create') }}
         </ActionButton>
       </template>
     </InputContainer>

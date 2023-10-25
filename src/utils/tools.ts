@@ -84,6 +84,16 @@ export function getCleanName(name: string): string {
     return name.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
 }
 
+export function getCleanNameWithSpaces(name: string): string {
+    return name.replace(/[^a-zA-Z0-9 ]/g, '').toLowerCase();
+}
+
+export function getCleanNameWithDashes(name: string): string {
+    return (name).replace(/ /g, '_')
+        .replace('__', '_')
+        .toLowerCase();
+}
+
 export function truncatePath(path: string, maxLength: number): string {
     const ellipsis = '.../';
     const parts = path.split('/');
@@ -98,16 +108,16 @@ export function truncatePath(path: string, maxLength: number): string {
 function handleShortPaths(parts: string[], maxLength: number, ellipsis: string): string {
     const diff = maxLength - parts[parts.length - 1].length;
     if (diff > 0) {
-        return parts[0].substr(0, diff) + '/' + parts[parts.length - 1];
+        return parts[0].substring(0, diff) + '/' + parts[parts.length - 1];
     }
-    return ellipsis + parts[parts.length - 1].substr(0, maxLength - ellipsis.length);
+    return ellipsis + parts[parts.length - 1].substring(0, maxLength - ellipsis.length);
 }
 
 function handleLongerPaths(parts: string[], maxLength: number, ellipsis: string): string {
     const truncatedPath = parts[0] + '/' + ellipsis + parts[parts.length - 1];
 
     if (truncatedPath.length > maxLength) {
-        return ellipsis + parts[parts.length - 1].substr(0, maxLength - ellipsis.length);
+        return ellipsis + parts[parts.length - 1].substring(0, maxLength - ellipsis.length);
     }
 
     return tryInsertingMiddleParts(parts, truncatedPath, maxLength, ellipsis);
@@ -133,4 +143,8 @@ export function unwrap(entry: string | undefined, prev: string = '', next: strin
     } else {
         return entry;
     }
+}
+
+export function getIndent(level: number): string {
+    return ' '.repeat(4 * level);
 }

@@ -5,7 +5,7 @@ import Icon from '../Icon.vue';
 
 const props = withDefaults(defineProps<{
     modelValue: string | number | undefined;
-    label: string;
+    label?: string;
     type?: string;
     maxLenght?: number;
     width?: string | null;
@@ -37,21 +37,24 @@ const value = computed({
     }
 });
 
-const uniqueId = `input-${Math.random().toString(36).substr(2, 9)}`;
+const uniqueId = `input-${Math.random().toString(36).substring(2, 11)}`;
 const usableWidth = props.width ? props.width : '100%';
 </script>
 
 <template>
   <div
-    class="input__group"
-    :style="{width: usableWidth}"
     :class="{'input__group--error': error.length > 0}"
+    :style="{width: usableWidth}"
+    class="input__group"
   >
-    <label :for="uniqueId">
+    <label
+      v-if="label"
+      :for="uniqueId"
+    >
       <Icon
         v-if="props.readonly"
-        name="lock"
         class="input__group-icon"
+        name="lock"
       />
       {{ $t(label) }}
     </label>
@@ -59,17 +62,17 @@ const usableWidth = props.width ? props.width : '100%';
       v-if="!props.textArea"
       :id="uniqueId"
       v-model.lazy="value"
-      aria-autocomplete="none"
-      :type="type"
-      :readonly="props.readonly"
       :maxlength="props.maxLenght"
+      :readonly="props.readonly"
+      :type="type"
+      aria-autocomplete="none"
     >
     <textarea
       v-else
       :id="uniqueId"
       v-model.lazy="value"
-      :readonly="props.readonly"
       :maxlength="props.maxLenght"
+      :readonly="props.readonly"
     />
     <span
       v-if="message.length > 0 || error.length > 0"
@@ -138,9 +141,9 @@ const usableWidth = props.width ? props.width : '100%';
     }
 
     textarea {
-        resize: none;
+        resize: vertical;
         min-height: 113px;
-        max-height: 113px;
+        max-height: 600px;
     }
 
     &-message {

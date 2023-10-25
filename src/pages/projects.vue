@@ -16,7 +16,7 @@ function loadProject(path: string): void {
 </script>
 
 <template>
-  <PageLayout page-title="projects">
+  <PageLayout page-title="projects.title">
     <ListContainer v-if="paths.length > 0">
       <template #list>
         <div class="paths">

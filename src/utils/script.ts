@@ -5,7 +5,7 @@ import {Config} from './config.ts';
 export class Script {
     private static lines: string[] = [];
 
-    static set(script: string): void {
+    static setCurrentScript(script: string): void {
         this.lines = script.split('\n');
     }
 

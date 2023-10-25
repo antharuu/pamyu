@@ -6,6 +6,9 @@ import Characters from '../pages/characters.vue';
 import Game from '../pages/game.vue';
 import NotFound from '../pages/not-found.vue';
 import Projects from '../pages/projects.vue';
+import SceneCreate from '../pages/scene/create.vue';
+import SceneEdit from '../pages/scene/edit.vue';
+import Scenes from '../pages/scenes.vue';
 import Settings from '../pages/settings.vue';
 
 export const routes = [
@@ -52,6 +55,28 @@ export const routes = [
                 path: 'character.create-folder',
                 name: 'character.create-folder',
                 component: CharacterCreateFolder
+            }
+        ]
+    },
+    {
+        path: '/scenes',
+        name: 'scenes',
+        component: Scenes,
+        children: [
+            {
+                path: '',
+                name: 'scene.index',
+                redirect: {name: 'scene.create'},
+            },
+            {
+                path: 'create',
+                name: 'scene.create',
+                component: SceneCreate
+            },
+            {
+                path: 'scene/:id',
+                name: 'scene.edit',
+                component: SceneEdit
             }
         ]
     },

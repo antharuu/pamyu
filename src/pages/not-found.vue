@@ -5,7 +5,7 @@ import PageLayout from '../layout/PageLayout.vue';
 <template>
   <PageLayout>
     <p>
-      {{ $t("not_implemented") }}
+      {{ $t("global.notImplemented") }}
     </p>
   </PageLayout>
 </template>

@@ -8,8 +8,7 @@ mod update_script;
 mod commands;
 
 use files::list_files_from_path;
-use project::load_project;
-use project::save_new_script;
+use project::{load_project, save_new_script};
 use save::{load_data, save_data};
 use update_script::{update_script, load_script};
 use commands::{execute_renpy, execute_game};

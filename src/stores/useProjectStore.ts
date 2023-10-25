@@ -66,7 +66,7 @@ export const useProjectStore = defineStore('Game', {
         async initScript(): Promise<void> {
             const res: string = await invoke('load_script', {path: PathManager.last?.path, file: 'options.rpy'});
             if (!res) return;
-            Script.set(res);
+            Script.setCurrentScript(res);
         }
     }
 });

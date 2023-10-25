@@ -28,7 +28,7 @@ const value = computed({
     }
 });
 
-const uniqueId = `input-${Math.random().toString(36).substr(2, 9)}`;
+const uniqueId = `input-${Math.random().toString(36).substring(2, 11)}`;
 const usableWidth = props.width ? props.width : '100%';
 </script>
 
@@ -67,7 +67,7 @@ const usableWidth = props.width ? props.width : '100%';
         />
       </div>
       <div class="sub-label">
-        {{ $t(value ? 'yes' : 'no') }}
+        {{ $t(value ? 'global.yes' : 'global.no') }}
       </div>
     </div>
     <span
@@ -93,6 +93,7 @@ const usableWidth = props.width ? props.width : '100%';
 
 <style lang="scss" scoped>
 .input__group {
+    user-select: none;
     display: flex;
     flex-direction: column;
     gap: .5rem;

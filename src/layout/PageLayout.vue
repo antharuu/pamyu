@@ -56,7 +56,7 @@ async function startRenpy(): Promise<void> {
           @click="playGame"
         >
           <Icon name="play_arrow" />
-          {{ $t('play_game') }}
+          {{ $t('renpy.runGame') }}
         </ActionButton>
         <ActionButton
           v-if="useSettingStore().hasRenpyPath"
@@ -64,7 +64,7 @@ async function startRenpy(): Promise<void> {
           @click="startRenpy"
         >
           <Icon name="settings_slow_motion" />
-          {{ $t('start_renpy') }}
+          {{ $t('renpy.runRenpy') }}
         </ActionButton>
       </Actions>
     </div>

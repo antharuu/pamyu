@@ -16,7 +16,7 @@ watch(renpyPath, async () => {
         renpyPathError.value = '';
         useSettingStore().setRenpyPath(renpyPath.value);
     } else {
-        renpyPathError.value = 'renpy_path_error';
+        renpyPathError.value = 'renpy.errors.pathInvalid';
         useSettingStore().setRenpyPath(undefined);
     }
 });
@@ -26,9 +26,10 @@ function hasRenpyExecutable(files: string[]): boolean {
 }
 </script>
 
+
 <template>
   <InputPath
-    label="renpy_path"
+    label="renpy.path"
     :model-value="renpyPath"
     :error="renpyPathError"
     @update:model-value="renpyPath = $event"

@@ -5,15 +5,15 @@ import {useCharacterStore} from '../stores/characterStore.ts';
 
 import {path} from '../main.ts';
 
-import {get_characters_script} from './pamyu.ts';
+import {getCharactersScript} from './pamyu.ts';
 
-export function update_characters(): void {
+export function updateCharacters(): void {
     watch(useCharacterStore().getCharacters, () => {
         console.log('📂 Updating', `${path}/game/characters.rpy`);
         invoke('update_script', {
             path,
             file: 'characters.rpy',
-            data: get_characters_script()
+            data: getCharactersScript()
         })
             .then(r => console.log(r))
             .catch(e => console.error(e));

@@ -5,11 +5,11 @@ import InputSelect from '../inputs/InputSelect.vue';
 
 const locales = [
     {
-        label: 'lang.en',
+        label: 'langs.en',
         value: 'en',
     },
     {
-        label: 'lang.fr',
+        label: 'langs.fr',
         value: 'fr',
     },
 ];
@@ -23,7 +23,7 @@ function updateLocale(newValue: string): void {
 <template>
   <div>
     <InputSelect
-      label="language"
+      label="settings.language"
       :options="locales"
       :model-value="$i18n.locale"
       @update:model-value="updateLocale"

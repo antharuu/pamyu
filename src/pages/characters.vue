@@ -13,18 +13,18 @@ import PageLayout from '../layout/PageLayout.vue';
 const characters = computed(() => useCharacterStore().getCharacters);
 const folders = computed(() => useCharacterStore().getCharactersFolders);
 
-function delete_folder(name: string): void {
+function deleteFolder(name: string): void {
     useCharacterStore().deleteFolder(name);
 }
 </script>
 
 <template>
-  <PageLayout page-title="characters">
+  <PageLayout page-title="characters.title">
     <ListContainer>
       <template #list>
         <router-link :to="{name: 'character.create'}">
           <ActionButton block>
-            {{ $t("create_character") }}
+            {{ $t("characters.create") }}
           </ActionButton>
         </router-link>
 
@@ -33,7 +33,7 @@ function delete_folder(name: string): void {
             block
             outlined
           >
-            {{ $t("create_folder") }}
+            {{ $t("folders.create") }}
           </ActionButton>
         </router-link>
 
@@ -51,11 +51,11 @@ function delete_folder(name: string): void {
                 <div
                   class="folder__title"
                 >
-                  {{ folder !== '__others' ? folder : $t('others') }}
+                  {{ folder !== '__others' ? folder : $t('global.others') }}
                   <div class="folder__title__actions">
                     <span
                       v-if="folder !== '__others'"
-                      @click="delete_folder(folder)"
+                      @click="deleteFolder(folder)"
                     >
                       <Icon name="delete" />
                     </span>

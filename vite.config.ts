@@ -1,4 +1,5 @@
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
+import ViteYaml from '@modyfi/vite-plugin-yaml';
 import vue from '@vitejs/plugin-vue';
 import {defineConfig} from 'vite';
 
@@ -6,10 +7,12 @@ import {defineConfig} from 'vite';
 export default defineConfig(async () => ({
     plugins: [
         vue(),
+        ViteYaml(),
         VueI18nPlugin({})
     ],
     build: {
         target: 'esnext',
+        sourcemap: true,
     },
 
     // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
@@ -23,5 +26,5 @@ export default defineConfig(async () => ({
     },
     // 3. to make use of `TAURI_DEBUG` and other env variables
     // https://tauri.studio/v1/api/config#buildconfig.beforedevcommand
-    envPrefix: ['VITE_', 'TAURI_'],
+    envPrefix: ['VITE_', 'TAURI_']
 }));

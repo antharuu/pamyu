@@ -1,15 +1,19 @@
 import {defineStore} from 'pinia';
 
-import {capitalize, getCleanName, getRandomToken, getUndefinedIfEmptyString} from '../utils/tools.ts';
+import {
+    capitalize,
+    getCleanName,
+    getCleanNameWithSpaces,
+    getRandomToken,
+    getUndefinedIfEmptyString
+} from '../utils/tools.ts';
 
 import {Character} from '../types/character.ts';
+import {CharactersState} from '../types/state.ts';
 
 export const useCharacterStore = defineStore({
     id: 'CharactersData',
-    state: (): {
-        folders: { [key: string]: Character['_id'][] },
-        characters: Character[]
-    } => ({
+    state: (): CharactersState => ({
         characters: [],
         folders: {}
     }),
@@ -26,7 +30,7 @@ export const useCharacterStore = defineStore({
     },
     actions: {
         createFolder(name: string): void {
-            const cleanName = getCleanName(name);
+            const cleanName = getCleanNameWithSpaces(name);
             if (!this.folders) this.folders = {};
             if (!this.folders[cleanName]) this.folders[cleanName] = [];
         },
@@ -40,24 +44,33 @@ export const useCharacterStore = defineStore({
             }
         },
         moveCharacter(character: Character, folder: string | undefined): void {
-            const cleanFolder = folder ? getCleanName(folder) : undefined;
+            const cleanFolder = folder ?? undefined;
 
             if (!this.isFolderValid(cleanFolder)) {
                 return;
             }
 
             const char = this.getCharacterById(character._id);
-            const oldFolder = char?.folder;
-            if (char) {
-                char.folder = cleanFolder;
+            if (!char) {
+                return;
             }
 
+            this.removeCharacterFromOldFolder(char);
+            this.updateCharacterFolder(char, cleanFolder);
+            this.addCharacterToNewFolder(char, cleanFolder);
+        },
+        updateCharacterFolder(char: Character, folder: string | undefined): void {
+            char.folder = folder;
+        },
+        removeCharacterFromOldFolder(char: Character): void {
+            const oldFolder = char.folder;
             if (oldFolder) {
-                this.folders[oldFolder] = this.folders[oldFolder].filter((id) => id !== character._id);
+                this.folders[oldFolder] = this.folders[oldFolder].filter((id) => id !== char._id);
             }
-
-            if (cleanFolder && this.folders[cleanFolder]) {
-                this.folders[cleanFolder].push(character._id);
+        },
+        addCharacterToNewFolder(char: Character, folder: string | undefined): void {
+            if (folder && this.folders[folder]) {
+                this.folders[folder].push(char._id);
             }
         },
         isFolderValid(cleanFolder: string | undefined): boolean {

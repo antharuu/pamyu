@@ -1,22 +1,31 @@
 import {Character} from './character.ts';
 import {Color} from './globals.ts';
+import {Action, Label} from './scene.ts';
 
-export type SettingsState = Partial<{
+export type SettingsState = {
     locale: 'en' | 'fr';
     theme: {
         color: Color;
     }
-}>
+}
 
-export type PamyuState = Partial<{
+export type PamyuState = {
     version: string;
-}>
+}
+
+export type CharactersState = {
+    folders: { [key: string]: Character['_id'][] };
+    characters: Character[];
+}
+
+export type ScenesState = {
+    scenes: Label[];
+    actions: Action[];
+}
 
 export type State = Partial<{
-    Settings: SettingsState;
-    Pamyu: PamyuState;
-    CharactersData?: {
-        folders?: { [key: string]: Character['_id'][] };
-        characters?: Character[];
-    }
+    Settings: Partial<SettingsState>;
+    Pamyu: Partial<PamyuState>;
+    CharactersData?: Partial<CharactersState>;
+    ScenesData?: Partial<ScenesState>;
 }>
