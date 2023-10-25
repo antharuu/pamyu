@@ -69,6 +69,9 @@ if (isAlpha) {
     opts.preRelease = releaseName;
 }
 
-release(opts).then(output => {
+release({
+    ...opts,
+    ci: true,
+}).then(output => {
     console.log(`🚀 Release : ${newVersion}`);
 });
