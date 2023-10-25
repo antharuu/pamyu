@@ -6,9 +6,13 @@
 
 ✨ Scene creating and editing.
 
+✨ Timeline bases, and actions adding _(raw code only for now)_.
+
 🔧 Rework all the translation system.
 
 📦 Dependencies have been updated.
+
+🚀 Now using better semantic versioning and release-it.
 
 ## Alpha 8
 

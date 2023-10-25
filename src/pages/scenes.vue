@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import {useScenesStore} from '../stores/scenesStore.ts';
 
 import ActionButton from '../components/ActionButton.vue';
@@ -7,9 +7,9 @@ import SceneListElement from '../components/SceneListElement.vue';
 import ListContainer from '../layout/ListContainer.vue';
 import PageLayout from '../layout/PageLayout.vue';
 
-function create(): void {
-    useScenesStore().createScene('New scene à la con');
-}
+// function create(): void {
+//     useScenesStore().createScene('New scene à la con');
+// }
 
 const scenes = useScenesStore().getScenes;
 </script>

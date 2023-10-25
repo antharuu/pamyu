@@ -20,10 +20,14 @@
           {
             "name": "go-renpy",
             "cmd": "cd",
-            "args": [{ "validator": ".*" }]
+            "args": [
+              {
+                "validator": ".*"
+              }
+            ]
           },
           {
-            "name" : "renpy",
+            "name": "renpy",
             "cmd": "renpy.exe",
             "args": []
           }
@@ -56,7 +60,8 @@
         "width": 1280,
         "height": 720,
         "minWidth": 1280,
-        "minHeight": 720
+        "minHeight": 720,
+        "fileDropEnabled": false
       }
     ]
   }

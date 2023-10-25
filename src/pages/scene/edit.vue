@@ -1,79 +1,46 @@
-<script setup lang="ts">
-import {computed, onMounted, ref} from 'vue';
+<script lang="ts" setup>
+import {onMounted, ref} from 'vue';
 import {useRoute, useRouter} from 'vue-router';
 
 import {useScenesStore} from '../../stores/scenesStore.ts';
 
-import {Action, Label} from '../../types/scene.ts';
+import {Label} from '../../types/scene.ts';
 
-import ActionButton from '../../components/ActionButton.vue';
-import InputText from '../../components/inputs/InputText.vue';
+import Timeline from '../../components/scenes/Timeline.vue';
 
-import Actions from '../../layout/Actions.vue';
-import InputContainer from '../../layout/InputContainer.vue';
 import Row from '../../layout/Row.vue';
 
 const route = useRoute();
-const scene = computed<Label>(() => {
-    // noinspection TypeScriptValidateJSTypes
-    const sc = useScenesStore().getSceneById(`${route.params.id}`);
+const router = useRouter();
+const scene = ref<Label>();
+
+function updateScene(id: string): void {
+    const sc = useScenesStore().getSceneById(id);
     if (!sc) throw new Error('Scene not found');
-    return sc;
+    scene.value = sc;
+}
+
+
+router.beforeEach((to, _from, next) => {
+    if (to.name === 'scene.edit') {
+        updateScene(to.params.id as string);
+    }
+
+    next();
 });
 
-const action = ref<Action>();
-const rawScript = ref<string>('');
-
-function updateScript(): void {
-    if (action.value) {
-        console.log('update');
-        useScenesStore().updateAction({
-            ...action.value,
-            code: rawScript.value,
-        } as Action);
-    } else {
-        console.log('create');
-        useScenesStore().createAction('raw', {
-            code: rawScript.value,
-        }, scene.value._id);
-    }
-}
-
-function init(): void {
-    if (scene.value.actions.length > 0) {
-        action.value = useScenesStore().getActionById(scene.value.actions[0]);
-        if (!action.value) return;
-        if (action.value.type === 'raw') {
-            rawScript.value = action.value.code ?? '';
-        }
-    } else {
-        action.value = undefined;
-        rawScript.value = '';
-    }
-}
-
-onMounted(() => init());
-
-useRouter().afterEach(() => init());
+onMounted(() => updateScene(route.params.id as string));
 </script>
 
 <template>
-  <div>
-    <h1>{{ scene.name }}</h1>
+  <div v-if="scene">
+    <h2>{{ scene.name }}</h2>
     <Row>
-      <InputContainer>
-        <InputText
-          v-model="rawScript"
-          text-area
-          label="scenes.actions.raw"
-          class="text-area"
-        />
-      </InputContainer>
-      <Actions end>
-        <ActionButton @click="updateScript">
-          {{ $t('global.save') }}
-        </ActionButton>
-      </Actions>
+      <Timeline
+        v-if="scene"
+        :key="scene._id"
+        :scene-id="scene._id"
+      />
     </Row>
   </div>
 </template>
