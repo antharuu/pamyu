@@ -79,6 +79,18 @@ export const useScenesStore = defineStore({
 
             this.actions[actionIndex] = action;
         },
+        deleteAction(actionId: Action['_id']): boolean {
+            const actionIndex = this.actions.findIndex((a) => a._id === actionId);
+
+            if (actionIndex === -1) {
+                return false;
+            }
+
+            this.actions.splice(actionIndex, 1);
+            this.removeActionFromScenes(actionId);
+
+            return true;
+        },
         addActionToScene(actionId: Action['_id'], sceneId: Label['_id']): void {
             const scene = this.getSceneById(sceneId);
 
@@ -87,6 +99,17 @@ export const useScenesStore = defineStore({
             }
 
             scene.actions.push(actionId);
-        }
+        },
+        removeActionFromScenes(actionId: Action['_id']): void {
+            this.scenes.forEach((scene) => {
+                const actionIndex = scene.actions.findIndex((a) => a === actionId);
+
+                if (actionIndex === -1) {
+                    return;
+                }
+
+                scene.actions.splice(actionIndex, 1);
+            });
+        },
     }
 });

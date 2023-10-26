@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import {invoke} from '@tauri-apps/api/tauri';
 import {ref} from 'vue';
 
@@ -68,26 +68,30 @@ async function startRenpy(): Promise<void> {
         </ActionButton>
       </Actions>
     </div>
-    <slot />
+    <div class="page-content">
+      <slot />
+    </div>
   </div>
 </template>
 
 <style scoped>
 .app-container {
+    display: grid;
+    grid-template-rows: 2.4rem 1fr;
+    gap: 1rem;
     height: 100%;
     width: 100%;
+    overflow: hidden;
 }
 
 .top {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 1rem;
 }
 
 h1 {
-    font-size: 3rem;
+    font-size: 2rem;
     margin-top: 0;
-    margin-bottom: 1rem;
 }
 </style>

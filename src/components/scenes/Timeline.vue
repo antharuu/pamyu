@@ -3,9 +3,9 @@ import {onMounted, ref} from 'vue';
 
 import {useScenesStore} from '../../stores/scenesStore.ts';
 
-import {Action} from '../../types/scene.ts';
+import {Action, RawAction} from '../../types/scene.ts';
 
-import ActionRaw from './actions/ActionRaw.vue';
+import TimelineAction from './actions/action.vue';
 import NewActions from './NewActions.vue';
 
 const props = defineProps<{
@@ -27,11 +27,13 @@ function init(): void {
 function addAction(): void {
     if (!selectedAction.value) return;
     const actionName = selectedAction.value;
-    const newAction: Partial<Action> = {};
+    let newAction: Partial<Action> = {};
 
     switch (actionName) {
         case 'raw':
-            newAction['code'] = '';
+            const rawAction = newAction as RawAction;
+            rawAction['code'] = '';
+            newAction = rawAction;
             break;
         default:
             console.error('Unknown action type: ', actionName);
@@ -82,9 +84,9 @@ onMounted(init);
         :key="action._id"
         class="action"
       >
-        <ActionRaw
-          v-if="action.type === 'raw'"
+        <TimelineAction
           :action="action"
+          @deleted="init"
         />
       </div>
       <div
@@ -106,10 +108,15 @@ onMounted(init);
     display: grid;
     gap: .5rem;
     grid-template-columns: 1fr 40px;
+    overflow-y: hidden;
+    height: calc(100vh - 8.3rem);
 
     &__content {
         display: grid;
-        gap: .25rem;
+        align-content: start;
+        gap: .5rem;
+        overflow-y: auto;
+        padding: .5rem .5rem 50px;
     }
 }
 
@@ -120,6 +127,8 @@ onMounted(init);
     border-radius: .5rem;
     position: relative;
     height: 10px;
+    opacity: .5;
+    width: calc(100% - calc(30px + .5rem));
 
     &--visible {
         border: 2px dashed var(--color-accent);
@@ -127,6 +136,7 @@ onMounted(init);
 
     &--drag-hover {
         height: 35px !important;
+        opacity: 1;
     }
 }
 </style>
