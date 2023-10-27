@@ -2,6 +2,8 @@
 
 ## Alpha 10
 
+✨ Actions inprovements, can be deleted.
+
 🗯️ Added new translations:
 
 - Arabic
