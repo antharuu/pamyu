@@ -2,19 +2,25 @@
 
 ## Alpha 10
 
-✨ Actions inprovements, can be deleted.
+✨ Actions inprovements, can be deleted and ordered.
+
+🎨 Add some quality of life improvements.
+
+🎨 Add some animations.
 
 🗯️ Added new translations:
 
-- Arabic
-- Bengali
-- German
-- Spanish
-- Hindi
-- Japanese
-- Portuguese
-- Russian
-- Chinese
+- 🐪 Arabic
+- 🍛 Bengali
+- 🌭 German
+- 💃 Spanish
+- 🕌 Hindi
+- 🌸 Japanese
+- 🍷 Portuguese
+- ❄️ Russian
+- 🏮 Chinese
+
+---
 
 ## Alpha 9
 
@@ -30,6 +36,8 @@
 
 🚀 Now using better semantic versioning and release-it.
 
+---
+
 ## Alpha 8
 
 ✨ Can now launch the game and Ren'Py directly.
@@ -43,6 +51,8 @@
 🎨 Refinement of the overall design.
 
 🎨 New theme selector.
+
+---
 
 ## Alpha 7
 
