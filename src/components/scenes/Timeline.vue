@@ -91,16 +91,18 @@ onMounted(init);
 <template>
   <div class="timeline">
     <div class="timeline__content">
-      <div
+      <TransitionGroup
         v-for="action in actions"
         :key="action._id"
         class="action"
+        tag="div"
       >
         <TimelineAction
+          :key="action._id"
           :action="action"
           @updated="init"
         />
-      </div>
+      </TransitionGroup>
       <div
         ref="dropZone"
         class="drop-zone"
