@@ -22,6 +22,9 @@ export const useScenesStore = defineStore({
         getActionById(): (id: Action['_id']) => Action | undefined {
             return (id: string) => this.actions.find((action: Action) => action._id === id);
         },
+        getSceneByActionId(): (actionId: Action['_id']) => Label | undefined {
+            return (actionId: string) => this.scenes.find((scene: Label) => scene.actions.includes(actionId));
+        },
         getAllActionsOfScene(): (sceneId: Label['_id']) => Action[] {
             return (sceneId: Label['_id']) => {
                 const scene = this.getSceneById(sceneId);
@@ -31,7 +34,15 @@ export const useScenesStore = defineStore({
                 }
 
                 return scene.actions.map((actionId) => this.getActionById(actionId))
-                    .filter((action) => action !== undefined) as Action[];
+                    .filter((action) => action !== undefined)
+                    .sort((action1, action2) =>
+                        action1!._order - action2!._order) as Action[];
+            };
+        },
+        getNextActionOrder(): (sceneId: Label['_id']) => number {
+            return (sceneId: Label['_id']) => {
+                const scene = this.getSceneById(sceneId);
+                return scene ? scene.actions.length : 0;
             };
         }
     },
@@ -50,18 +61,14 @@ export const useScenesStore = defineStore({
 
             return sceneId;
         },
-        createAction(type: Action['type'], action: StrictOmit<Action, '_id' | 'type'>, sceneId: string): string {
+        createAction(type: Action['type'], action: StrictOmit<Action, '_id' | '_order' | 'type'>, sceneId: string): string {
             const id = getRandomToken();
             const actionId = `ac_${type}_${id}`;
-
-            console.log({
-                _id: actionId,
-                type,
-                ...action
-            }, this.actions);
+            const order = this.getNextActionOrder(sceneId);
 
             this.actions.push({
                 _id: actionId,
+                _order: order,
                 type,
                 ...action
             } as Action);
@@ -72,19 +79,13 @@ export const useScenesStore = defineStore({
         },
         updateAction(action: Action): void {
             const actionIndex = this.actions.findIndex((a) => a._id === action._id);
-
-            if (actionIndex === -1) {
-                return;
-            }
+            if (actionIndex === -1) return;
 
             this.actions[actionIndex] = action;
         },
         deleteAction(actionId: Action['_id']): boolean {
             const actionIndex = this.actions.findIndex((a) => a._id === actionId);
-
-            if (actionIndex === -1) {
-                return false;
-            }
+            if (actionIndex === -1) return false;
 
             this.actions.splice(actionIndex, 1);
             this.removeActionFromScenes(actionId);
@@ -93,23 +94,46 @@ export const useScenesStore = defineStore({
         },
         addActionToScene(actionId: Action['_id'], sceneId: Label['_id']): void {
             const scene = this.getSceneById(sceneId);
-
-            if (!scene) {
-                return;
-            }
+            if (!scene) return;
 
             scene.actions.push(actionId);
         },
         removeActionFromScenes(actionId: Action['_id']): void {
             this.scenes.forEach((scene) => {
                 const actionIndex = scene.actions.findIndex((a) => a === actionId);
-
-                if (actionIndex === -1) {
-                    return;
-                }
+                if (actionIndex === -1) return;
 
                 scene.actions.splice(actionIndex, 1);
             });
         },
+        invertActionsOrder(actionId1: Action['_id'], actionId2: Action['_id']): void {
+            const action1 = this.getActionById(actionId1);
+            const action2 = this.getActionById(actionId2);
+            if (!action1 || !action2) return;
+
+            const tmpOrder = action1._order;
+            action1._order = action2._order;
+            action2._order = tmpOrder;
+        },
+        getActionByOrder(sceneId: Label['_id'], order: number): Action | undefined {
+            const scene = this.getSceneById(sceneId);
+            if (!scene) return;
+
+            return this.actions.find((action) =>
+                action._order === order && scene.actions.includes(action._id));
+        },
+
+        updateActionOrder(actionId: Action['_id'], delta: -1 | 1): void {
+            const action = this.getActionById(actionId);
+            if (!action) return;
+
+            const scene = this.getSceneByActionId(actionId);
+            if (!scene) return;
+
+            const action2 = this.getActionByOrder(scene._id, action._order + delta);
+            if (!action2) return;
+
+            this.invertActionsOrder(action._id, action2._id);
+        }
     }
 });
