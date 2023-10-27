@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import {onMounted, ref} from 'vue';
+import {onMounted, ref, watchEffect} from 'vue';
 
 import {useScenesStore} from '../../stores/scenesStore.ts';
 
 import {Action, RawAction} from '../../types/scene.ts';
 
-import TimelineAction from './actions/action.vue';
+import TimelineAction from './actions/Action.vue';
 import NewActions from './NewActions.vue';
 
 const props = defineProps<{
@@ -50,7 +50,9 @@ function startDrag(name: Action['type']): void {
 }
 
 function endDrag(): void {
-    dropZone.value?.classList.remove('drop-zone--visible');
+    if (actions.value.length !== 0) {
+        dropZone.value?.classList.remove('drop-zone--drag-hover');
+    }
     dropZone.value?.classList.remove('drop-zone--drag-hover');
 
     if (dropZoneSelected.value) {
@@ -68,10 +70,20 @@ function dragEnter(): void {
 
 function dragLeave(): void {
     setTimeout(() => {
-        dropZone.value?.classList.remove('drop-zone--drag-hover');
+        if (actions.value.length !== 0) {
+            dropZone.value?.classList.remove('drop-zone--drag-hover');
+        }
         dropZoneSelected.value = false;
     }, 100);
 }
+
+watchEffect(() => {
+    if (actions.value.length === 0) {
+        dropZone.value?.classList.add('drop-zone--visible');
+    } else {
+        dropZone.value?.classList.remove('drop-zone--visible');
+    }
+});
 
 onMounted(init);
 </script>
@@ -86,7 +98,7 @@ onMounted(init);
       >
         <TimelineAction
           :action="action"
-          @deleted="init"
+          @updated="init"
         />
       </div>
       <div

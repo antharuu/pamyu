@@ -5,7 +5,7 @@ import Icon from '../Icon.vue';
 
 const props = withDefaults(defineProps<{
     modelValue: string | number | undefined;
-    label?: string;
+    label?: string | undefined;
     type?: string;
     maxLenght?: number;
     width?: string | null;
@@ -15,6 +15,7 @@ const props = withDefaults(defineProps<{
     message?: string;
     noTrim?: boolean;
 }>(), {
+    label: undefined,
     type: 'text',
     maxLenght: 9999999999,
     width: '100%',

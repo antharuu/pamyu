@@ -2,6 +2,7 @@ import {Character} from './character';
 
 export type BaseElement = {
     _id: string;
+    _order: number;
 }
 
 export type Variable = BaseElement & {

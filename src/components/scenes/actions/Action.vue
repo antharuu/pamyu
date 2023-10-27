@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import {ref} from 'vue';
+import {computed} from 'vue';
 
 import {useScenesStore} from '../../../stores/scenesStore.ts';
 
 import {Action} from '../../../types/scene.ts';
 
-import Icon from '../../Icon.vue';
+import ActionBtn from '../ActionBtn.vue';
 
 import ActionRaw from './ActionRaw.vue';
 
@@ -13,24 +13,29 @@ const props = defineProps<{
     action: Action
 }>();
 
-const emit = defineEmits(['deleted']);
-const deleteTimer = ref<NodeJS.Timeout | null>(null);
-const isDeleting = ref<boolean>(false);
+const isOrderFirst = computed(() => props.action._order === 0);
+const isOrderLast = computed(() => {
+    const scene = useScenesStore().getSceneByActionId(props.action._id);
+    if (!scene) return false;
 
-function startDeleting(): void {
-    isDeleting.value = true;
-    deleteTimer.value = setTimeout(() => {
-        const deleted = useScenesStore().deleteAction(props.action._id);
-        if (deleted) emit('deleted');
-    }, 1000);
+    return props.action._order === scene.actions.length - 1;
+});
+
+const emit = defineEmits(['updated']);
+
+function deleteAction(): void {
+    const deleted = useScenesStore().deleteAction(props.action._id);
+    if (deleted) emit('updated');
 }
 
-function stopDeleting(): void {
-    if (deleteTimer.value) {
-        isDeleting.value = false;
-        clearTimeout(deleteTimer.value);
-        deleteTimer.value = null;
-    }
+function orderUp(): void {
+    useScenesStore().updateActionOrder(props.action._id, -1);
+    emit('updated');
+}
+
+function orderDown(): void {
+    useScenesStore().updateActionOrder(props.action._id, 1);
+    emit('updated');
 }
 </script>
 
@@ -41,20 +46,27 @@ function stopDeleting(): void {
       :action="action"
     />
     <div class="action-buttons">
-      <button
-        :class="{
-          'action-button': true,
-          'action-button--deleting': isDeleting
-        }"
-        @mousedown="startDeleting"
-        @mouseleave="stopDeleting"
-        @mouseup="stopDeleting"
-      >
-        <Icon name="delete" />
-        <span class="deleting-icon">
-          <Icon name="delete" />
-        </span>
-      </button>
+      <ActionBtn
+        :disabled="isOrderFirst"
+        :pressing-duration=".5"
+        icon="arrow_upward"
+        type="secondary"
+        @clicked="orderUp"
+      />
+      <ActionBtn
+        :pressing-duration="3"
+        class="delete-btn"
+        icon="delete"
+        type="danger"
+        @clicked="deleteAction"
+      />
+      <ActionBtn
+        :disabled="isOrderLast"
+        :pressing-duration=".5"
+        icon="arrow_downward"
+        type="secondary"
+        @clicked="orderDown"
+      />
     </div>
   </div>
 </template>
@@ -62,25 +74,27 @@ function stopDeleting(): void {
 <style lang="scss" scoped>
 .action {
     display: grid;
-    grid-template-columns: 1fr 30px;
+    grid-template-columns: 1fr auto;
+    align-items: start;
     gap: .5rem;
     transition: all .2s ease-in-out;
     width: 100%;
+    min-height: calc(60px + .5rem);
 }
 
 .action-buttons {
     opacity: 1;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 30px);
     flex-direction: row;
-    gap: 1rem;
+    gap: .5rem;
     transition: all .2s ease-in-out;
     justify-content: center;
 }
 
 .action:hover .action-buttons {
     opacity: 1;
-    display: flex;
-    grid-template-columns: 1fr 30px;
 
     .action-button {
         opacity: .5;
@@ -88,97 +102,8 @@ function stopDeleting(): void {
     }
 }
 
-.action-button {
-    position: relative;
-    background: var(--color-danger);
-    color: var(--color-danger);
-    cursor: pointer;
-    transition: all .2s ease-in-out;
-    border-radius: 50px;
-    width: 30px;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    z-index: 1;
-    border: 2px dashed var(--color-danger);
-    background: transparent;
-    opacity: .1;
-    transition-delay: .5s;
-
-    > * {
-        font-size: 1rem;
-        transition: all .2s ease-in-out;
-        transition-delay: 0s;
-    }
-
-    &::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        height: 0;
-        background: var(--color-danger);
-        opacity: 0;
-        transition: all .2s ease-in-out;
-        z-index: -1;
-    }
-
-    &:hover {
-        opacity: 1 !important;
-        transition-delay: 0s;
-    }
-
-    .deleting-icon {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        opacity: 0;
-        color: var(--color-background);
-        transition-delay: 0s;
-        transition: all .2s ease-in-out;
-        z-index: 2;
-
-        > * {
-            font-size: 1rem;
-        }
-    }
-
-    &--deleting {
-        opacity: 1;
-        transition-delay: 0s;
-
-        > * {
-            transition-delay: .4s;
-            opacity: 0;
-        }
-
-        &::before {
-            opacity: 1;
-            animation: delete 1s ease-in-out forwards;
-        }
-
-        .deleting-icon {
-            opacity: 1;
-            transition-delay: .4s;
-        }
-    }
-}
-
-@keyframes delete {
-    0% {
-        height: 0;
-    }
-
-    100% {
-        height: 100%;
-    }
+.delete-btn {
+    grid-column: 2;
+    grid-row: span 2;
 }
 </style>
