@@ -4,6 +4,8 @@
 
 ✨ Actions inprovements, can be deleted and ordered.
 
+🧶 Add "Jump" action.
+
 🎨 Add some quality of life improvements.
 
 🎨 Add some animations.
