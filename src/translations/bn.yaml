@@ -61,7 +61,11 @@ bn:
         create: দৃশ্যা তৈরি করুন
         name: দৃশ্যার নাম
         actions:
-            raw: মৌলিক কোড
+            raw:
+                title: কাঁচামাল কোড
+            jump:
+                title: দৃশ্যায় ঝাঁপুন
+                noScene: কোন দৃশ্যা নেই
 
     scripts:
         title: স্ক্রিপ্টগুলি

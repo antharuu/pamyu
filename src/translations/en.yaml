@@ -57,7 +57,11 @@ en:
         create: Create scene
         name: Scene name
         actions:
-            raw: Raw code
+            raw:
+                title: Raw code
+            jump:
+                title: Jump to scene
+                noScene: No scene
 
     scripts:
         title: Scripts

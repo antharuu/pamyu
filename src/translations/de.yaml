@@ -60,7 +60,11 @@ de:
         create: Szene erstellen
         name: Szenenname
         actions:
-            raw: Rohcode
+            raw:
+                title: Rohcode
+            jump:
+                title: Zu Szene springen
+                noScene: Keine Szene
 
     scripts:
         title: Skripte

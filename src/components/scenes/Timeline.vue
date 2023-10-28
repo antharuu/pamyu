@@ -3,7 +3,7 @@ import {onMounted, ref, watchEffect} from 'vue';
 
 import {useScenesStore} from '../../stores/scenesStore.ts';
 
-import {Action, RawAction} from '../../types/scene.ts';
+import {Action, JumpAction, RawAction} from '../../types/scene.ts';
 
 import TimelineAction from './actions/Action.vue';
 import NewActions from './NewActions.vue';
@@ -34,6 +34,11 @@ function addAction(): void {
             const rawAction = newAction as RawAction;
             rawAction['code'] = '';
             newAction = rawAction;
+            break;
+        case 'jump':
+            const jumpAction = newAction as JumpAction;
+            jumpAction['sceneId'] = null;
+            newAction = jumpAction;
             break;
         default:
             console.error('Unknown action type: ', actionName);
@@ -142,7 +147,7 @@ onMounted(init);
     position: relative;
     height: 10px;
     opacity: .5;
-    width: calc(100% - calc(30px + .5rem));
+    width: calc(100% - calc(60px + 1rem));
 
     &--visible {
         border: 2px dashed var(--color-accent);

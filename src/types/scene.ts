@@ -47,7 +47,7 @@ export type Action = BaseElement & (
     ShowAction |
     HideAction |
     JumpAction |
-    RawAction |
+    RawAction | // OK
     ReturnAction
     );
 
@@ -105,7 +105,7 @@ export type HideAction = {
 
 export type JumpAction = {
     type: 'jump';
-    label: Label['_id'];
+    sceneId: Label['_id'] | null;
 };
 
 export type RawAction = {
@@ -116,3 +116,16 @@ export type RawAction = {
 export type ReturnAction = {
     type: 'return';
 };
+
+export type ActionElement = {
+    name: Action['type'];
+    icon: string;
+    label: string;
+}
+
+export type ActionElementObject = {
+    [K in Action['type']]?: {
+        icon: string
+        label: string
+    }
+}

@@ -60,7 +60,11 @@ hi:
         create: सीन बनाएँ
         name: सीन का नाम
         actions:
-            raw: कच्चा कोड
+            raw:
+                title: रॉ कोड
+            jump:
+                title: सीन पर जाएं
+                noScene: कोई सीन नहीं
 
     scripts:
         title: स्क्रिप्ट

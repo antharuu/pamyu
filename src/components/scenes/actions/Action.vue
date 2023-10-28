@@ -3,15 +3,30 @@ import {computed} from 'vue';
 
 import {useScenesStore} from '../../../stores/scenesStore.ts';
 
-import {Action} from '../../../types/scene.ts';
+import {getActionsElements} from '../../../utils/actionsElements.ts';
 
+import {Action, ActionElementObject} from '../../../types/scene.ts';
+
+import Icon from '../../Icon.vue';
 import ActionBtn from '../ActionBtn.vue';
 
+import ActionJump from './ActionJump.vue';
 import ActionRaw from './ActionRaw.vue';
 
 const props = defineProps<{
     action: Action
 }>();
+
+const actionsElements = computed<ActionElementObject>(() => {
+    const actionsElements = getActionsElements();
+    const actionsElementsObj: ActionElementObject = {};
+
+    for (const actionElement of actionsElements) {
+        actionsElementsObj[actionElement.name] = actionElement;
+    }
+
+    return actionsElementsObj;
+});
 
 const isOrderFirst = computed(() => props.action._order === 0);
 const isOrderLast = computed(() => {
@@ -41,10 +56,20 @@ function orderDown(): void {
 
 <template>
   <div class="action">
-    <ActionRaw
-      v-if="action.type === 'raw'"
-      :action="action"
-    />
+    <div class="action__content">
+      <label class="label">
+        <Icon :name="actionsElements[action.type]?.icon ?? 'label'" />
+        {{ $t(`scenes.actions.${action.type}.title`) }}
+      </label>
+      <ActionRaw
+        v-if="action.type === 'raw'"
+        :action="action"
+      />
+      <ActionJump
+        v-else-if="action.type === 'jump'"
+        :action="action"
+      />
+    </div>
     <div class="action-buttons">
       <ActionBtn
         :disabled="isOrderFirst"
@@ -80,6 +105,16 @@ function orderDown(): void {
     transition: all .2s ease-in-out;
     width: 100%;
     min-height: calc(60px + .5rem);
+    user-select: none;
+
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: .7rem;
+        user-select: none;
+    }
 }
 
 .action-buttons {
@@ -105,5 +140,13 @@ function orderDown(): void {
 .delete-btn {
     grid-column: 2;
     grid-row: span 2;
+}
+
+.label {
+    color: var(--color-accent-light);
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    font-size: 1.3rem;
 }
 </style>

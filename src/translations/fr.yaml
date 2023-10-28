@@ -57,7 +57,11 @@ fr:
         create: Créer une scène
         name: Nom de la scène
         actions:
-            raw: Code brut
+            raw:
+                title: Code brut
+            jump:
+                title: Aller à une autre scène
+                noScene: Aucune scène
 
     scripts:
         title: Scripts

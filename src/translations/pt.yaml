@@ -60,7 +60,11 @@ pt:
         create: Criar cena
         name: Nome da cena
         actions:
-            raw: Código bruto
+            raw:
+                title: Código bruto
+            jump:
+                title: Pular para cena
+                noScene: Nenhuma cena
 
     scripts:
         title: Scripts

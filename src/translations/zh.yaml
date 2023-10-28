@@ -60,7 +60,11 @@ zh:
         create: 创建场景
         name: 场景名
         actions:
-            raw: 原始代码
+            raw:
+                title: 原始代码
+            jump:
+                title: 跳转到场景
+                noScene: 没有场景
 
     scripts:
         title: 脚本

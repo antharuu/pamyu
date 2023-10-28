@@ -60,7 +60,11 @@ ar:
         create: إنشاء مشهد
         name: اسم المشهد
         actions:
-            raw: الكود الخام
+            raw:
+                title: الكود الخام
+            jump:
+                title: الانتقال إلى مشهد
+                noScene: لا يوجد مشهد
 
     scripts:
         title: النصوص

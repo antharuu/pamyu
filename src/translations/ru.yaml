@@ -60,7 +60,11 @@ ru:
         create: Создать сцену
         name: Название сцены
         actions:
-            raw: Сырой код
+            raw:
+                title: Сырой код
+            jump:
+                title: Перейти к сцене
+                noScene: Нет сцены
 
     scripts:
         title: Скрипты

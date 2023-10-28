@@ -60,7 +60,11 @@ es:
         create: Crear una escena
         name: Nombre de la escena
         actions:
-            raw: Código sin formato
+            raw:
+                title: Código sin procesar
+            jump:
+                title: Saltar a la escena
+                noScene: No hay escena
 
     scripts:
         title: Scripts

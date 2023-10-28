@@ -14,7 +14,6 @@ const props = defineProps<{
 const inputValue = ref<string>(props.action.code);
 
 watch(inputValue, (newValue) => {
-    console.log('Update raw action: ', newValue);
     useScenesStore().updateAction({
         ...props.action,
         code: newValue

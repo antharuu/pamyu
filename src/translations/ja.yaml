@@ -60,7 +60,11 @@ ja:
         create: シーンを作成
         name: シーン名
         actions:
-            raw: 生のコード
+            raw:
+                title: 生のコード
+            jump:
+                title: シーンにジャンプ
+                noScene: シーンなし
 
     scripts:
         title: スクリプト

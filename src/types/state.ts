@@ -14,7 +14,9 @@ export type PamyuState = {
 }
 
 export type CharactersState = {
-    folders: { [key: string]: Character['_id'][] };
+    folders: {
+        [key: string]: Character['_id'][]
+    };
     characters: Character[];
 }
 

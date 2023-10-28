@@ -4,7 +4,7 @@ import {useCharacterStore} from '../stores/characterStore.ts';
 import {useScenesStore} from '../stores/scenesStore.ts';
 
 import {Character} from '../types/character.ts';
-import {Action, RawAction} from '../types/scene.ts';
+import {Action, JumpAction, RawAction} from '../types/scene.ts';
 
 import {path} from '../main';
 
@@ -67,6 +67,9 @@ function getActionLines(action: Action): string[] {
         case 'raw':
             lines.push(...getRawActionLines(action));
             break;
+        case 'jump':
+            lines.push(...getJumpActionLines(action));
+            break;
     }
 
     return lines;
@@ -76,6 +79,16 @@ function getRawActionLines(action: RawAction): string[] {
     const lines: string[] = [];
 
     lines.push(...action.code.split('\n'));
+
+    return lines;
+}
+
+function getJumpActionLines(action: JumpAction): string[] {
+    const lines: string[] = [];
+
+    if (action.sceneId) {
+        lines.push(`jump ${action.sceneId}`);
+    }
 
     return lines;
 }
