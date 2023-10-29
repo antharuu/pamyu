@@ -84,11 +84,17 @@ export const useScenesStore = defineStore({
             this.actions[actionIndex] = action;
         },
         deleteAction(actionId: Action['_id']): boolean {
+            const scene = this.getSceneByActionId(actionId);
+
             const actionIndex = this.actions.findIndex((a) => a._id === actionId);
             if (actionIndex === -1) return false;
 
             this.actions.splice(actionIndex, 1);
             this.removeActionFromScenes(actionId);
+
+            setTimeout(() => {
+                this.fixActionsOrder(scene);
+            }, 100);
 
             return true;
         },
@@ -134,6 +140,15 @@ export const useScenesStore = defineStore({
             if (!action2) return;
 
             this.invertActionsOrder(action._id, action2._id);
+        },
+        fixActionsOrder(scene: Label | undefined): void {
+            if (!scene) return;
+
+            const actions = this.getAllActionsOfScene(scene._id);
+
+            actions.forEach((action, index) => {
+                action._order = index;
+            });
         }
     }
 });

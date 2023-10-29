@@ -73,8 +73,6 @@ export type MessageAction = {
     type: 'message';
     message: string;
     character: Character['_id'] | null;
-    multiline?: boolean;
-    withTyping?: boolean;
 };
 
 export type ConditionAction = {

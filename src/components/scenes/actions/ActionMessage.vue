@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {computed, ref, watch} from 'vue';
+import {computed, ref, watchEffect} from 'vue';
 import {useI18n} from 'vue-i18n';
 
 import {useCharacterStore} from '../../../stores/characterStore.ts';
@@ -37,17 +37,13 @@ const possibleScenes = computed<SelectChoices[]>(() => {
     ] as SelectChoices[];
 });
 
-watch(selectedCharacter, (newValue) => {
-    useScenesStore().updateAction({
-        ...props.action,
-        character: newValue
-    } as Action);
-});
+watchEffect(() => {
+    const store = useScenesStore();
 
-watch(messageValue, (newValue) => {
-    useScenesStore().updateAction({
+    store.updateAction({
         ...props.action,
-        message: newValue
+        character: selectedCharacter.value,
+        message: messageValue.value
     } as Action);
 });
 </script>
