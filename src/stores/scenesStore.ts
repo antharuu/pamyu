@@ -61,10 +61,14 @@ export const useScenesStore = defineStore({
 
             return sceneId;
         },
-        createAction(type: Action['type'], action: StrictOmit<Action, '_id' | '_order' | 'type'>, sceneId: string): string {
+        createAction(
+            type: Action['type'],
+            action: StrictOmit<Action, '_id' | '_order' | 'type'>,
+            sceneId: string,
+            order: number
+        ): string {
             const id = getRandomToken();
             const actionId = `ac_${type}_${id}`;
-            const order = this.getNextActionOrder(sceneId);
 
             this.actions.push({
                 _id: actionId,
@@ -74,6 +78,7 @@ export const useScenesStore = defineStore({
             } as Action);
 
             this.addActionToScene(actionId, sceneId);
+            this.fixActionsOrder(this.getSceneById(sceneId));
 
             return actionId;
         },

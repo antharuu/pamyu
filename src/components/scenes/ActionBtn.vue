@@ -12,14 +12,14 @@ const props = defineProps<{
 
 const instant = computed(() => props.pressingDuration === undefined || props.pressingDuration === 0);
 const duration = computed(() => instant.value ? 0 : props.pressingDuration);
-const middleDuration = computed(() => duration.value / 2);
+const middleDuration = computed(() => (duration.value ?? 1) / 2);
 const durationSeconds = computed(() => `${duration.value}s`);
 const middleDurationSeconds = computed(() => `${middleDuration.value}s`);
 
 const emit = defineEmits(['clicked']);
 
 const isPressing = ref<boolean>(false);
-const pressTimer = ref<NodeJS.Timeout | null>(null);
+const pressTimer = ref<number | null>(null);
 
 function startPressing(): void {
     if (props.disabled) return;
@@ -31,7 +31,7 @@ function startPressing(): void {
     isPressing.value = true;
     pressTimer.value = setTimeout(() => {
         emit('clicked');
-    }, props.pressingDuration * 1000);
+    }, (props.pressingDuration ?? 1) * 1000);
 }
 
 function stopPressing(): void {

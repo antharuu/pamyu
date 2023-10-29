@@ -1,11 +1,12 @@
 <script lang="ts" setup>
-import {onMounted, ref, watchEffect} from 'vue';
+import {onMounted, ref} from 'vue';
 
 import {useScenesStore} from '../../stores/scenesStore.ts';
 
 import {Action, JumpAction, MessageAction, RawAction} from '../../types/scene.ts';
 
 import TimelineAction from './actions/Action.vue';
+import DropZone from './DropZone.vue';
 import NewActions from './NewActions.vue';
 
 const props = defineProps<{
@@ -14,8 +15,7 @@ const props = defineProps<{
 
 const actions = ref<Action[]>([]);
 const selectedAction = ref<Action['type'] | null>(null);
-const dropZone = ref<HTMLDivElement | null>(null);
-const dropZoneSelected = ref<boolean>(false);
+const orderSelected = ref<number | null>(null);
 
 function init(): void {
     actions.value = [];
@@ -25,8 +25,19 @@ function init(): void {
 }
 
 function addAction(): void {
-    if (!selectedAction.value) return;
+    console.log('addAction', selectedAction.value, orderSelected.value);
+    if (selectedAction.value === null || orderSelected.value === null) return;
+
     const actionName = selectedAction.value;
+    const newAction = getAction(actionName);
+    if (!newAction) return;
+
+    useScenesStore().createAction(actionName, newAction, props.sceneId, orderSelected.value);
+    removeOrderSelected(orderSelected.value);
+    init();
+}
+
+function getAction(actionName: Action['type']): Action | null {
     let newAction: Partial<Action> = {};
 
     switch (actionName) {
@@ -48,53 +59,32 @@ function addAction(): void {
             break;
         default:
             console.error('Unknown action type: ', actionName);
-            return;
+            return null;
     }
 
-    useScenesStore().createAction(actionName, newAction, props.sceneId);
-    init();
+    return newAction as Action;
 }
 
 function startDrag(name: Action['type']): void {
     selectedAction.value = name;
-    dropZone.value?.classList.add('drop-zone--visible');
 }
 
 function endDrag(): void {
-    if (actions.value.length !== 0) {
-        dropZone.value?.classList.remove('drop-zone--drag-hover');
-    }
-    dropZone.value?.classList.remove('drop-zone--drag-hover');
-
-    if (dropZoneSelected.value) {
+    if (selectedAction.value !== null || orderSelected.value !== null) {
         addAction();
     }
-
-    dropZoneSelected.value = false;
+    selectedAction.value = null;
 }
 
-function dragEnter(): void {
-    if (dropZone.value?.classList.contains('drop-zone--drag-hover')) return;
-    dropZone.value?.classList.add('drop-zone--drag-hover');
-    dropZoneSelected.value = true;
+function setOrderSelected(order: number): void {
+    orderSelected.value = order;
 }
 
-function dragLeave(): void {
-    setTimeout(() => {
-        if (actions.value.length !== 0) {
-            dropZone.value?.classList.remove('drop-zone--drag-hover');
-        }
-        dropZoneSelected.value = false;
-    }, 100);
-}
-
-watchEffect(() => {
-    if (actions.value.length === 0) {
-        dropZone.value?.classList.add('drop-zone--visible');
-    } else {
-        dropZone.value?.classList.remove('drop-zone--visible');
+function removeOrderSelected(order: number): void {
+    if (orderSelected.value === order) {
+        orderSelected.value = null;
     }
-});
+}
 
 onMounted(init);
 </script>
@@ -108,17 +98,29 @@ onMounted(init);
         class="action"
         tag="div"
       >
+        <DropZone
+          :key="action._id + '-drop'"
+          :actions="actions"
+          :is-visible="selectedAction !== null || orderSelected === action._order - 1"
+          :order="action._order - .5"
+          :selected-action="selectedAction"
+          class="drop-zone--not-last"
+          @set-drag-order="setOrderSelected"
+          @remove-drag-order="removeOrderSelected"
+        />
         <TimelineAction
           :key="action._id"
           :action="action"
           @updated="init"
         />
       </TransitionGroup>
-      <div
-        ref="dropZone"
-        class="drop-zone"
-        @dragenter="dragEnter"
-        @dragleave="dragLeave"
+      <DropZone
+        :actions="actions"
+        :is-visible="selectedAction !== null || actions.length === 0"
+        :order="actions.length"
+        :selected-action="selectedAction"
+        @set-drag-order="setOrderSelected"
+        @remove-drag-order="removeOrderSelected"
       />
     </div>
     <NewActions
@@ -162,6 +164,10 @@ onMounted(init);
     &--drag-hover {
         height: 35px !important;
         opacity: 1;
+    }
+
+    &--not-last {
+        margin-bottom: .5rem;
     }
 }
 </style>

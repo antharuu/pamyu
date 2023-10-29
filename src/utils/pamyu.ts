@@ -37,6 +37,7 @@ export function getCharactersScript(): string {
 export function updateScenesScipts(): void {
     console.log('📂 Updating scenes scripts');
 
+    // TODO: Save scenes and check if they have changed before last update
     useScenesStore().getScenes.forEach((scene) => {
         let sceneString = `${warnMessage}label ${scene._id}:\n`;
         const indent = getIndent();
@@ -79,6 +80,7 @@ function getActionLines(action: Action): string[] {
 }
 
 function getRawActionLines(action: RawAction): string[] {
+    if (action.code.trim().length === 0) return [];
     const lines: string[] = [];
 
     lines.push(...action.code.split('\n'));
@@ -97,15 +99,10 @@ function getJumpActionLines(action: JumpAction): string[] {
 }
 
 function getMessageActionLines(action: MessageAction): string[] {
-    const lines: string[] = [];
-    let characterString = '';
+    if (!action.character && action.message.length === 0) return [];
 
-    if (action.character) {
-        const character = useCharacterStore().getCharacterById(action.character);
-        if (character) {
-            characterString = character._id + ' ';
-        }
-    }
+    const lines: string[] = [];
+    const characterString = getCharacterString(action);
 
     if (action.message.includes('\n')) {
         lines.push(`${characterString}"""`);
@@ -116,4 +113,17 @@ function getMessageActionLines(action: MessageAction): string[] {
     }
 
     return lines;
+}
+
+function getCharacterString(action: MessageAction): string {
+    let characterString = '';
+
+    if (action.character) {
+        const character = useCharacterStore().getCharacterById(action.character);
+        if (character) {
+            characterString = character._id + ' ';
+        }
+    }
+
+    return characterString;
 }

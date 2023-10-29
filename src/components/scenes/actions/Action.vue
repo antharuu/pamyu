@@ -84,7 +84,7 @@ function orderDown(): void {
         @clicked="orderUp"
       />
       <ActionBtn
-        :pressing-duration="3"
+        :pressing-duration="1"
         class="delete-btn"
         icon="delete"
         type="danger"
