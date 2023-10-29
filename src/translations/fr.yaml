@@ -59,6 +59,9 @@ fr:
         actions:
             raw:
                 title: Code brut
+            message:
+                title: Message
+                noCharacter: Aucun personnage
             jump:
                 title: Aller à une autre scène
                 noScene: Aucune scène

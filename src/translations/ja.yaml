@@ -62,6 +62,9 @@ ja:
         actions:
             raw:
                 title: 生のコード
+            message:
+                title: メッセージ
+                noCharacter: キャラクターなし
             jump:
                 title: シーンにジャンプ
                 noScene: シーンなし

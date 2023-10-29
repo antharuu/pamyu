@@ -62,6 +62,9 @@ pt:
         actions:
             raw:
                 title: Código bruto
+            message:
+                title: Mensagem
+                noCharacter: Sem personagem
             jump:
                 title: Pular para cena
                 noScene: Nenhuma cena

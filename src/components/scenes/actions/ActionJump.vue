@@ -8,17 +8,19 @@ import {Action, JumpAction, Label} from '../../../types/scene.ts';
 
 import InputSelect from '../../inputs/InputSelect.vue';
 
+type SelectChoices = {
+    value: Label['_id']
+    label: Label['name']
+}
+
 const props = defineProps<{
     action: JumpAction
 }>();
 
 const selectedScene = ref<Label['_id'] | null>(props.action.sceneId);
 
-const possibleScenes = computed<{
-    value: Label['_id']
-    label: Label['name']
-}[]>(() => {
-    const scenes = useScenesStore().getScenes.map(scene => {
+const possibleScenes = computed<SelectChoices[]>(() => {
+    const scenes: SelectChoices[] = useScenesStore().getScenes.map(scene => {
         return {value: scene._id, label: scene.name};
     });
 
@@ -28,7 +30,7 @@ const possibleScenes = computed<{
             label: useI18n().t('scenes.actions.jump.noScene')
         },
         ...scenes
-    ];
+    ] as SelectChoices[];
 });
 
 watch(selectedScene, (newValue) => {

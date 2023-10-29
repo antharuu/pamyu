@@ -59,6 +59,9 @@ en:
         actions:
             raw:
                 title: Raw code
+            message:
+                title: Message
+                noCharacter: No character
             jump:
                 title: Jump to scene
                 noScene: No scene

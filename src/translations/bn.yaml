@@ -63,6 +63,9 @@ bn:
         actions:
             raw:
                 title: কাঁচামাল কোড
+            message:
+                title: বার্তা
+                noCharacter: কোন চরিত্র নেই
             jump:
                 title: দৃশ্যায় ঝাঁপুন
                 noScene: কোন দৃশ্যা নেই

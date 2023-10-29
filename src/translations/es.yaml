@@ -62,6 +62,9 @@ es:
         actions:
             raw:
                 title: Código sin procesar
+            message:
+                title: Mensaje
+                noCharacter: Sin personaje
             jump:
                 title: Saltar a la escena
                 noScene: No hay escena

@@ -3,7 +3,7 @@ import {onMounted, ref, watchEffect} from 'vue';
 
 import {useScenesStore} from '../../stores/scenesStore.ts';
 
-import {Action, JumpAction, RawAction} from '../../types/scene.ts';
+import {Action, JumpAction, MessageAction, RawAction} from '../../types/scene.ts';
 
 import TimelineAction from './actions/Action.vue';
 import NewActions from './NewActions.vue';
@@ -30,15 +30,21 @@ function addAction(): void {
     let newAction: Partial<Action> = {};
 
     switch (actionName) {
-        case 'raw':
-            const rawAction = newAction as RawAction;
-            rawAction['code'] = '';
-            newAction = rawAction;
+        case 'message':
+            const messageAction = newAction as MessageAction;
+            messageAction['message'] = '';
+            messageAction['character'] = null;
+            newAction = messageAction;
             break;
         case 'jump':
             const jumpAction = newAction as JumpAction;
             jumpAction['sceneId'] = null;
             newAction = jumpAction;
+            break;
+        case 'raw':
+            const rawAction = newAction as RawAction;
+            rawAction['code'] = '';
+            newAction = rawAction;
             break;
         default:
             console.error('Unknown action type: ', actionName);

@@ -11,6 +11,7 @@ import Icon from '../../Icon.vue';
 import ActionBtn from '../ActionBtn.vue';
 
 import ActionJump from './ActionJump.vue';
+import ActionMessage from './ActionMessage.vue';
 import ActionRaw from './ActionRaw.vue';
 
 const props = defineProps<{
@@ -61,12 +62,16 @@ function orderDown(): void {
         <Icon :name="actionsElements[action.type]?.icon ?? 'label'" />
         {{ $t(`scenes.actions.${action.type}.title`) }}
       </label>
-      <ActionRaw
-        v-if="action.type === 'raw'"
+      <ActionMessage
+        v-if="action.type === 'message'"
         :action="action"
       />
       <ActionJump
         v-else-if="action.type === 'jump'"
+        :action="action"
+      />
+      <ActionRaw
+        v-if="action.type === 'raw'"
         :action="action"
       />
     </div>

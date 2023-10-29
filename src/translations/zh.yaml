@@ -62,6 +62,9 @@ zh:
         actions:
             raw:
                 title: 原始代码
+            message:
+                title: 消息
+                noCharacter: 没有角色
             jump:
                 title: 跳转到场景
                 noScene: 没有场景

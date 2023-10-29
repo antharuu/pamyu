@@ -46,7 +46,7 @@ export type Action = BaseElement & (
     MenuAction |
     ShowAction |
     HideAction |
-    JumpAction |
+    JumpAction | // OK
     RawAction | // OK
     ReturnAction
     );
@@ -72,7 +72,7 @@ export type StopAction = {
 export type MessageAction = {
     type: 'message';
     message: string;
-    character?: Character['_id'];
+    character: Character['_id'] | null;
     multiline?: boolean;
     withTyping?: boolean;
 };

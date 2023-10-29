@@ -62,6 +62,9 @@ hi:
         actions:
             raw:
                 title: रॉ कोड
+            message:
+                title: संदेश
+                noCharacter: कोई पात्र नहीं
             jump:
                 title: सीन पर जाएं
                 noScene: कोई सीन नहीं

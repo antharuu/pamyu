@@ -4,7 +4,7 @@ import {computed} from 'vue';
 import Icon from '../Icon.vue';
 
 const props = withDefaults(defineProps<{
-    modelValue: string | number | undefined;
+    modelValue: string | number | undefined | null;
     label?: string;
     width?: string | null;
     readonly?: boolean;

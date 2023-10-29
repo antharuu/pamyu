@@ -62,6 +62,9 @@ ar:
         actions:
             raw:
                 title: الكود الخام
+            message:
+                title: رسالة
+                noCharacter: لا يوجد شخصية
             jump:
                 title: الانتقال إلى مشهد
                 noScene: لا يوجد مشهد

@@ -62,6 +62,9 @@ de:
         actions:
             raw:
                 title: Rohcode
+            message:
+                title: Nachricht
+                noCharacter: Kein Charakter
             jump:
                 title: Zu Szene springen
                 noScene: Keine Szene

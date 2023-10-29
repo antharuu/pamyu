@@ -62,6 +62,9 @@ ru:
         actions:
             raw:
                 title: Сырой код
+            message:
+                title: Сообщение
+                noCharacter: Нет персонажа
             jump:
                 title: Перейти к сцене
                 noScene: Нет сцены
