@@ -145,6 +145,6 @@ export function unwrap(entry: string | undefined, prev: string = '', next: strin
     }
 }
 
-export function getIndent(level: number): string {
+export function getIndent(level: number = 1): string {
     return ' '.repeat(4 * level);
 }

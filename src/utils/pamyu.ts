@@ -4,7 +4,7 @@ import {useCharacterStore} from '../stores/characterStore.ts';
 import {useScenesStore} from '../stores/scenesStore.ts';
 
 import {Character} from '../types/character.ts';
-import {Action, JumpAction, RawAction} from '../types/scene.ts';
+import {Action, JumpAction, MessageAction, RawAction} from '../types/scene.ts';
 
 import {path} from '../main';
 
@@ -39,7 +39,7 @@ export function updateScenesScipts(): void {
 
     useScenesStore().getScenes.forEach((scene) => {
         let sceneString = `${warnMessage}label ${scene._id}:\n`;
-        const indent = getIndent(1);
+        const indent = getIndent();
         const actionsLines = getActionsLines(useScenesStore().getAllActionsOfScene(scene._id));
         sceneString += indent + actionsLines.join(`\n${indent}`);
 
@@ -64,11 +64,14 @@ function getActionLines(action: Action): string[] {
     const lines: string[] = [];
 
     switch (action.type) {
-        case 'raw':
-            lines.push(...getRawActionLines(action));
+        case 'message':
+            lines.push(...getMessageActionLines(action));
             break;
         case 'jump':
             lines.push(...getJumpActionLines(action));
+            break;
+        case 'raw':
+            lines.push(...getRawActionLines(action));
             break;
     }
 
@@ -88,6 +91,28 @@ function getJumpActionLines(action: JumpAction): string[] {
 
     if (action.sceneId) {
         lines.push(`jump ${action.sceneId}`);
+    }
+
+    return lines;
+}
+
+function getMessageActionLines(action: MessageAction): string[] {
+    const lines: string[] = [];
+    let characterString = '';
+
+    if (action.character) {
+        const character = useCharacterStore().getCharacterById(action.character);
+        if (character) {
+            characterString = character._id + ' ';
+        }
+    }
+
+    if (action.message.includes('\n')) {
+        lines.push(`${characterString}"""`);
+        action.message.split('\n').forEach((line) => lines.push(getIndent() + line));
+        lines.push('"""');
+    } else {
+        lines.push(`${characterString}"${action.message}"`);
     }
 
     return lines;
