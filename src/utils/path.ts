@@ -7,6 +7,19 @@ export class PathManager {
 
     private static savedPaths: Path[] = [];
 
+    static get last(): Path | null {
+        const paths = this.getAll();
+        return paths.find(p => p.isLast) || null;
+    }
+
+    static get lastGamePath(): string {
+        return `${this.last?.path}/game` ?? '';
+    }
+
+    static get isEmpty(): boolean {
+        return !this.getAll().length;
+    }
+
     static getAll(): Path[] {
         if (PathManager.savedPaths.length) {
             return PathManager.savedPaths;
@@ -51,18 +64,9 @@ export class PathManager {
         localStorage.setItem(this.storageKey, JSON.stringify(filteredPaths));
     }
 
-    static get last(): Path | null {
-        const paths = this.getAll();
-        return paths.find(p => p.isLast) || null;
-    }
-
     static setAsLast(id: string): void {
         const paths = this.getAll();
         paths.forEach(p => p.isLast = p._id === id);
         localStorage.setItem(this.storageKey, JSON.stringify(paths));
-    }
-
-    static get isEmpty(): boolean {
-        return !this.getAll().length;
     }
 }

@@ -41,7 +41,7 @@ export type Action = BaseElement & (
     BackgroundAction |
     PlayAction |
     StopAction |
-    MessageAction |
+    MessageAction | // OK
     ConditionAction |
     MenuAction |
     ShowAction |
