@@ -4,8 +4,8 @@ import {computed} from 'vue';
 import Icon from '../Icon.vue';
 
 const props = withDefaults(defineProps<{
-    modelValue: string | number | undefined;
-    label: string;
+    modelValue: string | number | undefined | null;
+    label?: string;
     width?: string | null;
     readonly?: boolean;
     error?: string;
@@ -13,6 +13,7 @@ const props = withDefaults(defineProps<{
     options: { value: string | undefined, label: string }[];
     noTranslate?: boolean;
 }>(), {
+    label: '',
     width: '100%',
     readonly: false,
     error: '',
@@ -37,15 +38,18 @@ const usableWidth = props.width ? props.width : '100%';
 
 <template>
   <div
-    class="input__group"
-    :style="{width: usableWidth}"
     :class="{'input__group--error': error.length > 0}"
+    :style="{width: usableWidth}"
+    class="input__group"
   >
-    <label :for="uniqueId">
+    <label
+      v-if="label.length > 0"
+      :for="uniqueId"
+    >
       <Icon
         v-if="props.readonly"
-        name="lock"
         class="input__group-icon"
+        name="lock"
       />
       {{ $t(label) }}
     </label>
@@ -53,8 +57,8 @@ const usableWidth = props.width ? props.width : '100%';
       <select
         :id="uniqueId"
         v-model.trim.lazy="value"
-        aria-autocomplete="none"
         :disabled="readonly"
+        aria-autocomplete="none"
       >
         <option
           v-for="item in options"
@@ -65,8 +69,8 @@ const usableWidth = props.width ? props.width : '100%';
         </option>
       </select>
       <Icon
-        name="arrow_drop_down"
         class="input__group-icon"
+        name="arrow_drop_down"
       />
     </div>
     <span

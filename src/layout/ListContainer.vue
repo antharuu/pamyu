@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 
 </script>
 
@@ -15,25 +15,26 @@
 
 <style scoped>
 .list-container {
-    display: grid;
-    grid-template-columns: minmax(300px, 1fr) 4fr;
-    grid-template-rows: 1fr;
-    grid-gap: 1rem;
-    max-height: calc(100vh - 6.6rem);
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
     overflow: hidden;
 }
 
 .left {
     overflow: hidden;
-    padding: .5em;
+    padding: .5em .5em 0;
     display: flex;
     flex-direction: column;
     gap: 1rem;
     overflow-y: auto;
+    width: clamp(23rem, 22%, 30rem);
 }
 
 .right {
+    width: 100%;
     overflow: hidden;
-    padding: .5em;
+    padding: .5em .5em 0;
 }
 </style>

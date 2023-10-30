@@ -1,16 +1,11 @@
 <script lang="ts" setup>
-import {Action} from '../../types/scene.ts';
+import {getActionsElements} from '../../utils/actionsElements.ts';
 
 import Icon from '../Icon.vue';
 
 const emit = defineEmits(['drag-start', 'drag-end']);
 
-const actionsElements: {
-    name: Action['type'];
-    icon: string;
-}[] = [
-    {name: 'raw', icon: 'code'}
-];
+const actionsElements = getActionsElements();
 
 function startDrag(event: DragEvent): void {
     const target = event.target as HTMLElement;
@@ -38,6 +33,10 @@ function endDrag(): void {
         @dragstart="startDrag"
       >
         <Icon :name="actionElement.icon" />
+        <div
+          class="label"
+          v-text="actionElement.label"
+        />
       </div>
     </div>
   </div>
@@ -59,6 +58,33 @@ function endDrag(): void {
         height: 40px;
         cursor: pointer;
         border-radius: 50%;
+        position: relative;
+        z-index: 2;
+
+        .label {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 50%;
+            z-index: -1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            white-space: nowrap;
+            background: var(--color-accent-dark);
+            overflow: hidden;
+            padding: .5rem 50%;
+            border-radius: 50rem 0 0 50rem;
+            transform: scaleX(0);
+            transform-origin: right;
+        }
+
+        &:hover {
+            .label {
+                transform: scaleX(1);
+                transition: transform .2s ease-in-out;
+            }
+        }
     }
 }
 </style>

@@ -1,0 +1,158 @@
+# تمت ترجمة هذا الملف بواسطة Chat GPT ، وقد تكون بعض الترجمات غير دقيقة ،
+# إذا كان هذا هو الحال ، فلا تتردد في إخبارنا أو اقتراح تعديل على GitHub.
+
+ar:
+    global:
+        notImplemented: هذه الوظيفة لم تتم بعد
+        create: إنشاء
+        edit: تعديل
+        delete: حذف
+        save: حفظ
+        cancel: إلغاء
+        yes: نعم
+        no: لا
+        browse: تصفح
+        auto: تلقائي
+        show: عرض
+        hide: إخفاء
+        others: آخرون
+
+    settings:
+        title: الإعدادات
+        language: اللغة
+        theme: السمة
+        colors:
+            main: اللون الرئيسي
+
+    projects:
+        title: المشاريع
+        path: مسار المشروع
+        pathsEmpty: لم يتم إضافة أي مشروع حتى الآن
+        load: تحميل المشروع
+        add: إضافة مشروع
+        errors:
+            pathInvalid: مسار المشروع غير صالح في Ren'Py.
+
+    characters:
+        title: الشخصيات
+        create: إنشاء شخصية
+        edit: تعديل الشخصية
+        delete: حذف الشخصية
+        name: اسم الشخصية
+        color: لون الشخصية
+        id: معرف الشخصية
+        what:
+            prefix: بادئة النص
+            suffix: لاحقة النص
+        who:
+            prefix: بادئة الاسم
+            suffix: لاحقة الاسم
+        deleteConfirm: هل تريد حقًا حذف هذه الشخصية؟
+        deleteConfirmMessage: تنبيه، هذا الإجراء لا يمكن التراجع عنه وسيجعل المشاهد التي تستخدم هذه الشخصية غير صالحة.
+        errors:
+            name: اسم الشخصية مطلوب
+
+    assets:
+        title: الموارد
+
+    scenes:
+        title: المشاهد
+        create: إنشاء مشهد
+        name: اسم المشهد
+        actions:
+            raw:
+                title: الكود الخام
+            message:
+                title: رسالة
+                noCharacter: لا يوجد شخصية
+            jump:
+                title: الانتقال إلى مشهد
+                noScene: لا يوجد مشهد
+
+    scripts:
+        title: النصوص
+
+    variables:
+        title: المتغيرات
+
+    translations:
+        title: الترجمات
+
+    game:
+        title: اللعبة
+        name: اسم اللعبة
+        showName: عرض اسم اللعبة
+        version: الإصدار
+        about: حول
+        buildName: اسم البنية
+        saveDirectory: دليل الحفظ
+        windowIcon: رمز النافذة
+        mode: وضع نافذة الحوار
+        has:
+            sound: مع صوت
+            music: مع موسيقى
+            voice: مع صوت
+        transitions:
+            enter: انتقال دخول القائمة
+            exit: انتقال خروج القائمة
+            intra: انتقال داخل القائمة
+            afterLoad: انتقال بعد التحميل
+            endGame: انتقال نهاية اللعبة
+            windowShow: انتقال لعرض نافذة الحوار
+            windowHide: انتقال لإخفاء نافذة الحوار
+
+    transitions:
+        none: لا انتقال
+        fade: تتلاشى
+        dissolve: تذوب
+        pixellate: تبقع
+        move: تحريك
+        moveinright: دخول من اليمين
+        moveoutright: خروج إلى اليمين
+        ease: سهولة
+        zoomin: تكبير
+        zoomout: تصغير
+        zoominout: تكبير وتصغير
+        vpunch: صدمة عمودية
+        hpunch: صدمة أفقية
+        blinds: الستائر
+        squares: مربعات
+        wipeleft: مسح لليسار
+        slideleft: انزلاق لليسار
+        slideawayleft: انزلاق بعيدًا إلى اليسار
+        pushright: دفع لليمين
+        irisin: دخول القزحية
+
+    folders:
+        title: المجلدات
+        create: إنشاء مجلد
+        noFolder: لا يوجد مجلد
+        name: اسم المجلد
+
+    renpy:
+        path: مسار تنفيذي Ren'Py
+        runGame: تشغيل اللعبة
+        runRenpy: تشغيل Ren'Py
+        errors:
+            pathInvalid: مسار ملف التنفيذي Ren'Py غير صالح
+
+    langs:
+        ar: العربية
+        bn: বাংলা (البنغالية)
+        de: Deutsch (الألمانية)
+        en: English (الإنجليزية)
+        es: Español (الإسبانية)
+        fr: Français (الفرنسية)
+        hi: हिन्दी (الهندية)
+        ja: 日本語 (اليابانية)
+        pt: Português (البرتغالية)
+        ru: Русский (الروسية)
+        zh: 中文 (الصينية)
+
+    colors:
+        vividViolet: بنفسجي زاهي
+        cobaltBlue: أزرق كوبالت
+        darkTurquoise: تركواز داكن
+        berryPink: وردي توت
+        emeraldGreen: أخضر زمردي
+        burntOrange: برتقالي محترق

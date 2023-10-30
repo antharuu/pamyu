@@ -1,0 +1,158 @@
+# この翻訳ファイルはChat GPTによって翻訳されました。
+# 一部の翻訳が正確でない場合は、お知らせいただくか、GitHubで修正案を提案していただければと思います。
+
+ja:
+    global:
+        notImplemented: この機能はまだ実装されていません
+        create: 作成
+        edit: 編集
+        delete: 削除
+        save: 保存
+        cancel: キャンセル
+        yes: はい
+        no: いいえ
+        browse: 閲覧
+        auto: 自動
+        show: 表示
+        hide: 非表示
+        others: その他
+
+    settings:
+        title: 設定
+        language: 言語
+        theme: テーマ
+        colors:
+            main: メインカラー
+
+    projects:
+        title: プロジェクト
+        path: プロジェクトのパス
+        pathsEmpty: まだプロジェクトが追加されていません
+        load: プロジェクトをロード
+        add: プロジェクトを追加
+        errors:
+            pathInvalid: プロジェクトのパスはRen'Pyには無効です。
+
+    characters:
+        title: キャラクター
+        create: キャラクターを作成
+        edit: キャラクターを編集
+        delete: キャラクターを削除
+        name: キャラクターの名前
+        color: キャラクターのカラー
+        id: キャラクターID
+        what:
+            prefix: テキストの接頭辞
+            suffix: テキストの接尾辞
+        who:
+            prefix: 名前の接頭辞
+            suffix: 名前の接尾辞
+        deleteConfirm: このキャラクターを本当に削除しますか？
+        deleteConfirmMessage: 注意：このアクションは取り消せず、このキャラクターを使用しているシーンは使用できなくなります。
+        errors:
+            name: キャラクターの名前は必須です
+
+    assets:
+        title: アセット
+
+    scenes:
+        title: シーン
+        create: シーンを作成
+        name: シーン名
+        actions:
+            raw:
+                title: 生のコード
+            message:
+                title: メッセージ
+                noCharacter: キャラクターなし
+            jump:
+                title: シーンにジャンプ
+                noScene: シーンなし
+
+    scripts:
+        title: スクリプト
+
+    variables:
+        title: 変数
+
+    translations:
+        title: 翻訳
+
+    game:
+        title: ゲーム
+        name: ゲーム名
+        showName: ゲーム名を表示
+        version: バージョン
+        about: このゲームについて
+        buildName: ビルド名
+        saveDirectory: 保存ディレクトリ
+        windowIcon: ウィンドウアイコン
+        mode: ダイアログウィンドウモード
+        has:
+            sound: サウンドあり
+            music: 音楽あり
+            voice: ボイスあり
+        transitions:
+            enter: メニュー入り遷移
+            exit: メニュー退出遷移
+            intra: メニュー内遷移
+            afterLoad: 読み込み後遷移
+            endGame: ゲーム終了遷移
+            windowShow: ダイアログウィンドウ表示遷移
+            windowHide: ダイアログウィンドウ非表示遷移
+
+    transitions:
+        none: トランジションなし
+        fade: フェード
+        dissolve: ディゾルブ
+        pixellate: ピクセル化
+        move: 移動
+        moveinright: 右から入る
+        moveoutright: 右に出る
+        ease: イージング
+        zoomin: 拡大
+        zoomout: 縮小
+        zoominout: 拡大・縮小
+        vpunch: 垂直パンチ
+        hpunch: 水平パンチ
+        blinds: ブラインド
+        squares: 四角
+        wipeleft: 左からワイプ
+        slideleft: 左にスライド
+        slideawayleft: 左にスライドアウト
+        pushright: 右にプッシュ
+        irisin: アイリスイン
+
+    folders:
+        title: フォルダ
+        create: フォルダを作成
+        noFolder: フォルダなし
+        name: フォルダ名
+
+    renpy:
+        path: Ren'Py実行ファイルパス
+        runGame: ゲームを実行
+        runRenpy: Ren'Pyを実行
+        errors:
+            pathInvalid: Ren'Py実行ファイルのパスは無効です
+
+    langs:
+        ar: العربية (アラビア語)
+        bn: বাংলা (ベンガル語)
+        de: Deutsch (ドイツ語)
+        en: English (英語)
+        es: Español (スペイン語)
+        fr: Français (フランス語)
+        hi: हिन्दी (ヒンディー語)
+        ja: 日本語
+        pt: Português (ポルトガル語)
+        ru: Русский (ロシア語)
+        zh: 中文 (中国語)
+
+    colors:
+        vividViolet: 鮮やかな紫
+        cobaltBlue: コバルトブルー
+        darkTurquoise: ダークターコイズ
+        berryPink: ベリーピンク
+        emeraldGreen: エメラルドグリーン
+        burntOrange: やけたオレンジ

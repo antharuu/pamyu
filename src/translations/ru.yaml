@@ -1,0 +1,158 @@
+# Этот файл перевода был переведен с помощью Chat GPT, некоторые переводы могут быть неточными,
+# если так, пожалуйста, не стесняйтесь сообщить нам или предложить изменение на GitHub.
+
+ru:
+    global:
+        notImplemented: Эта функция пока не реализована
+        create: Создать
+        edit: Изменить
+        delete: Удалить
+        save: Сохранить
+        cancel: Отменить
+        yes: Да
+        no: Нет
+        browse: Просмотр
+        auto: Авто
+        show: Показать
+        hide: Скрыть
+        others: Другие
+
+    settings:
+        title: Настройки
+        language: Язык
+        theme: Тема
+        colors:
+            main: Основной цвет
+
+    projects:
+        title: Проекты
+        path: Путь проекта
+        pathsEmpty: Ни один проект пока не добавлен
+        load: Загрузить проект
+        add: Добавить проект
+        errors:
+            pathInvalid: Путь проекта не является допустимым для Ren'Py.
+
+    characters:
+        title: Персонажи
+        create: Создать персонажа
+        edit: Редактировать персонажа
+        delete: Удалить персонажа
+        name: Имя персонажа
+        color: Цвет персонажа
+        id: Идентификатор персонажа
+        what:
+            prefix: Префикс текста
+            suffix: Суффикс текста
+        who:
+            prefix: Префикс имени
+            suffix: Суффикс имени
+        deleteConfirm: Вы уверены, что хотите удалить этого персонажа?
+        deleteConfirmMessage: Внимание, это действие нельзя отменить и сцены, использующие этого персонажа, станут нерабочими.
+        errors:
+            name: Имя персонажа обязательно
+
+    assets:
+        title: Ресурсы
+
+    scenes:
+        title: Сцены
+        create: Создать сцену
+        name: Название сцены
+        actions:
+            raw:
+                title: Сырой код
+            message:
+                title: Сообщение
+                noCharacter: Нет персонажа
+            jump:
+                title: Перейти к сцене
+                noScene: Нет сцены
+
+    scripts:
+        title: Скрипты
+
+    variables:
+        title: Переменные
+
+    translations:
+        title: Переводы
+
+    game:
+        title: Игра
+        name: Название игры
+        showName: Показать название игры
+        version: Версия
+        about: О игре
+        buildName: Название сборки
+        saveDirectory: Директория для сохранения
+        windowIcon: Иконка окна
+        mode: Режим окна диалога
+        has:
+            sound: С звуком
+            music: С музыкой
+            voice: С голосом
+        transitions:
+            enter: Переход в меню
+            exit: Переход из меню
+            intra: Внутренний переход в меню
+            afterLoad: Переход после загрузки
+            endGame: Переход в конце игры
+            windowShow: Переход для отображения окна диалога
+            windowHide: Переход для скрытия окна диалога
+
+    transitions:
+        none: Нет перехода
+        fade: Затухание
+        dissolve: Растворение
+        pixellate: Пикселизация
+        move: Движение
+        moveinright: Вход справа
+        moveoutright: Выход справа
+        ease: Плавное изменение
+        zoomin: Увеличение
+        zoomout: Уменьшение
+        zoominout: Увеличение и уменьшение
+        vpunch: Вертикальный удар
+        hpunch: Горизонтальный удар
+        blinds: Жалюзи
+        squares: Квадраты
+        wipeleft: Левый сдвиг
+        slideleft: Левый слайд
+        slideawayleft: Удалить слева
+        pushright: Толкнуть вправо
+        irisin: Вход в ирис
+
+    folders:
+        title: Папки
+        create: Создать папку
+        noFolder: Нет папки
+        name: Имя папки
+
+    renpy:
+        path: Путь к исполняемому файлу Ren'Py
+        runGame: Запустить игру
+        runRenpy: Запустить Ren'Py
+        errors:
+            pathInvalid: Путь к исполняемому файлу Ren'Py недействителен
+
+    langs:
+        ar: العربية (Арабский)
+        bn: বাংলা (Бенгальский)
+        de: Deutsch (Немецкий)
+        en: English (Английский)
+        es: Español (Испанский)
+        fr: Français (Французский)
+        hi: हिन्दी (Хинди)
+        ja: 日本語 (Японский)
+        pt: Português (Португальский)
+        ru: Русский
+        zh: 中文 (Китайский)
+
+    colors:
+        vividViolet: Яркая фиолетовая
+        cobaltBlue: Кобальтово-синяя
+        darkTurquoise: Темно-бирюзовая
+        berryPink: Ягодно-розовая
+        emeraldGreen: Изумрудно-зеленая
+        burntOrange: Обожженный оранжевый

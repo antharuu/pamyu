@@ -1,0 +1,158 @@
+# इस अनुवाद फ़ाइल को Chat GPT के साथ अनुवाद किया गया था, कुछ अनुवाद गलत भी हो सकते हैं,
+# अगर ऐसा है, तो कृपया हमें यह बताने या GitHub पर सुझाव देने का स्वागत करें।
+
+hi:
+    global:
+        notImplemented: यह सुविधा अभी तक लागू नहीं की गई है
+        create: बनाएँ
+        edit: संपादित करें
+        delete: हटाएँ
+        save: सहेजें
+        cancel: रद्द करें
+        yes: हाँ
+        no: नहीं
+        browse: ब्राउज़ करें
+        auto: स्वचालित
+        show: दिखाएँ
+        hide: छिपाएँ
+        others: अन्य
+
+    settings:
+        title: सेटिंग्स
+        language: भाषा
+        theme: थीम
+        colors:
+            main: मुख्य रंग
+
+    projects:
+        title: परियोजनाएँ
+        path: परियोजना पथ
+        pathsEmpty: कोई परियोजना जोड़ा नहीं गया है
+        load: परियोजना लोड करें
+        add: परियोजना जोड़ें
+        errors:
+            pathInvalid: परियोजना पथ Ren'Py में अवैध है।
+
+    characters:
+        title: पात्र
+        create: पात्र बनाएँ
+        edit: पात्र संपादित करें
+        delete: पात्र हटाएँ
+        name: पात्र का नाम
+        color: पात्र का रंग
+        id: पात्र आईडी
+        what:
+            prefix: पाठ पूर्वाग्रह
+            suffix: पाठ सूफ़िक्स
+        who:
+            prefix: नाम पूर्वाग्रह
+            suffix: नाम सूफ़िक्स
+        deleteConfirm: क्या आप वाकई इस पात्र को हटाना चाहते हैं?
+        deleteConfirmMessage: ध्यान दें, यह क्रिया अपरिवर्तनीय है और इस पात्र का उपयोग करने वाले सीन्स को अक्रिय कर देगी।
+        errors:
+            name: पात्र का नाम आवश्यक है
+
+    assets:
+        title: संपत्तियाँ
+
+    scenes:
+        title: सीन
+        create: सीन बनाएँ
+        name: सीन का नाम
+        actions:
+            raw:
+                title: रॉ कोड
+            message:
+                title: संदेश
+                noCharacter: कोई पात्र नहीं
+            jump:
+                title: सीन पर जाएं
+                noScene: कोई सीन नहीं
+
+    scripts:
+        title: स्क्रिप्ट
+
+    variables:
+        title: परिवर्णियां
+
+    translations:
+        title: अनुवाद
+
+    game:
+        title: खेल
+        name: खेल का नाम
+        showName: खेल का नाम दिखाएँ
+        version: संस्करण
+        about: के बारे में
+        buildName: बिल्ड का नाम
+        saveDirectory: सहेजे जाने वाले निर्देशिका
+        windowIcon: विंडो आइकन
+        mode: डायलॉग विंडो मोड
+        has:
+            sound: ध्वनि के साथ
+            music: संगीत के साथ
+            voice: आवाज़ के साथ
+        transitions:
+            enter: मेनू में प्रवेश ट्रांजिशन
+            exit: मेनू से बाहर ट्रांजिशन
+            intra: मेनू के भीतर ट्रांजिशन
+            afterLoad: लोड के बाद ट्रांजिशन
+            endGame: खेल समापन ट्रांजिशन
+            windowShow: डायलॉग विंडो दिखाने के लिए ट्रांजिशन
+            windowHide: डायलॉग विंडो छिपाने के लिए ट्रांजिशन
+
+    transitions:
+        none: कोई ट्रांजिशन नहीं
+        fade: धीरे-धीरे गायब होना
+        dissolve: घुलना
+        pixellate: पिक्सेलेट
+        move: चलना
+        moveinright: दाएं तरफ से प्रवेश
+        moveoutright: दाएं तरफ की बाहरी
+        ease: आसानी
+        zoomin: बड़ा करना
+        zoomout: छोटा करना
+        zoominout: बड़ा और छोटा करना
+        vpunch: ऊपरी कोड
+        hpunch: बायां कोड
+        blinds: ब्लाइंड्स
+        squares: वर्ग
+        wipeleft: बाएं से ओछा करना
+        slideleft: बाएं में स्लाइड करना
+        slideawayleft: बाएं में स्लाइड करना
+        pushright: दाएं में धकेलना
+        irisin: आईरिस में प्रवेश
+
+    folders:
+        title: फ़ोल्डर
+        create: फ़ोल्डर बनाएँ
+        noFolder: कोई फ़ोल्डर नहीं
+        name: फ़ोल्डर का नाम
+
+    renpy:
+        path: Ren'Py निष्पादन फ़ाइल पथ
+        runGame: खेल चलाएँ
+        runRenpy: Ren'Py चलाएँ
+        errors:
+            pathInvalid: Ren'Py निष्पादन फ़ाइल पथ अवैध है
+
+    langs:
+        ar: العربية (अरबी)
+        bn: বাংলা (बंगाली)
+        de: Deutsch (जर्मन)
+        en: English (अंग्रेज़ी)
+        es: Español (स्पेनिश)
+        fr: Français (फ्रेंच)
+        hi: हिन्दी
+        ja: 日本語 (जापानी)
+        pt: Português (पुर्तगाली)
+        ru: Русский (रूसी)
+        zh: 中文 (चीनी)
+
+    colors:
+        vividViolet: चमकदार बैंगनी
+        cobaltBlue: कोबाल्ट नीला
+        darkTurquoise: गहरा मोतीया
+        berryPink: बेरी पिंक
+        emeraldGreen: पन्ना हरा
+        burntOrange: सुन रंग

@@ -8,7 +8,11 @@ pub fn update_script(path: String, file: String, data: String) -> Result<(), Str
     // If it's a Ren'Py project
     if is_game_project(&path) {
         let script_path = format!("{}/game/{}", path, file);
-        let file = OpenOptions::new().write(true).create(true).open(&script_path);
+        let file = OpenOptions::new()
+                    .write(true)
+                    .create(true)
+                    .truncate(true)
+                    .open(&script_path);
         match file {
             Ok(mut file) => {
                 if let Err(e) = writeln!(file, "{}", data) {
@@ -25,7 +29,6 @@ pub fn update_script(path: String, file: String, data: String) -> Result<(), Str
 
     Ok(())
 }
-
 #[tauri::command]
 pub fn load_script(path: String, file: String) -> Result<String, String> {
     let path = get_valid_path(path);

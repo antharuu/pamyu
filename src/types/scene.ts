@@ -2,6 +2,7 @@ import {Character} from './character';
 
 export type BaseElement = {
     _id: string;
+    _order: number;
 }
 
 export type Variable = BaseElement & {
@@ -45,8 +46,8 @@ export type Action = BaseElement & (
     MenuAction |
     ShowAction |
     HideAction |
-    JumpAction |
-    RawAction |
+    JumpAction | // OK
+    RawAction | // OK
     ReturnAction
     );
 
@@ -71,9 +72,7 @@ export type StopAction = {
 export type MessageAction = {
     type: 'message';
     message: string;
-    character?: Character['_id'];
-    multiline?: boolean;
-    withTyping?: boolean;
+    character: Character['_id'] | null;
 };
 
 export type ConditionAction = {
@@ -104,7 +103,7 @@ export type HideAction = {
 
 export type JumpAction = {
     type: 'jump';
-    label: Label['_id'];
+    sceneId: Label['_id'] | null;
 };
 
 export type RawAction = {
@@ -115,3 +114,16 @@ export type RawAction = {
 export type ReturnAction = {
     type: 'return';
 };
+
+export type ActionElement = {
+    name: Action['type'];
+    icon: string;
+    label: string;
+}
+
+export type ActionElementObject = {
+    [K in Action['type']]?: {
+        icon: string
+        label: string
+    }
+}

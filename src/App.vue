@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import {watchEffect} from 'vue';
 import {useI18n} from 'vue-i18n';
 import {useRoute} from 'vue-router';
@@ -121,9 +121,10 @@ a {
     border-radius: 2rem 0 0 2rem;
 
     .page {
-        padding: 1rem;
+        padding: 1rem 1rem .5rem 1rem;
         width: 100%;
         height: 100%;
+        overflow: hidden;
     }
 }
 </style>

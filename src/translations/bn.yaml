@@ -1,0 +1,159 @@
+# এই অনুবাদ ফাইলটি চ্যাট GPT দিয়ে অনুবাদ কিয়েছে, কিছু অনুবাদ সঠিক না হতে পারে,
+# যদি এটি সত্যি হয়, তবে আপনি স্বাগতম জানাতে অথবা GitHub এ সংশোধন সাজানোর সুপারিশ করতে পারেন।
+
+bn:
+    global:
+        notImplemented: এই বৈশিষ্ট্যটি এখনো অনুমোদিত নয়
+        create: তৈরি করুন
+        edit: সম্পাদনা করুন
+        delete: মুছে ফেলুন
+        save: সংরক্ষণ করুন
+        cancel: বাতিল করুন
+        yes: হ্যাঁ
+        no: না
+        browse: ব্রাউজ করুন
+        auto: স্বয়ংক্রিয়
+        show: দেখান
+        hide: লুকান
+        others: অন্যান্য
+
+    settings:
+        title: সেটিংস
+        language: ভাষা
+        theme: থিম
+        colors:
+            main: মূল রং
+
+    projects:
+        title: প্রকল্পগুলি
+        path: প্রকল্পের পথ
+        pathsEmpty: এখনও কোনও প্রকল্প যোগ করা হয়নি
+        load: প্রকল্প লোড করুন
+        add: প্রকল্প যোগ করুন
+        errors:
+            pathInvalid: প্রকল্পের পথটি Ren'Py জন্য অবৈধ
+
+    characters:
+        title: চরিত্রগুলি
+        create: চরিত্র তৈরি করুন
+        edit: চরিত্র সম্পাদনা করুন
+        delete: চরিত্র মুছে ফেলুন
+        name: চরিত্রের নাম
+        color: চরিত্রের রং
+        id: চরিত্রের আইডি
+        what:
+            prefix: পাঠের উপসর্গ
+            suffix: পাঠের প্রত্যয়
+        who:
+            prefix: নামের উপসর্গ
+            suffix: নামের প্রত্যয়
+        deleteConfirm: আপনি কি নিশ্চিতভাবে এই চরিত্রটি মুছে ফেলতে চান?
+        deleteConfirmMessage:
+            সতর্কতা: এই অ্যাকশনটি বিপর্যন্ত ফিরে যেতে পারে না এবং এই চরিত্রটি ব্যবহার করা সিনগুলি অসক্ষম করে দেবে।
+        errors:
+            name: চরিত্রের নাম প্রয়োজন
+
+    assets:
+        title: সম্পদগুলি
+
+    scenes:
+        title: দৃশ্যাদি
+        create: দৃশ্যা তৈরি করুন
+        name: দৃশ্যার নাম
+        actions:
+            raw:
+                title: কাঁচামাল কোড
+            message:
+                title: বার্তা
+                noCharacter: কোন চরিত্র নেই
+            jump:
+                title: দৃশ্যায় ঝাঁপুন
+                noScene: কোন দৃশ্যা নেই
+
+    scripts:
+        title: স্ক্রিপ্টগুলি
+
+    variables:
+        title: ভেরিয়েবলগুলি
+
+    translations:
+        title: অনুবাদ
+
+    game:
+        title: খেলা
+        name: খেলার নাম
+        showName: খেলার নাম দেখান
+        version: সংস্করণ
+        about: সম্পর্কে
+        buildName: তৈরির নাম
+        saveDirectory: সংরক্ষণের ডিরেক্টরি
+        windowIcon: উইন্ডো আইকন
+        mode: ডায়ালগ উইন্ডো মোড
+        has:
+            sound: সাউন্ড সহ
+            music: সংগীত সহ
+            voice: ভয়েস সহ
+        transitions:
+            enter: মেনু প্রবেশ অবস্থা
+            exit: মেনু বাহ্যিক অবস্থা
+            intra: মেনু আভ্যন্তরীণ অবস্থা
+            afterLoad: লোড পরে অবস্থা
+            endGame: খেলা শেষ অবস্থা
+            windowShow: ডায়ালগ উইন্ডো দেখানোর অবস্থা
+            windowHide: ডায়ালগ উইন্ডো লুকানোর অবস্থা
+
+    transitions:
+        none: কোন অবস্থা নেই
+        fade: ফেড
+        dissolve: রশ্মিমুক্ত করা
+        pixellate: পিক্সেলেট
+        move: চলন্ত
+        moveinright: ডান দিকে প্রবেশ
+        moveoutright: ডান দিকে বাহ্যিক অবস্থা
+        ease: সহজতা
+        zoomin: বড় করা
+        zoomout: ছোট করা
+        zoominout: বড় এবং ছোট করা
+        vpunch: উলংঘন
+        hpunch: হরাইজন্টাল পাঞ্চ
+        blinds: পর্দাসমূহ
+        squares: বর্গগুলি
+        wipeleft: বামে মুছে দিন
+        slideleft: বামে স্লাইড করুন
+        slideawayleft: বামে স্লাইড আউট
+        pushright: ডানে ধাক্কা দিন
+        irisin: আঁখি প্রবেশ
+
+    folders:
+        title: ফোল্ডার
+        create: ফোল্ডার তৈরি করুন
+        noFolder: কোন ফোল্ডার নেই
+        name: ফোল্ডারের নাম
+
+    renpy:
+        path: Ren'Py বাইনারি পাথ
+        runGame: খেলা চালান
+        runRenpy: Ren'Py চালান
+        errors:
+            pathInvalid: Ren'Py বাইনারি পাথ অবৈধ
+
+    langs:
+        ar: العربية (আরবি)
+        bn: বাংলা
+        de: Deutsch (জার্মান)
+        en: English (ইংরেজি)
+        es: Español (স্পেনীয়)
+        fr: Français (ফরাসি)
+        hi: हिन्दी (হিন্দি)
+        ja: 日本語 (জাপানি)
+        pt: Português (পর্তুগীজ)
+        ru: Русский (রাশিয়ান)
+        zh: 中文 (চীনা)
+
+    colors:
+        vividViolet: চমকদার ভায়লেট
+        cobaltBlue: কোবাল্ট নীল
+        darkTurquoise: গভীর টার্কোয়ায়জ
+        berryPink: বেরি পিংক
+        emeraldGreen: সম্প্রেরণ গ্রীন
+        burntOrange: দাগ করা অরেঞ্জ

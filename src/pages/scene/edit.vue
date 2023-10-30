@@ -8,8 +8,6 @@ import {Label} from '../../types/scene.ts';
 
 import Timeline from '../../components/scenes/Timeline.vue';
 
-import Row from '../../layout/Row.vue';
-
 const route = useRoute();
 const router = useRouter();
 const scene = ref<Label>();
@@ -33,18 +31,31 @@ onMounted(() => updateScene(route.params.id as string));
 </script>
 
 <template>
-  <div v-if="scene">
+  <div
+    v-if="scene"
+    class="timeline-container"
+  >
     <h2>{{ scene.name }}</h2>
-    <Row>
-      <Timeline
-        v-if="scene"
-        :key="scene._id"
-        :scene-id="scene._id"
-      />
-    </Row>
+    <Timeline
+      v-if="scene"
+      :key="scene._id"
+      :scene-id="scene._id"
+    />
   </div>
 </template>
 
-<style>
+<style scoped>
+.timeline-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 30px 1fr;
+    gap: 1rem;
+}
 
+h2 {
+    margin: 0;
+    padding: 0;
+    font-size: 1.5rem;
+    color: var(--color-text);
+}
 </style>

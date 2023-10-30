@@ -57,7 +57,14 @@ fr:
         create: Créer une scène
         name: Nom de la scène
         actions:
-            raw: Code brut
+            raw:
+                title: Code brut
+            message:
+                title: Message
+                noCharacter: Aucun personnage
+            jump:
+                title: Aller à une autre scène
+                noScene: Aucune scène
 
     scripts:
         title: Scripts
@@ -127,8 +134,17 @@ fr:
             pathInvalid: Le chemin de l'exécutable Ren'Py n'est pas valide
 
     langs:
-        en: English
+        ar: العربية (Arabe)
+        bn: বাংলা (Bengali)
+        de: Deutsch (Allemand)
+        en: English (Anglais)
+        es: Español (Espagnol)
         fr: Français
+        hi: हिन्दी (Hindi)
+        ja: 日本語 (Japonais)
+        pt: Português (Portugais)
+        ru: Русский (Russe)
+        zh: 中文 (Chinois)
 
     colors:
         vividViolet: Violet vif
