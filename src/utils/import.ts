@@ -2,13 +2,11 @@ import {invoke} from '@tauri-apps/api/tauri';
 
 import {useScenesStore} from '../stores/scenesStore.ts';
 
+import {ScanManager} from '../classes/ScanManager.ts';
 import {path} from '../main.ts';
 
 import {PathManager} from './path.ts';
 import {getIndent} from './tools.ts';
-
-const toCheck: string[] = [];
-const toDelete: string[] = [];
 
 const validFiles: string[] = [
     'gui.rpy',
@@ -66,11 +64,23 @@ export async function getAllProjectRenpyFiles(): Promise<void> {
         return;
     }
 
-    const files = await invoke<string[]>('get_all_project_renpy_files', {path});
-    console.log('🔍 Scanning project files...');
+    const files = await getProjectFiles();
+    const categorizedFiles = categorizeFiles(files);
+    await checkFilesAndPrint(categorizedFiles.toCheck);
+    await deleteFilesAndPrint(categorizedFiles.toDelete);
+}
 
-    const cleanFiles = files.map((file) => getCleanFileName(file));
-    cleanFiles.forEach((file) => {
+async function getProjectFiles(): Promise<string[]> {
+    console.log('🔍 Scanning project files...');
+    return invoke<string[]>('get_all_project_renpy_files', {path}).then(files =>
+        files.map((file) => getCleanFileName(file)));
+}
+
+function categorizeFiles(files: string[]): { toCheck: string[], toDelete: string[] } {
+    const toCheck: string[] = [];
+    const toDelete: string[] = [];
+
+    files.forEach((file) => {
         const fileName = getOnlyFileName(file);
         const [needCheck, toRemove] = checkIfIsKnown(fileName, file);
         if (needCheck) {
@@ -80,18 +90,28 @@ export async function getAllProjectRenpyFiles(): Promise<void> {
         }
     });
 
-    if (toCheck.length) {
+    return {toCheck, toDelete};
+}
+
+async function checkFilesAndPrint(filesToCheck: string[]): Promise<void> {
+    if (filesToCheck.length) {
         console.log('🗂️ Checked files:');
-        for (const file of toCheck) {
+        for (const file of filesToCheck) {
             const fileContent = await invoke<string>('load_script', {path: path, file: file});
-            console.log(fileContent);
+            console.log('');
+            console.log('');
+            console.log('');
             console.log(`${getIndent()}🟠 ${file}`);
+            ScanManager.i.scan(fileContent);
+            // return Promise.resolve(); //! TODO: remove this line after
         }
     }
+}
 
-    if (toDelete.length) {
+async function deleteFilesAndPrint(filesToDelete: string[]): Promise<void> {
+    if (filesToDelete.length) {
         console.log('🧹 Delete files:');
-        for (const file of toDelete) {
+        for (const file of filesToDelete) {
             const deleted = await invoke<boolean>('delete_file', {path: `${gamePath}/${file}`});
             if (deleted) {
                 console.log(`${getIndent()}🔴 ${file}`);
@@ -100,5 +120,4 @@ export async function getAllProjectRenpyFiles(): Promise<void> {
             }
         }
     }
-
 }
