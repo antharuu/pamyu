@@ -22,35 +22,38 @@ export class ScanManager {
         return ScanManager.__instance;
     }
 
-    /**
-     * Scans the given raw script and returns a Block object.
-     *
-     * @param {string} rawScript - The raw script to be scanned.
-     * @returns {Block} - The scanned Block object.
-     */
-    public scan(rawScript: string): Block {
+
+    public getCleanBlocks(rawScript: string): Block {
+        const blocks = this.getBlocks(rawScript);
+        return blocks;
+    }
+
+    public getBlocks(rawScript: string): Block {
         const lines = rawScript.split('\n');
         let startLine = 0;
         while (startLine < lines.length && !lines[startLine].trim()) {
             startLine++;
         }
-        return this.processLines(lines, startLine).block;
+        const blocks = this.processLines(lines, startLine).block;
+        console.log(blocks);
+        return blocks;
     }
 
-    /**
-     * Processes a set of lines starting from a given line number.
-     *
-     * @param {string[]} lines - The set of lines to process.
-     * @param {number} startLine - The line number to start processing from.
-     * @returns {{ block: Block, nextLine: number }} - The processed block and the next line number.
-     */
     private processLines(lines: string[], startLine: number): { block: Block, nextLine: number } {
         const block: Block = [];
         const currentIndentation = this.getIndentation(lines[startLine]);
         let i = startLine;
+        let isInsideMultilineBlock = false;
+        let lineIndentation = 0;
 
         while (i < lines.length) {
-            const lineIndentation = this.getIndentation(lines[i]);
+            if (!isInsideMultilineBlock) {
+                lineIndentation = this.getIndentation(lines[i]);
+            }
+
+            if (lines[i].includes('"""')) {
+                isInsideMultilineBlock = !isInsideMultilineBlock;
+            }
 
             if (lines[i].trim() === '') {
                 block.push('');
@@ -59,9 +62,10 @@ export class ScanManager {
             }
 
             if (lineIndentation > currentIndentation) {
-                const {block: innerBlock, nextLine} = this.processLines(lines, i);
+                const {block: innerBlock, nextLine, newIsInsideMultilineBlock} = this.processLines(lines, i, isInsideMultilineBlock);
+                isInsideMultilineBlock = newIsInsideMultilineBlock;
                 block.push(this.cleanBlock(innerBlock));
-                i = nextLine - 1; // -1 car la boucle ajoutera +1
+                i = nextLine - 1;
             } else if (lineIndentation < currentIndentation) {
                 break;
             } else {
@@ -70,15 +74,9 @@ export class ScanManager {
             i++;
         }
 
-        return {block: this.cleanBlock(block), nextLine: i};
+        return {block: this.cleanBlock(block), nextLine: i, newIsInsideMultilineBlock: isInsideMultilineBlock};
     }
 
-    /**
-     * Cleans the given block by removing empty lines at the beginning and at the end.
-     *
-     * @param {Block} block - The block to be cleaned.
-     * @returns {Block} - The cleaned block.
-     */
     private cleanBlock(block: Block): Block {
         // Supprime les lignes vides au début du bloc
         while (block.length && block[0] === '') {
@@ -93,12 +91,6 @@ export class ScanManager {
         return block;
     }
 
-    /**
-     * Returns the indentation level of a given line.
-     *
-     * @param {string} line - The line to determine the indentation level of.
-     * @return {number} The indentation level of the line.
-     */
     private getIndentation(line: string): number {
         let indentation = 0;
         while (line[indentation] === ' ') {

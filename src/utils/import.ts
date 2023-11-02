@@ -97,12 +97,10 @@ async function checkFilesAndPrint(filesToCheck: string[]): Promise<void> {
     if (filesToCheck.length) {
         console.log('🗂️ Checked files:');
         for (const file of filesToCheck) {
+            if (file !== 'chapters\\ch2\\sc666.rpy') continue;
             const fileContent = await invoke<string>('load_script', {path: path, file: file});
-            console.log('');
-            console.log('');
-            console.log('');
             console.log(`${getIndent()}🟠 ${file}`);
-            ScanManager.i.scan(fileContent);
+            ScanManager.i.getBlocks(fileContent);
             // return Promise.resolve(); //! TODO: remove this line after
         }
     }
