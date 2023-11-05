@@ -100,7 +100,7 @@ async function checkFilesAndPrint(filesToCheck: string[]): Promise<void> {
             if (file !== 'chapters\\ch2\\sc666.rpy') continue;
             const fileContent = await invoke<string>('load_script', {path: path, file: file});
             console.log(`${getIndent()}🟠 ${file}`);
-            ScanManager.i.getBlocks(fileContent);
+            ScanManager.i.getCleanBlocks(fileContent);
             // return Promise.resolve(); //! TODO: remove this line after
         }
     }

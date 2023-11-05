@@ -236,6 +236,8 @@ label test_label_6:
     m """
 Ceci est un test multiligne
 
+
+
 Et même sur plusieurs lignes
     Avec des espaces
         Et des indentations
@@ -250,6 +252,8 @@ Et même sur plusieurs lignes
             'e "Ceci est un test"',
             'm """',
             'Ceci est un test multiligne',
+            '',
+            '',
             '',
             'Et même sur plusieurs lignes',
             'Avec des espaces',
@@ -285,10 +289,10 @@ describe('Sould give simple blocks', () => {
     });
 });
 
-// describe('Sould give clean blocks', () => {
-//     EXAMPLES.forEach((example, index) => {
-//         test(`Example ${index + 1}`, () => {
-//             expect(ScanManager.i.getCleanBlocks(example.script)).toEqual(example.cleanBlocks);
-//         });
-//     });
-// });
+describe('Sould give clean blocks', () => {
+    EXAMPLES.forEach((example, index) => {
+        test(`Example ${index + 1}`, () => {
+            expect(ScanManager.i.getCleanBlocks(example.script)).toEqual(example.cleanBlocks);
+        });
+    });
+});

@@ -23,9 +23,16 @@ export class ScanManager {
     }
 
 
-    public getCleanBlocks(rawScript: string): Block {
-        const blocks = this.getBlocks(rawScript);
-        return blocks;
+    public getCleanBlocks(script: string | Block): Block {
+        const blocks = typeof script === 'string' ? this.getBlocks(script) : script;
+
+        return this.getFilteredBlocks(blocks).map(block => {
+            if (typeof block === 'string') {
+                return block;
+            }
+
+            return this.getCleanBlocks(block);
+        });
     }
 
     public getBlocks(rawScript: string): Block {
@@ -34,9 +41,41 @@ export class ScanManager {
         while (startLine < lines.length && !lines[startLine].trim()) {
             startLine++;
         }
-        const blocks = this.processLines(lines, startLine).block;
-        console.log(blocks);
-        return blocks;
+
+        return this.processLines(lines, startLine).block;
+    }
+
+    private getFilteredBlocks(blocks: Block): Block {
+        let isInsideMultiline = false;
+        let lastsIsEmpty = false;
+
+        // eslint-disable-next-line complexity
+        return blocks.filter(block => {
+            if (typeof block === 'string') {
+                if (block.includes('"""')) {
+                    isInsideMultiline = !isInsideMultiline;
+                    if (!isInsideMultiline) {
+                        lastsIsEmpty = false;
+                    }
+                }
+
+                if (!isInsideMultiline && block.trim() === '') {
+                    return false;
+                } else if (isInsideMultiline) {
+                    if (block.trim() === '') {
+                        if (lastsIsEmpty) {
+                            return false;
+                        }
+
+                        lastsIsEmpty = true;
+                    }
+                }
+
+                return !this.isComment(block);
+            }
+
+            return true;
+        });
     }
 
     // eslint-disable-next-line complexity
@@ -72,7 +111,7 @@ export class ScanManager {
                     newIsInsideMultilineBlock
                 } = this.processLines(lines, i, isInsideMultilineBlock);
                 isInsideMultilineBlock = newIsInsideMultilineBlock;
-                block.push(this.cleanBlock(innerBlock));
+                block.push(this.cleanEndStartBlock(innerBlock));
                 i = nextLine - 1;
             } else if (lineIndentation < currentIndentation) {
                 break;
@@ -82,10 +121,10 @@ export class ScanManager {
             i++;
         }
 
-        return {block: this.cleanBlock(block), nextLine: i, newIsInsideMultilineBlock: isInsideMultilineBlock};
+        return {block: this.cleanEndStartBlock(block), nextLine: i, newIsInsideMultilineBlock: isInsideMultilineBlock};
     }
 
-    private cleanBlock(block: Block): Block {
+    private cleanEndStartBlock(block: Block): Block {
         // Supprime les lignes vides au début du bloc
         while (block.length && block[0] === '') {
             block.shift();
@@ -107,4 +146,7 @@ export class ScanManager {
         return indentation;
     }
 
+    private isComment(line: string): boolean {
+        return line.startsWith('#');
+    }
 }
