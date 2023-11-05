@@ -39,11 +39,15 @@ export class ScanManager {
         return blocks;
     }
 
-    private processLines(lines: string[], startLine: number): { block: Block, nextLine: number } {
+    // eslint-disable-next-line complexity
+    private processLines(lines: string[], startLine: number, isInsideMultilineBlock: boolean = false): {
+        nextLine: number;
+        newIsInsideMultilineBlock: boolean;
+        block: (string | Block)[]
+    } {
         const block: Block = [];
         const currentIndentation = this.getIndentation(lines[startLine]);
         let i = startLine;
-        let isInsideMultilineBlock = false;
         let lineIndentation = 0;
 
         while (i < lines.length) {
@@ -62,7 +66,11 @@ export class ScanManager {
             }
 
             if (lineIndentation > currentIndentation) {
-                const {block: innerBlock, nextLine, newIsInsideMultilineBlock} = this.processLines(lines, i, isInsideMultilineBlock);
+                const {
+                    block: innerBlock,
+                    nextLine,
+                    newIsInsideMultilineBlock
+                } = this.processLines(lines, i, isInsideMultilineBlock);
                 isInsideMultilineBlock = newIsInsideMultilineBlock;
                 block.push(this.cleanBlock(innerBlock));
                 i = nextLine - 1;
