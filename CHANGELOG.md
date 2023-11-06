@@ -1,6 +1,12 @@
 # Changelog
 
-## Alpha 10
+## Alpha 11
+
+🦋 All versions of Pamyu are now named.
+
+---
+
+## Alpha 10: Cosmopolitan
 
 ✨ Actions inprovements, can be deleted and ordered.
 
@@ -26,7 +32,7 @@
 
 ---
 
-## Alpha 9
+## Alpha 9: Saturn
 
 ✨ Add the scene section.
 
@@ -42,7 +48,7 @@
 
 ---
 
-## Alpha 8
+## Alpha 8: Fritillary
 
 ✨ Can now launch the game and Ren'Py directly.
 
@@ -58,7 +64,7 @@
 
 ---
 
-## Alpha 7
+## Alpha 7: Swallowtail
 
 🎉 First public release.
 

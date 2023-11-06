@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import {computed} from 'vue';
 
 import {PathManager} from '../utils/path.ts';
@@ -44,9 +44,9 @@ const navigationItems = computed<MenuItem[]>(() =>
       target="_blank"
     >
       <img
-        class="navigation__logo"
         :src="PamyuLogo"
         alt="logo"
+        class="navigation__logo"
       >
     </a>
     <nav class="navigation__nav">
@@ -58,8 +58,8 @@ const navigationItems = computed<MenuItem[]>(() =>
         <router-link
           v-if="!item.disabled"
           :key="item.name"
-          :to="item.path"
           :active-class="'active'"
+          :to="item.path"
           class="navigation__link-element"
         >
           <Icon :name="item.icon" />
@@ -67,8 +67,8 @@ const navigationItems = computed<MenuItem[]>(() =>
         </router-link>
         <span
           v-else
-          class="navigation__link-element navigation__link-element--disabled"
           :title="$t('not_implemented')"
+          class="navigation__link-element navigation__link-element--disabled"
         >
           <Icon :name="item.icon" />
           {{ capitalize($t(item.name)) }}

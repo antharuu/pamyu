@@ -28,3 +28,23 @@ pub fn list_files_from_path(path: String) -> Result<Vec<String>, String> {
 
     Ok(files)
 }
+
+#[tauri::command]
+pub fn delete_file(path: String) -> Result<bool, String> {
+    // Gérer l'erreur si le chemin est invalide
+    let path = match std::fs::canonicalize(&path) {
+        Ok(p) => p,
+        Err(e) => return Err(format!("Erreur en lisant le dossier : {}", e)),
+    };
+
+    // Vérifier que le chemin est bien un fichier
+    if !path.is_file() {
+        return Err(format!("Le chemin {} n'est pas un fichier.", path.display()));
+    }
+
+    // Supprimer le fichier
+    match std::fs::remove_file(&path) {
+        Ok(_) => Ok(true),
+        Err(e) => Err(format!("Erreur en supprimant le fichier : {}", e)),
+    }
+}

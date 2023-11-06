@@ -6,12 +6,14 @@ mod project;
 mod save;
 mod update_script;
 mod commands;
+mod import;
 
-use files::list_files_from_path;
+use files::{list_files_from_path, delete_file};
 use project::{load_project, save_new_script};
 use save::{load_data, save_data};
 use update_script::{update_script, load_script};
 use commands::{execute_renpy, execute_game};
+use import::get_all_project_renpy_files;
 
 fn main() {
     tauri::Builder::default()
@@ -24,7 +26,9 @@ fn main() {
             update_script,
             load_script,
             execute_renpy,
-            execute_game
+            execute_game,
+            get_all_project_renpy_files,
+            delete_file
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

@@ -6,6 +6,7 @@ import {useProjectStore} from './stores/useProjectStore.ts';
 
 import {loadData, saveData} from './utils/data';
 import i18n from './utils/i18n';
+import {getAllProjectRenpyFiles} from './utils/import.ts';
 import {PathManager} from './utils/path.ts';
 import {updateCharacters} from './utils/rpy.ts';
 import {capitalize, deepAssign} from './utils/tools.ts';
@@ -35,10 +36,9 @@ const pinia = createPinia();
 const baseData = await loadData();
 if (baseData) {
     if (typeof baseData === 'object') {
-        const completeData = deepAssign(defaultStores, baseData);
-        pinia.state.value = completeData;
+        pinia.state.value = deepAssign(defaultStores, baseData);
 
-        void saveData(completeData);
+        void saveData(pinia.state.value);
     }
 }
 
@@ -46,7 +46,9 @@ watch(pinia.state, (state) => saveData(state), {deep: true});
 
 const app = createApp(App);
 
-function isVNodeWithEl(child: VNodeChild): child is VNode & { el: HTMLElement } {
+function isVNodeWithEl(child: VNodeChild): child is VNode & {
+    el: HTMLElement
+} {
     return !!child && (child as VNode).el !== undefined && (child as VNode).el !== null;
 }
 
@@ -74,4 +76,5 @@ app.use(i18n);
 app.mount('#app');
 
 updateCharacters();
-useProjectStore().init();
+
+useProjectStore().init().then(() => getAllProjectRenpyFiles());
