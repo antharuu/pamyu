@@ -17,6 +17,11 @@ export type Label = {
     actions: Action['_id'][];
 }
 
+export type FlatLabel = {
+    name: string;
+    actions: Omit<Action, '_id' | '_order'>[];
+}
+
 export type WithTransition = {
     transition: string;
     duration: number;

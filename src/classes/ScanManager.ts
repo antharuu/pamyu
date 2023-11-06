@@ -1,4 +1,7 @@
+import {Label} from '../types/scene.ts';
 import {Block} from '../types/script.ts';
+
+import {BlockToLabel} from './BlockToLabel.ts';
 
 /**
  * Represents a ScanManager object.
@@ -22,7 +25,39 @@ export class ScanManager {
         return ScanManager.__instance;
     }
 
+    public getLabels(script: string): Label[] {
+        const blocks = this.getCleanBlocks(script);
 
+        const labelsBlocks: { label: string, block: Block } = [];
+        let currentLabel = '';
+
+        blocks.forEach(block => {
+            if (typeof block === 'string') {
+                if (block.startsWith('label ')) {
+                    currentLabel = block;
+                    labelsBlocks.push({label: currentLabel, block: []});
+                }
+            } else if (Array.isArray(block)) {
+                labelsBlocks[labelsBlocks.length - 1].block = block;
+            }
+        });
+
+        const labels: Label[] = [];
+
+        labelsBlocks.forEach(({label, block}) => {
+            labels.push(new BlockToLabel(label, block).getLabel());
+        });
+
+        return labels;
+    }
+
+    /**
+     * Returns clean blocks from the given script or Block object.
+     *
+     * @param {string | Block} script - The script or Block object from which to extract clean blocks.
+     *
+     * @return {Block[]} - An array of clean Block objects or strings extracted from the script.
+     */
     public getCleanBlocks(script: string | Block): Block {
         const blocks = typeof script === 'string' ? this.getBlocks(script) : script;
 
