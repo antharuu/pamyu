@@ -88,7 +88,7 @@ export type ConditionAction = {
 
 export type MenuOption = BaseElement & {
     label: string;
-    actions: Action['_id'][];
+    actions: (Action['_id'] | Action)[];
 }
 
 export type MenuAction = {

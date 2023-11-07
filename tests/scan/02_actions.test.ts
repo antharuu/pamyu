@@ -1,6 +1,6 @@
 import {describe, expect, test} from 'vitest';
 
-import {FlatLabel, JumpAction, MessageAction, ReturnAction, ShowAction} from '../../src/types/scene';
+import {FlatLabel, JumpAction, MenuAction, MessageAction, ReturnAction, ShowAction} from '../../src/types/scene';
 
 import {ScanManager} from '../../src/classes/ScanManager';
 
@@ -101,7 +101,7 @@ label discussion:
                     type: 'message',
                     message: 'Choisissez une option :',
                     character: null
-                } as MessageAction,
+                },
                 options: [
                     {
                         label: 'Rassurer Mary',
@@ -132,7 +132,7 @@ label discussion:
                         ]
                     }
                 ]
-            }
+            } as MenuAction
         ]
     }]
 });

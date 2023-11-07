@@ -1,7 +1,9 @@
-import {Label} from '../types/scene.ts';
+import {FlatLabel} from '../types/scene.ts';
 import {Block} from '../types/script.ts';
 
 import {BlockToLabel} from './BlockToLabel.ts';
+
+type LabelBlock = { label: string, block: Block };
 
 /**
  * Represents a ScanManager object.
@@ -25,10 +27,10 @@ export class ScanManager {
         return ScanManager.__instance;
     }
 
-    public getLabels(script: string): Label[] {
+    public getLabels(script: string): FlatLabel[] {
         const blocks = this.getCleanBlocks(script);
 
-        const labelsBlocks: { label: string, block: Block } = [];
+        const labelsBlocks: LabelBlock[] = [];
         let currentLabel = '';
 
         blocks.forEach(block => {
@@ -42,7 +44,7 @@ export class ScanManager {
             }
         });
 
-        const labels: Label[] = [];
+        const labels: FlatLabel[] = [];
 
         labelsBlocks.forEach(({label, block}) => {
             labels.push(new BlockToLabel(label, block).getLabel());

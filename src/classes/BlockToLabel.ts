@@ -1,14 +1,17 @@
-import {Action, JumpAction, Label, MessageAction, ReturnAction, ShowAction} from '../types/scene.ts';
+import {Action, FlatLabel, JumpAction, MessageAction, ReturnAction, ShowAction} from '../types/scene.ts';
 import {Block} from '../types/script.ts';
 
 export class BlockToLabel {
     public block: Block;
-    public label: Label = {};
+    public label: FlatLabel = {
+        name: '',
+        actions: []
+    };
 
     private LABEL_REGEX = /^label (?<name>.*):$/;
     private RETURN_REGEX = /^return$/;
     private MESSAGE_REGEX = /^((?<character>\w+) )?"(?<messsage>.*)"$/;
-    private SHOW_REGEX = /^show\s(?<image_name>[\w_]+(?:\s[\w_]+)?)(?:\sat\s(?<position>left|center|right))?(?:\swith\s(?<animation>[\w_]+))?/;
+    private SHOW_REGEX = /^show\s(?<image_name>[\w_]+(?:\s[\w_]+)?)(?:\sat\s(?<position>left|center|right))?/;
     private JUMP_REGEX = /^jump (?<sceneId>.*)$/;
 
     constructor(labelLine: string, block: Block) {
@@ -20,7 +23,7 @@ export class BlockToLabel {
         this.label.actions = this.scanActions(this.block);
     }
 
-    public getLabel(): Label {
+    public getLabel(): FlatLabel {
         return this.label;
     }
 
@@ -37,16 +40,21 @@ export class BlockToLabel {
 
         // eslint-disable-next-line complexity
         blocks.forEach(block => {
+            let newAction: unknown = null;
 
             if (typeof block === 'string') {
                 if (block.match(this.RETURN_REGEX)) {
-                    actions.push(this.getReturnAction());
+                    newAction = this.getReturnAction();
                 } else if (block.match(this.MESSAGE_REGEX)) {
-                    actions.push(this.getMessageAction(block));
+                    newAction = this.getMessageAction(block);
                 } else if (block.match(this.SHOW_REGEX)) {
-                    actions.push(this.getShowAction(block));
+                    newAction = this.getShowAction(block);
                 } else if (block.match(this.JUMP_REGEX)) {
-                    actions.push(this.getJumpAction(block));
+                    newAction = this.getJumpAction(block);
+                }
+
+                if (newAction) {
+                    actions.push(newAction as Action);
                 }
             } else if (Array.isArray(block)) {
                 actions.push(...this.scanActions(block));
@@ -62,19 +70,21 @@ export class BlockToLabel {
         };
     }
 
-    private getMessageAction(block: string): MessageAction {
+    private getMessageAction(block: string): MessageAction | null {
         const message = block.match(this.MESSAGE_REGEX);
 
-        if (message) {
+        if (message && message.groups) {
             return {
                 type: 'message',
                 message: message.groups.messsage,
                 character: message.groups.character
             };
         }
+
+        return null;
     }
 
-    private getShowAction(block: string): ShowAction {
+    private getShowAction(block: string): ShowAction | null {
         const show = block.match(this.SHOW_REGEX);
 
         if (show && show.groups) {
@@ -84,25 +94,27 @@ export class BlockToLabel {
             } as ShowAction;
 
             if (show.groups.position) {
-                showAction.position = show.groups.position;
+                showAction.position = show.groups.position as 'left' | 'center' | 'right';
             }
 
-            if (show.groups.animation) {
-                showAction.animation = show.groups.animation;
-            }
+            // TODO: transition & duration
 
             return showAction;
         }
+
+        return null;
     }
 
-    private getJumpAction(block: string): JumpAction {
+    private getJumpAction(block: string): JumpAction | null {
         const jump = block.match(this.JUMP_REGEX);
 
-        if (jump) {
+        if (jump && jump.groups) {
             return {
                 type: 'jump',
                 sceneId: jump.groups.sceneId
             };
         }
+
+        return null;
     }
 }
