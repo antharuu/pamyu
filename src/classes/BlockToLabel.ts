@@ -1,4 +1,13 @@
-import {Action, FlatLabel, JumpAction, MessageAction, ReturnAction, ShowAction} from '../types/scene.ts';
+import {
+    Action,
+    FlatLabel,
+    JumpAction,
+    MenuAction,
+    MenuOption,
+    MessageAction,
+    ReturnAction,
+    ShowAction
+} from '../types/scene.ts';
 import {Block} from '../types/script.ts';
 
 export class BlockToLabel {
@@ -13,6 +22,7 @@ export class BlockToLabel {
     private MESSAGE_REGEX = /^((?<character>\w+) )?"(?<messsage>.*)"$/;
     private SHOW_REGEX = /^show\s(?<image_name>[\w_]+(?:\s[\w_]+)?)(?:\sat\s(?<position>left|center|right))?/;
     private JUMP_REGEX = /^jump (?<sceneId>.*)$/;
+    private MENU_REGEX = /^menu\s*:$/;
 
     constructor(labelLine: string, block: Block) {
         console.log('⭐ Starting to scan label: \n' + labelLine);
@@ -37,6 +47,7 @@ export class BlockToLabel {
 
     private scanActions(blocks: Block): Action[] {
         const actions: Action[] = [];
+        let nextMenu = false;
 
         // eslint-disable-next-line complexity
         blocks.forEach(block => {
@@ -51,13 +62,20 @@ export class BlockToLabel {
                     newAction = this.getShowAction(block);
                 } else if (block.match(this.JUMP_REGEX)) {
                     newAction = this.getJumpAction(block);
+                } else if (block.match(this.MENU_REGEX)) {
+                    nextMenu = true;
                 }
 
                 if (newAction) {
                     actions.push(newAction as Action);
                 }
             } else if (Array.isArray(block)) {
-                actions.push(...this.scanActions(block));
+                if (nextMenu) {
+                    nextMenu = false;
+                    actions.push(...this.scanMenu(block));
+                } else {
+                    actions.push(...this.scanActions(block));
+                }
             }
         });
 
@@ -77,7 +95,7 @@ export class BlockToLabel {
             return {
                 type: 'message',
                 message: message.groups.messsage,
-                character: message.groups.character
+                character: message.groups.character || null
             };
         }
 
@@ -116,5 +134,56 @@ export class BlockToLabel {
         }
 
         return null;
+    }
+
+    private scanMenu(blocks: Block): Action[] {
+        const actions: Action[] = [];
+        const menuAction: MenuAction = {
+            type: 'menu',
+            question: {
+                type: 'message',
+                message: '',
+                character: null
+            } as MessageAction,
+            options: []
+        };
+        let currentOption: { label: string; actions: Action[] } | null = null;
+
+        // eslint-disable-next-line complexity
+        blocks.forEach((block, index) => {
+            if (typeof block === 'string') {
+                if (index === 0) {
+                    const messageAction = this.getMessageAction(block);
+                    if (messageAction) {
+                        menuAction.question = messageAction;
+                    }
+                } else {
+                    const optionMatch = block.match(/^"(.*)":$/);
+                    if (optionMatch) {
+                        // If currentOption is already set, push it to the menu options and start a new one.
+                        if (currentOption) {
+                            menuAction.options.push(currentOption as MenuOption);
+                        }
+                        // Initialize a new current option
+                        currentOption = {label: optionMatch[1], actions: []};
+                    }
+                }
+            } else if (Array.isArray(block) && currentOption) {
+                // If it's an array, and we have an option ongoing, process the actions in the block.
+                currentOption.actions = this.scanActions(block);
+            }
+        });
+
+        // After the loop, check if there's a last option that needs to be added.
+        if (currentOption) {
+            menuAction.options.push(currentOption);
+        }
+
+        // If we found at least one option, push the menuAction to the actions array.
+        if (menuAction.options.length > 0) {
+            actions.push(menuAction as Action);
+        }
+
+        return actions;
     }
 }
