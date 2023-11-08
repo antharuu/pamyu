@@ -110,6 +110,13 @@ function updateVersion(state: State): void {
     state.Pamyu = {version};
 }
 
+/**
+ * Upgrades the state object to a specific version by executing a series of upgrade steps.
+ *
+ * @param {string} oldVersion - The current version of the state object.
+ * @param {State} state - The state object to be upgraded.
+ * @return {void}
+ */
 function upgrade(oldVersion: string, state: State): void {
     const upgrades: UpgradeStep[] = [
         {version: '0.0.8', method: upgradeTo_0_0_8},
@@ -124,6 +131,14 @@ function upgrade(oldVersion: string, state: State): void {
     });
 }
 
+/**
+ * Upgrades to version 0.0.8.
+ *
+ * This upgrade adds the `CharactersData` object to the state, which contains the `characters` and `folders` attributes.
+ *
+ * @param {State} state - The state object to be upgraded.
+ * @return {void}
+ */
 function upgradeTo_0_0_8(state: State): void {
     if (state?.CharactersData) {
         if (!state?.CharactersData?.characters) state.CharactersData.characters = [];
@@ -131,6 +146,14 @@ function upgradeTo_0_0_8(state: State): void {
     }
 }
 
+/**
+ * Upgrades to version 0.0.9.
+ *
+ * This upgrade adds the `ScenesData` object to the state, which contains the `scenes` and `actions` attributes.
+ *
+ * @param {State} state - The state object to be upgraded.
+ * @return {void}
+ */
 function upgradeTo_0_0_9(state: State): void {
     if (state?.ScenesData) {
         if (!state?.ScenesData?.scenes) state.ScenesData.scenes = [];
