@@ -106,7 +106,6 @@ async function checkFilesAndPrint(filesToCheck: string[]): Promise<void> {
             console.log(`${getIndent()}🟠 ${file}`);
             const cb = ScanManager.i.getLabels(fileContent);
             console.log(cb);
-            // return Promise.resolve(); //! TODO: remove this line after
         }
     }
 }

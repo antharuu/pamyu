@@ -2,11 +2,8 @@ import {createPinia} from 'pinia';
 import {createApp, VNode, VNodeChild, watch} from 'vue';
 import {createRouter, createWebHistory, RouterOptions} from 'vue-router';
 
-import {useProjectStore} from './stores/useProjectStore.ts';
-
 import {loadData, saveData} from './utils/data';
 import i18n from './utils/i18n';
-import {getAllProjectRenpyFiles} from './utils/import.ts';
 import {PathManager} from './utils/path.ts';
 import {updateCharacters} from './utils/rpy.ts';
 import {capitalize, deepAssign} from './utils/tools.ts';
@@ -77,4 +74,5 @@ app.mount('#app');
 
 updateCharacters();
 
-useProjectStore().init().then(() => getAllProjectRenpyFiles());
+// TODO: Uncomment this line when the import feature is ready.
+// useProjectStore().init().then(() => getAllProjectRenpyFiles());
